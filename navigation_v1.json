@@ -1,0 +1,422 @@
+[
+    {
+        "id": "grades-by-course",
+        "title": "Grades by Course",
+        "description": "Grades by Course report. Includes analyses for grades average, success and fail rates.",
+        "keywords": "Grades\r\nSuccess Rates\r\nFail Rates\r\nProgression\r\nCourse\r\nFull Year\r\nTerm\r\nCitizenship\r\nInternational\r\nDomestic\r\nAge\r\nWeekly\r\nTrend\r\nPerformance",
+        "bi_next_update": "Daily",
+        "dataset_next_update": "Daily, Apr-25 (2024 Full Year snapshot)",
+        "dataset": [
+            "Enrolments - Full Year and Teaching Period"
+        ],
+        "theme": [
+            "Course"
+        ],
+        "group": [
+            "Grades",
+            "Course"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/a03dd9aa-4d39-47f8-9534-1bc931f9c51c/ReportSection5d61545193806125a017",
+        "source": "Internal",
+        "questions_report_can_answer": "What is the grade average for my course?\r\nWhat percentage of students fail my course?\r\nDoes the percentage of students passing my course differ depending on which program they are enrolled in?"
+    },
+    {
+        "id": "attrition-by-program-by-school",
+        "title": "Attrition by Program by School",
+        "description": "Internal attrition rates by school, program, program status, program type, study site and student demographics.",
+        "keywords": "Attrition\r\nSchool\r\nProgram\r\nStudy Site\r\nCampus\r\nCitizenship\r\nInternational\r\nDomestic\r\nAttrition by Program\r\nProgram Type\r\nDemographics\r\nAttrition Rates",
+        "bi_next_update": "Jun-25",
+        "dataset_next_update": "Census 1 to Census 2 - mid-Oct 24",
+        "dataset": [
+            "Attrition Program Census"
+        ],
+        "theme": [
+            "Program"
+        ],
+        "group": [
+            "Attrition",
+            "Census",
+            "Program"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/7b99dea3-cd39-4da3-989f-d57b8a680b7d/ReportSectionbd9ea914c659404dd5a6",
+        "source": "Internal",
+        "questions_report_can_answer": "What percentage of Bachelors Pass students from my School left the university last year?\r\nWhich study site has the highest attrition rate?\r\nAre domestic or international attrition rates higher in my School?\r\nHow many students were retained in my program?\r\nHas my School attrition rate improved or worsened over the last five years?"
+    },
+    {
+        "id": "course-summary-dashboard",
+        "title": "Course Summary Dashboard",
+        "description": "High-level insights into course level metrics including enrolments, EFTSL, course grade outcomes and eVALU8.",
+        "keywords": "Course\r\nEnrolments\r\nEFTSL\r\nGrades\r\neVALU8\r\nHigh-level insights\r\nCourse Grades\r\nCourse Evaluation\r\nSurveys",
+        "bi_next_update": "Daily, as available",
+        "dataset_next_update": "Daily, Apr-25 (2024 Full Year snapshot)\r\nDaily, Apr-25 (2024 Full Year snapshot)\r\nDaily, Apr-25(2024 Full Year snapshot)\r\nOct-24",
+        "dataset": [
+            "EFTSL - Full Year",
+            "Enrolments - Full Year",
+            "Course Grades",
+            "eVALU8"
+        ],
+        "theme": [
+            "Course"
+        ],
+        "group": [
+            "EFTSL",
+            "Enrolments",
+            "Grades",
+            "Surveys"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/b992ac62-ce8f-48b8-9f15-b54b1c4f4429/ReportSection7b27e2f1c4506542f786",
+        "source": "Internal",
+        "questions_report_can_answer": "Has my course had enrolment grown over the last five years? \r\nWhat Field of Education is my course categorised under?\r\nHow does the average grade for my course compare across the last five years?"
+    },
+    {
+        "id": "evalu8-course-evaluation-results",
+        "title": "eVALU8 Course Evaluation Results",
+        "description": "eVALU8 results by teaching period, school, study site, and course.",
+        "keywords": "eVALU8\r\nCourse\r\nSchool\r\nStudy Site\r\nEvaluation\r\nteaching\r\nstudy site\r\nschool\r\nterm\r\nteaching period\r\nSurveys",
+        "bi_next_update": "Mar-25",
+        "dataset_next_update": "Oct-24",
+        "dataset": [
+            "eVALU8 Data"
+        ],
+        "theme": [
+            "Course",
+            "Surveys"
+        ],
+        "group": [
+            "Surveys",
+            "Course"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/3f59d45a-d59a-43fd-9e98-48f9268df45f/ReportSection549bff201d0917049dc4",
+        "source": "Internal",
+        "questions_report_can_answer": "How does my course feedback compare to the prior year?\r\nAre students equally satisfied with the course experience at different study sites? \r\nWhat was the average of student responses (4-point survey scale) for my course?\r\nHow does my School’s overall satisfaction rate for its courses compare to the UniSC satisfaction rate?\r\nIs satisfaction with course teaching quality the same for my School at each of the study sites?\r\nHas satisfaction with the quality of the overall educational experience within my School increased over time?"
+    },
+    {
+        "id": "national-enrolments-by-program",
+        "title": "National Enrolments by Program",
+        "description": "Enrolments for Australian universities by program and year.",
+        "keywords": "Enrolments\r\nProgram\r\nNational\r\nUniversities\r\nAustralian\r\nBenchmarking\r\nDomestic\r\nInternational\r\nCitizenship",
+        "bi_next_update": "Jun-25",
+        "dataset_next_update": "Jun-25",
+        "dataset": [
+            "National Enrolments"
+        ],
+        "theme": [
+            "Program",
+            "Students"
+        ],
+        "group": [
+            "Enrolments",
+            "Program"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/cea3e791-dac3-45b0-8d11-3e45d843a268/ReportSection8f10ce99c8aba1988b75",
+        "source": "Internal",
+        "questions_report_can_answer": "What are the enrolments for each Australian institution?"
+    },
+    {
+        "id": "headstart-enrolments-headcount-and-grade-outcomes-by-course",
+        "title": "Headstart Enrolments (Headcount) and Grade Outcomes by Course",
+        "description": "Headstart enrolments by program, course, high school, grade outcomes and conversion rates by timeframe.",
+        "keywords": "Headstart\r\nPathways\r\nEnrolment\r\nHeadcount\r\nEFTSL\r\nProgram\r\nCourse\r\nHigh School\r\nGrades\r\nConversions",
+        "bi_next_update": "Daily",
+        "dataset_next_update": "Daily, Apr-25 (2024 Full Year snapshot)",
+        "dataset": [
+            "EFTSL - Full Year",
+            "Enrolments - Full Year"
+        ],
+        "theme": [
+            "Program"
+        ],
+        "group": [
+            "Enrolments",
+            "Grades",
+            "Pathway",
+            "Course"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/090b53da-8f84-462e-ab85-2fafe7fa321f/ReportSectiond5665b2d367823e8b4c4",
+        "source": "Internal",
+        "questions_report_can_answer": "What is the total number of students enrolled in Headstart program?"
+    },
+    {
+        "id": "tertiary-preparation-pathway-tpp-enrolments-by-program-and-course",
+        "title": "Tertiary Preparation Pathway (​TPP) Enrolments by Program and Course",
+        "description": "Tertiary Preparation Pathway (TPP) program and course enrolments (headcount), EFTSL and grades by year and teaching period.",
+        "keywords": "TPP\r\nTertiary Preparation Pathway\r\nEnrolment\r\nProgram\r\nCourse\r\nEFTSL\r\nGrades\r\nFull Year\r\nTeaching Period\r\nTerm\r\nConversions\r\nCitizenship\r\nDomestic\r\nInternational",
+        "bi_next_update": "Daily",
+        "dataset_next_update": "Daily, Apr-25 (2024 Full Year snapshot)",
+        "dataset": [
+            "Enrolments - Full Year and Teaching Period"
+        ],
+        "theme": [
+            "Program"
+        ],
+        "group": [
+            "Enrolments",
+            "Grades",
+            "Pathway",
+            "Course"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/94165b94-c86f-491d-a6ee-d9c0140a31d2/ReportSectionb6aa6aed2a7a4777cf6e",
+        "source": "Internal",
+        "questions_report_can_answer": "What is the total number of students enrolled in each TPP course each Semester?"
+    },
+    {
+        "id": "school-and-campus-report-school",
+        "title": "School and Campus Report",
+        "description": "This report provides a high level insights into School level metrics including enrolments, EFTSL, attrition, completions and surveys.",
+        "keywords": "School\r\nCampus\r\nStudy Site\r\nEnrolments\r\nEFTSL\r\nAttrition\r\nCompletions\r\nSurveys\r\nGOS\r\nStudent Experience Survey\r\nSES\r\nAdmissions\r\nSurveys\r\nInternational\r\nDomestic\r\nCitizenship",
+        "bi_next_update": "Daily, as available",
+        "dataset_next_update": "Weekly\r\nDaily, Apr-25 (2024 Full Year snapshot)\r\nDaily, Apr-25 (2024 Full Year snapshot)\r\nCensus 1 - mid-May 24\r\nCensus 1 to Census 1 - mid-May 24\r\nDaily, Apr-25 (2024 Full Year snapshot)\r\nJan-25\r\nSep-25\r\nSep-25\r\nDaily",
+        "dataset": [
+            "Weekly Admissions Offers",
+            "EFTSL - Full Year",
+            "Enrolments - Full Year",
+            "Program Census Enrolments",
+            "Attrition Program Census",
+            "Course Grades",
+            "Student Survey Experience",
+            "Graduate Outcomes Experience",
+            "eVALU8",
+            "Completions"
+        ],
+        "theme": [
+            "Students",
+            "Program"
+        ],
+        "group": [
+            "Admissions Offers",
+            "EFTSL",
+            "Enrolments",
+            "Attrition",
+            "Grades",
+            "Surveys",
+            "Completions",
+            "Program",
+            "School"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/d76ed437-29c0-4d9c-8ec3-62f41d715144/ReportSection3f6dce350edfd35685e7?ctid=93b0ec50-fc3f-47ed-9345-9ffc6012541c&experience=power-bi",
+        "source": "Internal"
+    },
+    {
+        "id": "reviews-dashboard",
+        "title": "Reviews Dashboard",
+        "description": "This report provides an overview of review activities and schedules across the university. The report provides high-level analysis of program review outcomes and recommendations together with detailed reporting on planned actions and implementation progress.",
+        "keywords": "Review",
+        "bi_next_update": "Apr-25",
+        "dataset_next_update": "TBC",
+        "dataset": [
+            "Quality"
+        ],
+        "theme": [
+            "Quality"
+        ],
+        "category": "School",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/02da6b51-096a-49c8-bb0d-f460b720c49d/ReportSection5df3c1f3518acd602e4f?ctid=93b0ec50-fc3f-47ed-9345-9ffc6012541c&experience=power-bi",
+        "source": "Internal"
+    },
+    {
+        "id": "qtac-unisc-minimum-selection-thresholds",
+        "title": "QTAC UniSC Minimum Selection Thresholds",
+        "description": "ATAR, OP/Rank for UniSC; by study site and program.",
+        "keywords": "QTAC\r\nOP\r\nRank\r\nATAR\r\nStudy Site\r\nCampus\r\nProgram",
+        "bi_next_update": "TBC",
+        "dataset_next_update": "TBC",
+        "dataset": [
+            "External"
+        ],
+        "theme": [
+            "Students",
+            "Admissions"
+        ],
+        "category": "Students",
+        "access": "All staff",
+        "link": "https://usceduau.sharepoint.com/:x:/r/sites/Dataportal_STF_INT/_layouts/15/Doc.aspx?sourcedoc=%7B7703678A-8DDC-43E5-B0B1-BA56545A4E46%7D&file=QTAC%20UniSC%20Minimum%20Selection%20Thresholds.xlsx&action=default&mobileredirect=true",
+        "source": "Internal"
+    },
+    {
+        "id": "efsl-enrolment-flagship",
+        "title": "EFTSL & Enrolment flagship",
+        "description": "EFTSL and enrolments by year, study site, school, trends by year/term and week on week comparative trends.  Domestic and International map visuals. The content includes data in aggregated views, detailed tables and decomposition trees to enable further exploration.",
+        "keywords": "EFTSL\r\nEnrolment\r\nFull Year\r\nStudy Site\r\nCampus\r\nSchool\r\nCitizenship\r\nInternational\r\nDomestic",
+        "bi_next_update": "Daily",
+        "dataset_next_update": "Daily, Apr-25 (2024 Full Year snapshot)",
+        "dataset": [
+            "Enrolments - Full Year and Teaching Period"
+        ],
+        "new_updated": "New BI report",
+        "new_bi_report": true,
+        "theme": [
+            "Students",
+            "Program"
+        ],
+        "category": "Students",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/d2fe89e1-c886-445c-ac4a-77d657b862e1/ReportSection2e460e9ca508bca92c67?ctid=93b0ec50-fc3f-47ed-9345-9ffc6012541c&experience=power-bi",
+        "source": "Internal",
+        "detailData": {
+            "hasDetails": true,
+            "detailTitle": "EFTSL & Enrolment Flagship - Detailed View",
+            "detailDescription": "Detailed analysis of Equivalent Full-Time Student Load (EFTSL) and Headcount Enrolments over recent years, broken down by key demographics.",
+            "detailsText": "This page provides a deeper dive into the enrolment trends presented in the flagship report. The time series chart illustrates the fluctuation of Domestic vs. International EFTSL, highlighting growth periods and potential impacts of external factors. The bar chart further breaks down the most recent year's enrolments by School, offering insights into the distribution of students across different academic areas. Note that this data is illustrative and synthetically generated for demonstration purposes.",
+            "timeSeriesData": [
+                [
+                    "Date",
+                    "Domestic EFTSL",
+                    "International EFTSL"
+                ],
+                [
+                    "2020-01-01",
+                    8500,
+                    1500
+                ],
+                [
+                    "2020-07-01",
+                    8750,
+                    1450
+                ],
+                [
+                    "2021-01-01",
+                    9100,
+                    1300
+                ],
+                [
+                    "2021-07-01",
+                    9300,
+                    1250
+                ],
+                [
+                    "2022-01-01",
+                    9500,
+                    1400
+                ],
+                [
+                    "2022-07-01",
+                    9800,
+                    1650
+                ],
+                [
+                    "2023-01-01",
+                    10100,
+                    1900
+                ],
+                [
+                    "2023-07-01",
+                    10500,
+                    2150
+                ],
+                [
+                    "2024-01-01",
+                    10800,
+                    2400
+                ]
+            ],
+            "barChartData": {
+                "labels": [
+                    "Business",
+                    "Science & Tech",
+                    "Arts & Social Sci",
+                    "Health",
+                    "Education",
+                    "Law"
+                ],
+                "datasets": [
+                    {
+                        "label": "Headcount Enrolment (2024)",
+                        "data": [
+                            3200,
+                            2800,
+                            2500,
+                            2100,
+                            1800,
+                            1200
+                        ],
+                        "backgroundColor": [
+                            "rgba(54, 162, 235, 0.6)",
+                            "rgba(255, 99, 132, 0.6)",
+                            "rgba(75, 192, 192, 0.6)",
+                            "rgba(255, 206, 86, 0.6)",
+                            "rgba(153, 102, 255, 0.6)",
+                            "rgba(255, 159, 64, 0.6)"
+                        ],
+                        "borderColor": [
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)"
+                        ],
+                        "borderWidth": 1
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "id": "graduate-outcomes-survey-gos-benchmarking",
+        "title": "Graduate Outcomes Survey (GOS) Benchmarking",
+        "description": "Graduate outcome results compared nationally, detailing destination and labour force outcomes, collected via the Graduate Outcomes Survey (GOS).",
+        "keywords": "GOS\r\nGraduate Outcomes Survey\r\nProgram\r\nEmployment\r\nBenchmarking\r\nNational\r\nGOS Benchmarking\r\nSurveys\r\nInternational\r\nDomestic\r\nCitizenship",
+        "bi_next_update": "TBC",
+        "dataset_next_update": "Oct-24",
+        "dataset": [
+            "Graduate Outcomes Survey - National"
+        ],
+        "theme": [
+            "Graduates",
+            "Surveys",
+            "Program"
+        ],
+        "group": [
+            "Graduates",
+            "Surveys",
+            "Program"
+        ],
+        "category": "Students",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/38b8a8ff-90f2-471e-9da2-1f45dd6f99db/ReportSection?experience=power-bi",
+        "source": "Internal",
+        "questions_report_can_answer": "How do UniSC’s employment outcomes compare to the national average? What industries do graduates from a particular study area work in?\r\nWhat is UniSC’s national rank for overall employment?"
+    },
+    {
+        "id": "graduate-experience-unisc",
+        "title": "Graduate Experience UniSC",
+        "description": "Graduate satisfaction results by program, including higher degree by research student results, collected via the Graduate Outcomes Survey (GOS).",
+        "keywords": "Graduate Outcomes Survey\r\nGOS\r\nGraduate\r\nSatisfaction\r\nHDR\r\nResearch\r\nSurveys\r\nInternational\r\nDomestic\r\nCitizenship",
+        "bi_next_update": "Sep-25",
+        "dataset_next_update": "Sep-25",
+        "dataset": [
+            "Graduate Experience"
+        ],
+        "theme": [
+            "Graduates"
+        ],
+        "group": [
+            "Graduates",
+            "Survey",
+            "Program"
+        ], 
+        "category": "Students",
+        "access": "All staff",
+        "link": "https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/5c4d031c-b6ed-4d58-8082-e8ab7c9262d8/ReportSection97d8af2dfce042610f0d?ctid=93b0ec50-fc3f-47ed-9345-9ffc6012541c&experience=power-bi",
+        "source": "Internal",
+        "questions_report_can_answer": "Are graduates from satisfied overall with their study experience at UniSC? \r\nWere graduates satisfied with the quality of teaching they received? \r\nWere graduates prepared for employment after their studies?"
+    }
+    
+]
