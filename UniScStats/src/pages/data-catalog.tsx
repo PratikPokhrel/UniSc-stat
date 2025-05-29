@@ -65,21 +65,21 @@ const DataCatalog = () => {
   useEffect(() => {
     let activeCategories = selectedCategories;
 
-    // If a specific category is selected via dropdown and not already in selectedCategories
     if (selectedCategory !== 'All' && !selectedCategories.includes(selectedCategory)) {
       activeCategories = [...selectedCategories, selectedCategory];
     }
 
+    const lowerSearchTerm = searchTerm.toLowerCase();
+
     const results = reports.filter((report) => {
       const title = report.Title?.toLowerCase() || '';
-      const description = report.Description?.toLowerCase() || '';
       const keywords = report.Keywords?.toLowerCase() || '';
       const category = report.Category;
 
       const matchesSearch =
-        title.includes(searchTerm.toLowerCase()) ||
-        description.includes(searchTerm.toLowerCase()) ||
-        keywords.includes(searchTerm.toLowerCase());
+        searchTerm.trim() === '' || // Show all if search is empty
+        title.includes(lowerSearchTerm) ||
+        keywords.includes(lowerSearchTerm);
 
       const matchesCategory =
         activeCategories.length === 0 || activeCategories.includes(category);
@@ -111,12 +111,12 @@ const DataCatalog = () => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex-1 min-w-0 text-left">
               <h1 className="text-3xl font-extrabold text-indigo-800 tracking-tight leading-snug">
-    📚 Data Catalog
-  </h1>
-            <p className="text-sm text-gray-700 mt-1 flex items-center gap-2">
-    <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-    <span>{reports.length} reports available</span>
-  </p>
+                📚 Data Catalog
+              </h1>
+              <p className="text-sm text-gray-700 mt-1 flex items-center gap-2">
+                <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span>{reports.length} reports available</span>
+              </p>
               <div className="flex flex-wrap gap-3 mt-3">
                 {Object.entries(categoryCounts).map(([category, count]: [string, number]) => {
                   const isSelected = selectedCategories.includes(category);
@@ -182,26 +182,26 @@ const DataCatalog = () => {
 
       <div className="w-full mx-auto px-4 py-6">
         <div className="mb-4 flex items-center">
-         <div className="flex items-center text-sm text-gray-600">
-  <svg
-    className="w-4 h-4 mr-1 text-indigo-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9 12h6m-6 4h6M6 4h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
-    />
-  </svg>
-  <span>
-    Showing <span className="font-semibold text-gray-800">{filteredReports.length}</span> of{' '}
-    <span className="font-semibold text-gray-800">{reports.length}</span> reports
-  </span>
-</div>
+          <div className="flex items-center text-sm text-gray-600">
+            <svg
+              className="w-4 h-4 mr-1 text-indigo-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6M6 4h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+              />
+            </svg>
+            <span>
+              Showing <span className="font-semibold text-gray-800">{filteredReports.length}</span> of{' '}
+              <span className="font-semibold text-gray-800">{reports.length}</span> reports
+            </span>
+          </div>
 
           {(searchTerm || selectedCategory !== 'All') && (
             <button
@@ -313,16 +313,18 @@ const ReportCard = ({ report }) => {
             </button>
           </div>
 
-          {/* Description */}
-          <p
-            className={`text-gray-500 text-[13px] mt-1 ${isExpanded ? '' : 'line-clamp-3'}`}
-            style={{ lineHeight: '1.25rem' }}
-          >
-            {report.Description}
-          </p>
+          {/* Description with smooth transition */}
+          <div className="overflow-hidden transition-all duration-300 ease-in-out">
+            <p
+              className={`text-gray-500 text-[13px] mt-1 ${isExpanded ? '' : 'line-clamp-3'}`}
+              style={{ lineHeight: '1.25rem' }}
+            >
+              {report.Description}
+            </p>
+          </div>
 
-          {/* Keywords */}
-          {isExpanded && (
+          {/* Keywords with smooth transition */}
+          <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
             <div className="mt-2">
               <h4 className="text-[11px] font-medium text-gray-400 mb-0.5">KEYWORDS</h4>
               <div className="flex flex-wrap gap-1">
@@ -336,7 +338,7 @@ const ReportCard = ({ report }) => {
                 ))}
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Footer: View Report Button */}
@@ -367,5 +369,4 @@ const ReportCard = ({ report }) => {
     </div>
   );
 };
-
 export default DataCatalog;
