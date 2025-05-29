@@ -24,7 +24,7 @@ const AppRoutes = () => (
     >
       <Route index element={<Home />} />
       <Route path="report-list" element={<UniversityReports />} />
-      <Route path="data-catalog" element={<DataCatalog />} />
+      <Route path="bi-catalog" element={<DataCatalog />} />
       <Route path="faculties" element={<UniversityAnalyticsPage />} />
       <Route path="performance" element={<StudentPerformanceReport />} />
     </Route>

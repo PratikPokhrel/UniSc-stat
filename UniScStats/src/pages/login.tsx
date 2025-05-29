@@ -5,8 +5,8 @@ import MicrosoftLogo from '../../public/assets/icons/microsoft-ar21.svg'; // You
 import { MailIcon } from 'lucide-react';
 
 const Login = () => {
-  const [username, setUsername] = useState('admin@usc.usc.edu.au');
-  const [password, setPassword] = useState('admin@usc.usc.edu.au');
+  const [username, setUsername] = useState('admin@usc.edu.au');
+  const [password, setPassword] = useState('admin@usc.edu.au');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -17,7 +17,7 @@ const Login = () => {
 
     // Simulate API call
     setTimeout(() => {
-      if (username === 'admin@usc.usc.edu.au' && password === 'admin@usc.usc.edu.au') {
+      if (username === 'admin@usc.edu.au' && password === 'admin@usc.edu.au') {
         login();
         setTimeout(() => navigate('/'), 0); // ensures login state updates before navigating
       } else {

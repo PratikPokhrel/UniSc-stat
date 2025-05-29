@@ -23,7 +23,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/governance/:id" element={<DataGovernanceDashboard />} />
           <Route path="/report-list" element={<UniversityReports />} />
-          <Route path="/data-catalog" element={<DataCatalog />} />
+          <Route path="/bi-catalog" element={<DataCatalog />} />
           <Route path="/faculties" element={<UniversityAnalyticsPage />} />
           <Route path="/performance" element={<StudentPerformanceReport />} />
         </Route>

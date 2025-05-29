@@ -22,11 +22,11 @@ const Header = () => {
   const navItems = [
     {
       title: "BI Navigator",
-      subItems: [{ name: "Reports", route: '/data-catalog' }]
+      subItems: [{ name: "Reports", route: '/bi-catalog' }]
     },
     {
       title: "Data & Analysis",
-      subItems: [{ name: "Find Statistics", route: '/data-catalog' }]
+      subItems: [{ name: "Find Statistics", route: '/bi-catalog' }]
     },
     {
       title: "About",

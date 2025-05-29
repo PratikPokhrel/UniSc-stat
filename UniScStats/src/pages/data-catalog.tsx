@@ -1,29 +1,25 @@
 import { useState, useEffect } from 'react';
-
-import Papa from "papaparse";
+import Papa from 'papaparse';
 
 const DataCatalog = () => {
-   const [reports, setReports] = useState<any[]>([]);
+  const [reports, setReports] = useState<any[]>([]);
   const [filteredReports, setFilteredReports] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadCSV = async () => {
       try {
-        const response = await fetch('/data.csv'); // public folder path
+        const response = await fetch('/data.csv');
         const csvText = await response.text();
 
         Papa.parse(csvText, {
           header: true,
           skipEmptyLines: true,
           complete: (results) => {
-            // Clean and normalize data
             const cleanedData = results.data.map((row: any) => {
-              // Parse Category JSON array string into single string (take first element)
               let category = 'Unknown';
               try {
                 const parsedCategory = JSON.parse(row.Category);
@@ -31,11 +27,9 @@ const DataCatalog = () => {
                   category = parsedCategory[0];
                 }
               } catch {
-                // fallback if parsing fails
                 category = row.Category;
               }
 
-              // Clean Keywords: replace newlines with commas or space for display/search
               const keywords = (row.Keywords || '').replace(/\n/g, ', ');
 
               return {
@@ -67,136 +61,150 @@ const DataCatalog = () => {
     loadCSV();
   }, []);
 
-useEffect(() => {
-  const results = reports.filter((report) => {
-    const title = report.Title?.toLowerCase() || '';
-    const description = report.Description?.toLowerCase() || '';
-    const keywords = report.Keywords?.toLowerCase() || '';
-    const category = report.Category;
+  // 🔁 Filtering logic
+  useEffect(() => {
+    let activeCategories = selectedCategories;
 
-    const matchesSearch =
-      title.includes(searchTerm.toLowerCase()) ||
-      description.includes(searchTerm.toLowerCase()) ||
-      keywords.includes(searchTerm.toLowerCase());
+    // If a specific category is selected via dropdown and not already in selectedCategories
+    if (selectedCategory !== 'All' && !selectedCategories.includes(selectedCategory)) {
+      activeCategories = [...selectedCategories, selectedCategory];
+    }
 
-    const matchesCategory =
-      selectedCategories.length === 0 || selectedCategories.includes(category);
+    const results = reports.filter((report) => {
+      const title = report.Title?.toLowerCase() || '';
+      const description = report.Description?.toLowerCase() || '';
+      const keywords = report.Keywords?.toLowerCase() || '';
+      const category = report.Category;
 
-    return matchesSearch && matchesCategory;
-  });
+      const matchesSearch =
+        title.includes(searchTerm.toLowerCase()) ||
+        description.includes(searchTerm.toLowerCase()) ||
+        keywords.includes(searchTerm.toLowerCase());
 
-  setFilteredReports(results);
-}, [searchTerm, selectedCategories, reports]);
+      const matchesCategory =
+        activeCategories.length === 0 || activeCategories.includes(category);
 
-  const categories = ['All', ...new Set(reports.map(r => r.Category))];
+      return matchesSearch && matchesCategory;
+    });
 
-  // Compute counts by category for display
-const categoryCounts = reports.reduce((acc, report) => {
-  const cat = report.Category || 'Unknown';
-  acc[cat] = (acc[cat] || 0) + 1;
-  return acc;
-}, {} as Record<string, number>);
+    setFilteredReports(results);
+  }, [searchTerm, selectedCategories, selectedCategory, reports]);
 
-const toggleCategory = (category: string) => {
-  setSelectedCategories(prev =>
-    prev.includes(category)
-      ? prev.filter(c => c !== category) // deselect
-      : [...prev, category]              // select
-  );
-};
+  const categories = ['All', ...Array.from(new Set(reports.map(r => r.Category)))];
+
+  const categoryCounts = reports.reduce((acc, report) => {
+    const cat = report.Category || 'Unknown';
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const toggleCategory = (category: string) => {
+    setSelectedCategories(prev =>
+      prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+    );
+  };
 
   return (
     <div className="w-full bg-gray-50">
-      {/* Header */}
-     <header className="bg-gradient-to-r from-indigo-50 via-white to-indigo-50 text-gray-800 py-6 px-4 shadow-sm border-b border-gray-200 rounded-b-md">
-  <div className="w-full">
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      
-      {/* Title and report count */}
-      <div className="flex-1 min-w-0 text-left">
-        <h1 className="text-2xl font-bold text-indigo-900 truncate">University Data Catalog</h1>
-        <p className="text-gray-600 text-sm mt-1">{reports.length} reports available</p>
-
-        {/* Category counts */}
+      <header className="bg-gradient-to-r from-indigo-50 via-white to-indigo-50 text-gray-800 py-6 px-4 shadow-sm border-b border-gray-200 rounded-b-md">
+        <div className="w-full">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex-1 min-w-0 text-left">
+              <h1 className="text-3xl font-extrabold text-indigo-800 tracking-tight leading-snug">
+    📚 Data Catalog
+  </h1>
+            <p className="text-sm text-gray-700 mt-1 flex items-center gap-2">
+    <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+    <span>{reports.length} reports available</span>
+  </p>
               <div className="flex flex-wrap gap-3 mt-3">
-              {Object.entries(categoryCounts).map(([category, count]: [string, number]) => {
-  const isSelected = selectedCategories.includes(category);
+                {Object.entries(categoryCounts).map(([category, count]: [string, number]) => {
+                  const isSelected = selectedCategories.includes(category);
+                  return (
+                    <span
+                      key={category}
+                      onClick={() => toggleCategory(category)}
+                      className={`flex items-center space-x-2 text-sm font-medium rounded-full px-4 py-1 shadow-sm hover:shadow-md transition duration-200 ease-in-out cursor-pointer
+                        ${isSelected
+                          ? 'bg-indigo-100 border border-indigo-300 text-indigo-800'
+                          : 'bg-gray-50 border border-gray-200 text-gray-800'}`}
+                      title={`${count} reports in ${category}`}
+                    >
+                      <span>{category}</span>
+                      <span className={`inline-block font-bold rounded-full px-2 py-0.5 text-xs shadow-sm
+                        ${isSelected
+                          ? 'bg-indigo-200 text-indigo-900'
+                          : 'bg-indigo-100 text-indigo-800'}`}>
+                        {count}
+                      </span>
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
 
-  return (
-    <span
-      key={category}
-      onClick={() => toggleCategory(category)}
-      className={`flex items-center space-x-2 text-sm font-medium rounded-full px-4 py-1 shadow-sm hover:shadow-md transition duration-200 ease-in-out cursor-pointer
-        ${isSelected 
-          ? 'bg-indigo-100 border border-indigo-300 text-indigo-800' 
-          : 'bg-gray-50 border border-gray-200 text-gray-800'}`}
-      title={`${count} reports in ${category}`}
-    >
-      <span>{category}</span>
-      <span className={`inline-block font-bold rounded-full px-2 py-0.5 text-xs shadow-sm
-        ${isSelected 
-          ? 'bg-indigo-200 text-indigo-900' 
-          : 'bg-indigo-100 text-indigo-800'}`}>
-        {count}
-      </span>
-    </span>
-  );
-})}
-
-
+            {/* Search and dropdown */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
+              {/* Search Bar */}
+              <div className="relative w-full sm:w-64">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                  </svg>
+                </div>
+                <input
+                  id="search"
+                  type="text"
+                  placeholder="Search reports..."
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
 
-
-      </div>
-
-      {/* Search and category filter */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
-        {/* Search bar */}
-        <div className="relative w-full sm:w-64">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-            </svg>
+              {/* Dropdown */}
+              <div className="w-full sm:w-48">
+                <select
+                  id="category"
+                  className="block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
-          <input
-            id="search"
-            type="text"
-            placeholder="Search reports..."
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
         </div>
+      </header>
 
-        {/* Category dropdown */}
-        <div className="w-full sm:w-48">
-          <select
-            id="category"
-            className="block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-      {/* Search and Filters */}
       <div className="w-full mx-auto px-4 py-6">
-       
-        {/* Results count */}
         <div className="mb-4 flex items-center">
-          <span className="text-gray-600 mr-2">
-            Showing {filteredReports.length} of {reports.length} reports
-          </span>
-          {searchTerm && (
-            <button 
+         <div className="flex items-center text-sm text-gray-600">
+  <svg
+    className="w-4 h-4 mr-1 text-indigo-500"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 12h6m-6 4h6M6 4h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+    />
+  </svg>
+  <span>
+    Showing <span className="font-semibold text-gray-800">{filteredReports.length}</span> of{' '}
+    <span className="font-semibold text-gray-800">{reports.length}</span> reports
+  </span>
+</div>
+
+          {(searchTerm || selectedCategory !== 'All') && (
+            <button
               onClick={() => {
                 setSearchTerm('');
                 setSelectedCategory('All');
@@ -208,15 +216,11 @@ const toggleCategory = (category: string) => {
           )}
         </div>
 
-        {/* Loading state */}
-        {isLoading && (
+        {isLoading ? (
           <div className="flex justify-center items-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
           </div>
-        )}
-
-        {/* Reports grid */}
-        {!isLoading && (
+        ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredReports.length > 0 ? (
               filteredReports.map((report, index) => (
@@ -224,19 +228,8 @@ const toggleCategory = (category: string) => {
               ))
             ) : (
               <div className="col-span-full py-12 text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
+                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <h3 className="mt-2 text-lg font-medium text-gray-900">No reports found</h3>
                 <p className="mt-1 text-gray-500">
@@ -250,8 +243,6 @@ const toggleCategory = (category: string) => {
     </div>
   );
 };
-
-
 
 const ReportCard = ({ report }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -268,7 +259,7 @@ const ReportCard = ({ report }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xs hover:shadow-sm transition-all duration-150 border border-gray-100 h-full">
+    <div className="bg-white rounded-lg shadow-xs border border-gray-100 h-full transform transition duration-300 hover:scale-[1.03] hover:shadow-md">
       <div className="p-3 flex flex-col justify-between h-full">
         {/* Top Section - Content */}
         <div>
@@ -376,4 +367,5 @@ const ReportCard = ({ report }) => {
     </div>
   );
 };
+
 export default DataCatalog;
