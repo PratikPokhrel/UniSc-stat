@@ -8,6 +8,7 @@ import UniversityReports from './uni-reports';
 import UniversityAnalyticsPage from './faculties-line-chart';
 import StudentPerformanceReport from './performance-report';
 import { Home } from 'lucide-react';
+import DataCatalog from './data-catalog';
 
 
 const AppRoutes = () => (
@@ -23,6 +24,7 @@ const AppRoutes = () => (
     >
       <Route index element={<Home />} />
       <Route path="report-list" element={<UniversityReports />} />
+      <Route path="data-catalog" element={<DataCatalog />} />
       <Route path="faculties" element={<UniversityAnalyticsPage />} />
       <Route path="performance" element={<StudentPerformanceReport />} />
     </Route>

@@ -17,32 +17,35 @@ const LatestReleases = () => {
 
   const academicReleases = [
     {
-      id: 1,
-      title: "Student Performance Report",
+      id: "reviews-dashboard",
+      title: "reviews-dashboard",
       date: "23 Apr 2025",
-      description: "Comprehensive analysis of student academic performance by faculties.",
-      type: "Data Report"
+      description: "Overview of review activities and schedules with program analysis",
+ type: "Governance & Compliance Report"
     },
     {
-      id: 2,
-      title: "Course Satisfaction Survey",
+      id: "program-compliance-tracker",
+      title: "program-compliance-tracker",
       date: "19 Apr 2025",
-      description: "Results of the semester course satisfaction surveys from all departments.",
-      type: "Survey Results"
+      description: "Tracks regulatory and accreditation compliance for academic programs",
+ type: "Governance & Compliance Report"
+
     },
     {
-      id: 3,
-      title: "Faculty Research Output",
+      id: "course-feedback-analysis",
+      title: "Course Feedback Analysis",
       date: "15 Apr 2025",
-      description: "Analysis of research publications and citations by department.",
-      type: "Research Report"
+      description: "Aggregated sentiment and scores from student evaluations across all faculties",
+type: "Governance & Compliance Report"
+
     },
     {
-      id: 4,
-      title: "Academic Calendar 2025-2026",
+      id: "graduate-outcomes-dashboard",
+      title: "Graduate Outcomes Dashboard",
       date: "10 Apr 2025",
-      description: "Official academic calendar for the upcoming academic year.",
-      type: "Administrative Release"
+      description: "Visualisation of graduate employment, further study, and satisfaction rates.",
+type: "Governance & Compliance Report"
+
     }
   ];
 
@@ -131,7 +134,7 @@ const LatestReleases = () => {
           <TabsContent value="academic" className="animate-fade-in">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {academicReleases.map(release => (
-                <Card key={release.id} className="hover:shadow-md transition-shadow relative">
+                <Card key={release.id} className="hover:shadow-lg hover:scale-[1.02] transition-all duration-200 ease-in-out relative cursor-pointer"  onClick={() => navigate(`/governance/${release.id}`)}>
                   <CardHeader className="pb-2">
                     <div className="flex items-center mb-2 text-abs-teal">
                       <FileText className="mr-2 h-5 w-5" />

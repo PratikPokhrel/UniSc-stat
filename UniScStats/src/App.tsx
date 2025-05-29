@@ -9,6 +9,8 @@ import UniversityAnalyticsPage from './pages/faculties-line-chart';
 import StudentPerformanceReport from './pages/performance-report';
 import Login from './pages/login';
 import { AuthProvider, useAuth } from './AuthContext';
+import DataGovernanceDashboard from './pages/governance/DataGovernance';
+import DataCatalog from './pages/data-catalog';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();  // Use AuthContext for dynamic state
@@ -19,7 +21,9 @@ const AppRoutes = () => {
       {isAuthenticated ? (
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/governance/:id" element={<DataGovernanceDashboard />} />
           <Route path="/report-list" element={<UniversityReports />} />
+          <Route path="/data-catalog" element={<DataCatalog />} />
           <Route path="/faculties" element={<UniversityAnalyticsPage />} />
           <Route path="/performance" element={<StudentPerformanceReport />} />
         </Route>

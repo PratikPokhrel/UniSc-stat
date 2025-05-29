@@ -9,33 +9,34 @@ const COLORS = ['#6366F1', '#EC4899', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444'
 export default function UniversityAnalyticsPage() {
     // Data arrays remain the same as your original code
     const enrollmentData = [
-        { year: 2010, Engineering: 110, IT: 90, Nursing: 60, Psychology: 70, Business: 100, Law: 45 },
-        { year: 2011, Engineering: 120, IT: 105, Nursing: 70, Psychology: 75, Business: 105, Law: 48 },
-        { year: 2012, Engineering: 130, IT: 120, Nursing: 85, Psychology: 80, Business: 110, Law: 50 },
-        { year: 2013, Engineering: 135, IT: 140, Nursing: 95, Psychology: 82, Business: 118, Law: 52 },
-        { year: 2014, Engineering: 140, IT: 160, Nursing: 105, Psychology: 84, Business: 125, Law: 55 },
-        { year: 2015, Engineering: 150, IT: 180, Nursing: 115, Psychology: 85, Business: 130, Law: 58 },
-        { year: 2016, Engineering: 155, IT: 190, Nursing: 125, Psychology: 85, Business: 128, Law: 60 },
-        { year: 2017, Engineering: 160, IT: 200, Nursing: 135, Psychology: 84, Business: 127, Law: 62 },
-        { year: 2018, Engineering: 165, IT: 205, Nursing: 145, Psychology: 83, Business: 122, Law: 63 },
-        { year: 2019, Engineering: 170, IT: 210, Nursing: 155, Psychology: 83, Business: 118, Law: 64 },
-        { year: 2020, Engineering: 172, IT: 215, Nursing: 165, Psychology: 82, Business: 115, Law: 64 },
-        { year: 2021, Engineering: 175, IT: 217, Nursing: 175, Psychology: 82, Business: 113, Law: 64 },
-        { year: 2022, Engineering: 178, IT: 218, Nursing: 185, Psychology: 81, Business: 112, Law: 64 },
-        { year: 2023, Engineering: 180, IT: 220, Nursing: 195, Psychology: 80, Business: 110, Law: 64 },
-    ];
+  { year: 2010, Engineering: 1100, IT: 900, Nursing: 600, Psychology: 700, Business: 1000, Law: 450 },
+  { year: 2011, Engineering: 1200, IT: 1050, Nursing: 700, Psychology: 750, Business: 1050, Law: 480 },
+  { year: 2012, Engineering: 1300, IT: 1200, Nursing: 850, Psychology: 800, Business: 1100, Law: 500 },
+  { year: 2013, Engineering: 1350, IT: 1400, Nursing: 950, Psychology: 820, Business: 1180, Law: 520 },
+  { year: 2014, Engineering: 1400, IT: 1600, Nursing: 1050, Psychology: 840, Business: 1250, Law: 550 },
+  { year: 2015, Engineering: 1500, IT: 1800, Nursing: 1150, Psychology: 850, Business: 1300, Law: 580 },
+  { year: 2016, Engineering: 1550, IT: 1900, Nursing: 1250, Psychology: 850, Business: 1280, Law: 600 },
+  { year: 2017, Engineering: 1600, IT: 2000, Nursing: 1350, Psychology: 840, Business: 1270, Law: 620 },
+  { year: 2018, Engineering: 1650, IT: 2050, Nursing: 1450, Psychology: 830, Business: 1220, Law: 630 },
+  { year: 2019, Engineering: 1700, IT: 2100, Nursing: 1550, Psychology: 830, Business: 1180, Law: 640 },
+  { year: 2020, Engineering: 1720, IT: 2150, Nursing: 1650, Psychology: 820, Business: 1150, Law: 640 },
+  { year: 2021, Engineering: 1750, IT: 2170, Nursing: 1750, Psychology: 820, Business: 1130, Law: 640 },
+  { year: 2022, Engineering: 1780, IT: 2180, Nursing: 1850, Psychology: 810, Business: 1120, Law: 640 },
+  { year: 2023, Engineering: 1800, IT: 2200, Nursing: 1950, Psychology: 800, Business: 1100, Law: 640 }
+]
+;
 
     const genderData = [
-        { name: 'Male', value: 52 },
-        { name: 'Female', value: 46 },
-        { name: 'Other', value: 2 },
+        { name: 'Male', value: 520 },
+        { name: 'Female', value: 460 },
+        { name: 'Other', value: 20 },
     ];
 
     const ageGroupData = [
-        { age: '18-22', value: 550 },
-        { age: '23-27', value: 300 },
-        { age: '28-32', value: 120 },
-        { age: '33+', value: 80 },
+        { age: '18-22', value: 5500 },
+        { age: '23-27', value: 3000 },
+        { age: '28-32', value: 1200 },
+        { age: '33+', value: 800 },
     ];
 
     const performanceData = [

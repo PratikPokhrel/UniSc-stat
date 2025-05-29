@@ -82,7 +82,7 @@ const HeroSection = () => {
       </div>
 
       {/* Gender Distribution */}
-      <div className="bg-white rounded-xl shadow p-3 hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 flex flex-row justify-between items-start relative cursor-pointer min-w-[300px] flex-grow">
+      <div onClick={() => navigate('/faculties')} className="bg-white rounded-xl shadow p-3 hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 flex flex-row justify-between items-start relative cursor-pointer min-w-[300px] flex-grow">
         <Users2 className="absolute top-2 right-2 h-4 w-4 text-purple-500" />
         <div className="flex-1 pr-3">
           <h3 className="font-medium text-gray-600 text-sm mb-2">Gender Distribution</h3>
@@ -116,7 +116,7 @@ const HeroSection = () => {
       </div>
 
       {/* Course Completion */}
-      <div className="bg-white rounded-xl shadow p-3 hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 flex flex-col justify-between cursor-pointer min-w-[300px] flex-grow">
+      <div onClick={() => navigate('/faculties')} className="bg-white rounded-xl shadow p-3 hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 flex flex-col justify-between cursor-pointer min-w-[300px] flex-grow">
         <div>
           <div className="flex items-center justify-between mb-1">
             <h3 className="font-medium text-gray-600 text-sm">Course Completion</h3>
@@ -140,7 +140,7 @@ const HeroSection = () => {
       </div>
 
       {/* Students Ratio */}
-      <div className="bg-white rounded-xl shadow p-3 text-center hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 cursor-pointer min-w-[300px] flex-grow">
+      <div onClick={() => navigate('/faculties')} className="bg-white rounded-xl shadow p-3 text-center hover:shadow-lg hover:bg-gray-50 transition transform hover:scale-105 duration-300 cursor-pointer min-w-[300px] flex-grow">
         <h4 className="text-sm font-semibold text-gray-700 mb-1 text-start">Students Ratio</h4>
         <div className="flex items-center justify-between">
           <div className="text-left">
