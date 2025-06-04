@@ -8,6 +8,7 @@ const DataCatalog = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'card' | 'table'>('card'); // New state for view mode
 
   useEffect(() => {
     const loadCSV = async () => {
@@ -145,6 +146,28 @@ const DataCatalog = () => {
 
             {/* Search and dropdown */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
+              {/* View Mode Toggle */}
+              <div className="flex items-center bg-white rounded-md border border-gray-200 overflow-hidden">
+                <button
+                  onClick={() => setViewMode('card')}
+                  className={`px-3 py-2 text-sm font-medium ${viewMode === 'card' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
+                  title="Card view"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setViewMode('table')}
+                  className={`px-3 py-2 text-sm font-medium ${viewMode === 'table' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
+                  title="Table view"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </button>
+              </div>
+
               {/* Search Bar */}
               <div className="relative w-full sm:w-64">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -181,7 +204,7 @@ const DataCatalog = () => {
       </header>
 
       <div className="w-full mx-auto px-4 py-6">
-        <div className="mb-4 flex items-center">
+        <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center text-sm text-gray-600">
             <svg
               className="w-4 h-4 mr-1 text-indigo-500"
@@ -221,23 +244,113 @@ const DataCatalog = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredReports.length > 0 ? (
-              filteredReports.map((report, index) => (
-                <ReportCard key={index} report={report} />
-              ))
+          <>
+            {viewMode === 'card' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredReports.length > 0 ? (
+                  filteredReports.map((report, index) => (
+                    <ReportCard key={index} report={report} />
+                  ))
+                ) : (
+                  <div className="col-span-full py-12 text-center">
+                    <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 className="mt-2 text-lg font-medium text-gray-900">No reports found</h3>
+                    <p className="mt-1 text-gray-500">
+                      Try adjusting your search or filter to find what you're looking for.
+                    </p>
+                  </div>
+                )}
+              </div>
             ) : (
-              <div className="col-span-full py-12 text-center">
-                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h3 className="mt-2 text-lg font-medium text-gray-900">No reports found</h3>
-                <p className="mt-1 text-gray-500">
-                  Try adjusting your search or filter to find what you're looking for.
-                </p>
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Title
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Category
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Description
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Keywords
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {filteredReports.length > 0 ? (
+                        filteredReports.map((report, index) => (
+                          <tr key={index} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">{report.Title}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                {report.Category}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4">
+                              <div className="text-sm text-gray-500 line-clamp-2 max-w-xs">{report.Description}</div>
+                            </td>
+                            <td className="px-6 py-4">
+                              <div className="flex flex-wrap gap-1 max-w-xs">
+                                {report.Keywords.split(',').map((keyword, i) => (
+                                  <span
+                                    key={i}
+                                    className="inline-block px-1.5 py-0.5 rounded text-[11px] font-medium bg-gray-50 text-gray-500 border border-gray-100"
+                                  >
+                                    {keyword.trim()}
+                                  </span>
+                                ))}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <a
+                                href={report.Link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center text-indigo-600 hover:text-indigo-900"
+                              >
+                                View
+                                <svg
+                                  className="w-4 h-4 ml-1"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                  />
+                                </svg>
+                              </a>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan={5} className="px-6 py-4 text-center text-sm text-gray-500">
+                            No reports found matching your criteria
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
