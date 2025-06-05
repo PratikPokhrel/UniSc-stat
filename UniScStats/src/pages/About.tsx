@@ -56,7 +56,7 @@ const AboutPage = () => {
           <ValueCard
             icon={<Shield className="w-8 h-8" />}
             title="Quality Assurance"
-            description="Curated datasets adhering to UniSC's governance standards"
+            description="Curated datasets adhering to ISO 8000-61 and UniSC's governance standards"
             color="amber"
           />
         </div>
