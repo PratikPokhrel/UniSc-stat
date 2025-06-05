@@ -189,7 +189,7 @@ export const reports: ReportData[] = [
     category: "University",
     access: "Compliance Team only",
     link: "https://app.powerbi.com/...",
-    last_update:'2024-05-12',
+    last_update:'2024-06-03',
 
     source: "Internal + External",
     version_control: {
@@ -253,7 +253,7 @@ export const reports: ReportData[] = [
     category: "Faculty",
     access: "Academic staff only",
     link: "https://app.powerbi.com/...",
-    last_update:'2024-05-12',
+    last_update:'2024-06-01',
     source: "Internal",
     version_control: {
       version: "1.3.5",
@@ -316,7 +316,7 @@ export const reports: ReportData[] = [
     category: "Institution",
     access: "All staff",
     link: "https://app.powerbi.com/...",
-    last_update:'2024-05-12',
+    last_update:'2024-05-18',
     source: "External",
     version_control: {
       version: "1.0.8",

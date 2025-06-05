@@ -109,97 +109,102 @@ const DataCatalog = () => {
     <div className="w-full bg-gray-50">
       <header className="bg-gradient-to-r from-indigo-50 via-white to-indigo-50 text-gray-800 py-6 px-4 shadow-sm border-b border-gray-200 rounded-b-md">
         <div className="w-full">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex-1 min-w-0 text-left">
-              <h1 className="text-3xl font-extrabold text-indigo-800 tracking-tight leading-snug">
-                📚 Data Catalog
-              </h1>
-              <p className="text-sm text-gray-700 mt-1 flex items-center gap-2">
-                <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span>{reports.length} reports available</span>
-              </p>
-              <div className="flex flex-wrap gap-3 mt-3">
-                {Object.entries(categoryCounts).map(([category, count]: [string, number]) => {
-                  const isSelected = selectedCategories.includes(category);
-                  return (
-                    <span
-                      key={category}
-                      onClick={() => toggleCategory(category)}
-                      className={`flex items-center space-x-2 text-sm font-medium rounded-full px-4 py-1 shadow-sm hover:shadow-md transition duration-200 ease-in-out cursor-pointer
-                        ${isSelected
-                          ? 'bg-indigo-100 border border-indigo-300 text-indigo-800'
-                          : 'bg-gray-50 border border-gray-200 text-gray-800'}`}
-                      title={`${count} reports in ${category}`}
-                    >
-                      <span>{category}</span>
-                      <span className={`inline-block font-bold rounded-full px-2 py-0.5 text-xs shadow-sm
-                        ${isSelected
-                          ? 'bg-indigo-200 text-indigo-900'
-                          : 'bg-indigo-100 text-indigo-800'}`}>
-                        {count}
-                      </span>
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
+         <div className="flex flex-col md:flex-row gap-4">
+  {/* Left half - Title and categories */}
+  <div className="w-full md:w-1/2">
+    <div className="min-w-0 text-left">
+      <h1 className="text-3xl font-extrabold text-indigo-800 tracking-tight leading-snug">
+        📚 Data Catalog
+      </h1>
+      <p className="text-sm text-gray-700 mt-1 flex items-center gap-2">
+        <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+        <span>{reports.length} reports available</span>
+      </p>
+    </div>
+    <div className="flex flex-wrap gap-3 mt-3">
+      {Object.entries(categoryCounts).map(([category, count]: [string, number]) => {
+        const isSelected = selectedCategories.includes(category);
+        return (
+          <span
+            key={category}
+            onClick={() => toggleCategory(category)}
+            className={`flex items-center space-x-2 text-sm font-medium rounded-full px-4 py-1 shadow-sm hover:shadow-md transition duration-200 ease-in-out cursor-pointer
+              ${isSelected
+                ? 'bg-indigo-100 border border-indigo-300 text-indigo-800'
+                : 'bg-gray-50 border border-gray-200 text-gray-800'}`}
+            title={`${count} reports in ${category}`}
+          >
+            <span>{category}</span>
+            <span className={`inline-block font-bold rounded-full px-2 py-0.5 text-xs shadow-sm
+              ${isSelected
+                ? 'bg-indigo-200 text-indigo-900'
+                : 'bg-indigo-100 text-indigo-800'}`}>
+              {count}
+            </span>
+          </span>
+        );
+      })}
+    </div>
+  </div>
 
-            {/* Search and dropdown */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
-              {/* View Mode Toggle */}
-              <div className="flex items-center bg-white rounded-md border border-gray-200 overflow-hidden">
-                <button
-                  onClick={() => setViewMode('card')}
-                  className={`px-3 py-2 text-sm font-medium ${viewMode === 'card' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
-                  title="Card view"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setViewMode('table')}
-                  className={`px-3 py-2 text-sm font-medium ${viewMode === 'table' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
-                  title="Table view"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                </button>
-              </div>
+  {/* Right half - Search and dropdown */}
+  <div className="w-full md:w-1/2 flex items-end">
+    <div className="flex flex-col sm:flex-row sm:items-end gap-4 w-full">
+      {/* View Mode Toggle */}
+      <div className="flex items-center bg-white  overflow-hidden h-[42px]">
+        <button
+          onClick={() => setViewMode('card')}
+          className={`px-3 py-2 text-sm font-medium  border border-gray-200 ${viewMode === 'card' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
+          title="Card view"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setViewMode('table')}
+          className={`px-3 py-2 text-sm font-medium border border-gray-200  ${viewMode === 'table' ? 'bg-indigo-100 text-indigo-800' : 'text-gray-600 hover:text-gray-800'}`}
+          title="Table view"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </button>
+      </div>
 
-              {/* Search Bar */}
-              <div className="relative w-full sm:w-64">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
-                  </svg>
-                </div>
-                <input
-                  id="search"
-                  type="text"
-                  placeholder="Search reports..."
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
+      {/* Search Bar */}
+      <div className="relative flex-1">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+          </svg>
+        </div>
+        <input
+          id="search"
+          type="text"
+          placeholder="Search reports..."
+          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
 
-              {/* Dropdown */}
-              <div className="w-full sm:w-48">
-                <select
-                  id="category"
-                  className="block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  {categories.map(category => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
+      {/* Dropdown */}
+      <div className="w-full sm:w-48">
+        <select
+          id="category"
+          className="block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          {categories.map(category => (
+            <option key={category} value={category}>{category}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </header>
 

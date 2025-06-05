@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-    RadialBarChart,
-    RadialBar,
-    PolarAngleAxis,
-    PieChart,
-    Pie,
-    Cell,
-    Tooltip
+    RadialBarChart,RadialBar,
+    PolarAngleAxis,PieChart,
+    Pie,Cell,Tooltip
 } from 'recharts';
 import { ReportData, reports } from './data';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { Download } from 'lucide-react';
 
 const academicReleases = [
     {
@@ -57,7 +55,7 @@ const MetaDataDashboard = () => {
     }, [activeId]);
 
     // Filter reports based on search term
-    const filteredReports = academicReleases.filter(report => 
+    const filteredReports = academicReleases.filter(report =>
         report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         report.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         report.type.toLowerCase().includes(searchTerm.toLowerCase())
@@ -70,43 +68,228 @@ const MetaDataDashboard = () => {
 
 
     // Add this function to your component
-const handleDownloadQualityReport = () => {
-  // Create a mock PDF file content (this would be your actual report content)
-  const mockPdfContent = `
-    Quality Report for: ${report.title}
-    Generated on: ${new Date().toLocaleDateString()}
-    
-    Data Quality Score: ${quality_metadata.data_quality_score}%
-    Last Tested: 2024-04-15 by IAU
-    
-    Compliance Standards:
-    - ISO 8000-61: 65% compliant
-    - UniSC DQF v2.1: 35% compliant
-    
-    Data Owner: ${data_ownership.data_owner}
-    Data Steward: ${data_ownership.data_steward}
-    
-    This is a sample mock report for demonstration purposes.
-  `;
+    const handleDownloadQualityReport = async () => {
+        try {
+            // Create a new PDF document
+            const pdfDoc = await PDFDocument.create();
+            const page = pdfDoc.addPage([595, 842]); // A4 size (595 × 842 points)
 
-  // Create a Blob with the content
-  const blob = new Blob([mockPdfContent], { type: 'application/pdf' });
-  const url = URL.createObjectURL(blob);
+            // Embed fonts
+            const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+            const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  // Create a temporary anchor element to trigger the download
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `quality-report-${report.id}.pdf`;
-  document.body.appendChild(a);
-  a.click();
+            // Colors
+            const primaryColor = rgb(0.05, 0.3, 0.6); // Dark blue
+            const secondaryColor = rgb(0.8, 0.1, 0.1); // Red
+            const accentColor = rgb(0, 0.5, 0.2); // Green
+            const textColor = rgb(0.2, 0.2, 0.2); // Dark gray
 
-  // Clean up
-  setTimeout(() => {
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }, 100);
-};
+            // Add header with logo and title
+            const logoPath = window.location.origin + '/assets/images/usc_logo.jpeg';
 
+            // 2. Fetch and embed the image
+            let logoImage;
+
+            const response = await fetch(logoPath);
+            const imageBytes = await response.arrayBuffer();
+            logoImage = await pdfDoc.embedJpg(imageBytes); // Use embedJpg for JPEG files
+
+            page.drawImage(logoImage, {
+                x: 50,
+                y: page.getHeight() - 80,
+                width: 50,
+                height: 50,
+            });
+
+            page.drawText('ACADEMIC QUALITY REPORT', {
+                x: 110,
+                y: page.getHeight() - 60,
+                size: 20,
+                font: fontBold,
+                color: primaryColor,
+            });
+
+            page.drawText(`Generated: ${new Date().toLocaleDateString()}`, {
+                x: 110,
+                y: page.getHeight() - 85,
+                size: 10,
+                font: font,
+                color: textColor,
+            });
+
+            // Add divider line
+            page.drawLine({
+                start: { x: 50, y: page.getHeight() - 100 },
+                end: { x: page.getWidth() - 50, y: page.getHeight() - 100 },
+                thickness: 2,
+                color: primaryColor,
+            });
+
+            // Report title section
+            page.drawText(report.title, {
+                x: 50,
+                y: page.getHeight() - 140,
+                size: 16,
+                font: fontBold,
+                color: primaryColor,
+            });
+
+            // Main content sections
+            let yPosition = page.getHeight() - 180;
+
+            // Data Quality Section
+            drawSectionHeader(page, 'DATA QUALITY METRICS', yPosition, fontBold, primaryColor);
+            yPosition -= 30;
+
+            // Quality score with visual indicator
+            const qualityScore = quality_metadata.data_quality_score;
+            page.drawText(`Data Quality Score:`, {
+                x: 50,
+                y: yPosition,
+                size: 12,
+                font: font,
+                color: textColor,
+            });
+
+            page.drawText(`${qualityScore}%`, {
+                x: 180,
+                y: yPosition,
+                size: 14,
+                font: fontBold,
+                color: qualityScore > 75 ? accentColor : secondaryColor,
+            });
+
+            // Draw quality meter
+            page.drawRectangle({
+                x: 220,
+                y: yPosition - 5,
+                width: 200,
+                height: 10,
+                borderWidth: 1,
+                borderColor: rgb(0.8, 0.8, 0.8),
+                color: rgb(0.95, 0.95, 0.95),
+            });
+
+            page.drawRectangle({
+                x: 220,
+                y: yPosition - 5,
+                width: (200 * qualityScore) / 100,
+                height: 10,
+                color: qualityScore > 75 ? accentColor : secondaryColor,
+            });
+
+            yPosition -= 30;
+
+            // Compliance Section
+            drawSectionHeader(page, 'COMPLIANCE STANDARDS', yPosition, fontBold, primaryColor);
+            yPosition -= 30;
+
+            const complianceData = [
+                { name: 'ISO 8000-61', value: 65 },
+                { name: 'UniSC DQF v2.1', value: 35 }
+            ];
+
+            complianceData.forEach(item => {
+                page.drawText(`• ${item.name}:`, {
+                    x: 50,
+                    y: yPosition,
+                    size: 12,
+                    font: font,
+                    color: textColor,
+                });
+
+                page.drawText(`${item.value}%`, {
+                    x: 180,
+                    y: yPosition,
+                    size: 12,
+                    font: fontBold,
+                    color: item.value > 50 ? accentColor : secondaryColor,
+                });
+
+                yPosition -= 20;
+            });
+
+            // Ownership Section
+            yPosition -= 10;
+            drawSectionHeader(page, 'DATA OWNERSHIP', yPosition, fontBold, primaryColor);
+            yPosition -= 30;
+
+            page.drawText(`Data Owner: ${data_ownership.data_owner}`, {
+                x: 50,
+                y: yPosition,
+                size: 12,
+                font: font,
+                color: textColor,
+            });
+            yPosition -= 20;
+
+            page.drawText(`Data Steward: ${data_ownership.data_steward}`, {
+                x: 50,
+                y: yPosition,
+                size: 12,
+                font: font,
+                color: textColor,
+            });
+            yPosition -= 20;
+
+            page.drawText(`Retention Policy: ${data_ownership.retention_policy}`, {
+                x: 50,
+                y: yPosition,
+                size: 12,
+                font: font,
+                color: textColor,
+            });
+
+            // Footer
+            page.drawText('Confidential - For Internal Use Only', {
+                x: 50,
+                y: 50,
+                size: 10,
+                font: font,
+                color: rgb(0.5, 0.5, 0.5),
+            });
+
+            // Save the PDF
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+
+            // Trigger download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `quality-report-${report.id}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        }
+    }
+
+    // Helper function for section headers
+    const drawSectionHeader = (page, text, y, font, color) => {
+        page.drawText(text, {
+            x: 50,
+            y: y,
+            size: 14,
+            font: font,
+            color: color,
+            underline: true,
+        });
+
+        page.drawLine({
+            start: { x: 50, y: y - 5 },
+            end: { x: page.getWidth() - 50, y: y - 5 },
+            thickness: 0.5,
+            color: rgb(0.8, 0.8, 0.8),
+        });
+    };
     if (!report) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -138,7 +321,7 @@ const handleDownloadQualityReport = () => {
             <div className="w-82 bg-white shadow-md overflow-y-auto">
                 <div className="p-4 border-b border-gray-200">
                     <h2 className="text-lg font-semibold">Academic Reports</h2>
-                    <p className="text-xs text-gray-500 mt-1">{filteredReports .length} reports available</p>
+                    <p className="text-xs text-gray-500 mt-1">{filteredReports.length} reports available</p>
                 </div>
 
                 {/* Simple Search Bar */}
@@ -153,7 +336,7 @@ const handleDownloadQualityReport = () => {
                 </div>
 
                 <div className="space-y-2 p-2">
-                    {filteredReports .map((item) => (
+                    {filteredReports.map((item) => (
                         <div
                             key={item.id}
                             className={`p-3 rounded-lg cursor-pointer transition border border-gray-100 ${activeId === item.id
@@ -186,7 +369,15 @@ const handleDownloadQualityReport = () => {
                             <p className="text-xs text-blue-100 mt-1">{report.description}</p>
                         </div>
 
+                        {/* Download Report Button */}
+                        <button
+                            onClick={handleDownloadQualityReport}
+                            className="flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50  px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md hover:scale-[1.04]">
+                            <Download className="h-5 w-5" />
+                            <span className="font-medium">Download Report</span>
+                        </button>
                     </div>
+
                     <div className="flex gap-2 mt-3 text-sm">
                         <span className="bg-amber-500 px-2 py-0.5 rounded-full">
                             {technical_metadata.sensitivity_class}
@@ -195,7 +386,7 @@ const handleDownloadQualityReport = () => {
                             Version {technical_metadata.schema_version}
                         </span>
                         <span className="bg-green-600 px-2 py-0.5 rounded-full">
-                            Last updated:  {report.last_update}
+                            Last updated: {report.last_update}
                         </span>
                     </div>
                 </div>
@@ -302,12 +493,7 @@ const handleDownloadQualityReport = () => {
                                     </div>
                                 ))}
                             </div>
-                            <a
-                                onClick={handleDownloadQualityReport}
-                                className="block mt-2 text-blue-600 hover:underline text-sm text-center"
-                            >
-                                Download Quality Report
-                            </a>
+                           
                         </Card>
                     </div>
 
@@ -418,9 +604,7 @@ const handleDownloadQualityReport = () => {
                                 </div>
                             </div>
                             <a
-                                href="/lineage/reviews-lineage.pdf"
-                                className="text-blue-600 hover:underline text-xs mt-2 block"
-                            >
+                                className="text-blue-600 hover:underline text-xs mt-2 block">
                                 View full lineage report
                             </a>
                         </Card>

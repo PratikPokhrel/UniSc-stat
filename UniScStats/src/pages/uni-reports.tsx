@@ -186,7 +186,7 @@ export default function UniversityReports() {
       : [];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-10 lg:px-20">
+    <div className="min-h-screen bg-gray-50 py-10 px-4 ">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <h1 className="text-2xl font-bold text-gray-900">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
