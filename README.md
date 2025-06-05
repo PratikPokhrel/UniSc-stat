@@ -23,17 +23,26 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 
 A comprehensive university statistics dashboard with secure access controls, real-time data visualisation, and modular UI components.
 
-**Project Structure**
-**main.tsx**: This is the entry point of React application.
-**package.json**: contains all the external and React libraries and plugins of the applications
-**/components** - Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
-**/Pages** - This directory contains the actual route pages for the application, such as the data catalogue dashboard page, metadata dashboard page,
-             These pages are used using react-router in app.tsx, 
-         <Route path="/metadata" element={<MetaDataDashboard />} />
-          <Route path="/report-list" element={<UniversityReports />} />
-          <Route path="/bi-catalog" element={<DataCatalog />} />
-**AuthContext.tsx**: React HOC- handles the login, token storage in the local storage
-**index.css** : Contains the higher level, re-usable css codes.
+## Project Structure
+
+**main.tsx**  
+This is the entry point of the React application.
+
+**package.json**  
+Contains all the external and React libraries and plugins of the application.
+
+**/components**  
+Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
+
+**/Pages**  
+This directory contains the actual route pages for the application, such as the data catalogue dashboard page, metadata dashboard page.  
+These pages are used using react-router in `app.tsx`:
+
+```tsx
+<Route path="/metadata" element={<MetaDataDashboard />} />
+<Route path="/report-list" element={<UniversityReports />} />
+<Route path="/bi-catalog" element={<DataCatalog />} />
+
 ## ✨ Features
 
 - **Interactive Dashboards**
