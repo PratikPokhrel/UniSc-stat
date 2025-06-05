@@ -346,8 +346,8 @@ const MetaDataDashboard = () => {
                             onClick={() => setSelectedReportId(item.id)}
                         >
                             <div className="flex items-start justify-between">
-                                <h3 className="font-medium text-sm">{item.title}</h3>
-                                <span className="text-xs text-gray-400">{item.date}</span>
+                                <h3 className="font-medium font-bold text-sm">{item.title}</h3>
+                                <span className="text-xs font-bold text-gray-400">{item.date}</span>
                             </div>
                             <p className="text-xs mt-1 text-gray-600 line-clamp-2">{item.description}</p>
                             <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800">
@@ -560,12 +560,6 @@ const MetaDataDashboard = () => {
                                 />
                                 <div>
                                     <h3 className="text-xs font-medium text-gray-700">Access Audit</h3>
-                                    <a
-                                        href="/audits/reviews-access.csv"
-                                        className="text-blue-600 hover:underline text-xs"
-                                    >
-                                        View access logs
-                                    </a>
                                 </div>
                             </div>
                         </Card>

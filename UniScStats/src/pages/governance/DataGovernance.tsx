@@ -154,12 +154,6 @@ const DataGovernanceDashboard = () => {
                                 </div>
                             ))}
                         </div>
-                        <a
-                            href="/reports/quality-audit-2024Q1.pdf"
-                            className=" mt-1 text-blue-600 hover:underline text-sm text-center"
-                        >
-                            Download Quality Report
-                        </a>
                     </Card>
 
                    {/* <Card className="h-[400px] p-4">
@@ -251,12 +245,7 @@ const DataGovernanceDashboard = () => {
                             <InfoBlock label="Sensitivity Class" content={technical_metadata.sensitivity_class} />
                             <div>
                                 <h3 className="text-xs font-medium text-gray-700">Access Audit</h3>
-                                <a
-                                    href="/audits/reviews-access.csv"
-                                    className="text-blue-600 hover:underline text-xs"
-                                >
-                                    View access logs
-                                </a>
+                               
                             </div>
                         </div>
                     </Card>
