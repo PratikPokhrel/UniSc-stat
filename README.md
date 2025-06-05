@@ -13,7 +13,7 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 **Key Stakeholders:** University executives (VCP, Deans, Directors), ICT Team
 
 
-markdown
+
 # UniScStats Data Portal
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -21,8 +21,19 @@ markdown
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-A comprehensive university statistics dashboard with secure access controls, real-time data visualization, and modular UI components.
+A comprehensive university statistics dashboard with secure access controls, real-time data visualisation, and modular UI components.
 
+**Project Structure**
+**main.tsx**: This is the entry point of React application.
+**package.json**: contains all the external and React libraries and plugins of the applications
+**/components** - Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
+**/Pages** - This directory contains the actual route pages for the application, such as the data catalogue dashboard page, metadata dashboard page,
+             These pages are used using react-router in app.tsx, 
+         <Route path="/metadata" element={<MetaDataDashboard />} />
+          <Route path="/report-list" element={<UniversityReports />} />
+          <Route path="/bi-catalog" element={<DataCatalog />} />
+**AuthContext.tsx**: React HOC- handles the login, token storage in the local storage
+**index.css** : Contains the higher level, re-usable css codes.
 ## ✨ Features
 
 - **Interactive Dashboards**
