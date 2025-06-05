@@ -26,11 +26,26 @@ A comprehensive university statistics dashboard with secure access controls, rea
 ## Project Structure
 
 **main.tsx**  
-This is the entry point of the React application.
+This is the entry point of the React application when using Vite.  
+Initialises the root React component and renders the app into the DOM.  
+It typically wraps the `<App />` component with high-level providers like `BrowserRouter`, `AuthContext`, or any other global context providers.  
+It also sets up global styling and is responsible for bootstrapping the application.
 
 **package.json**  
-Contains all the external and React libraries and plugins of the application.
+This file is the metadata and dependency manifest for your React application.
 
+It contains:
+
+- **Project metadata**: Name, version, description, author, license, etc.
+- **Scripts**: Custom NPM commands for running, building, testing, linting, and formatting the application. Example:
+  ```json
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
+  }
+  
 **/components**  
 Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
 
