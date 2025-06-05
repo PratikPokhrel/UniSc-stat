@@ -66,6 +66,7 @@ export interface ReportData {
   link: string;
   source: string;
   version_control: VersionControl;
+  last_update:string;
 }
 
 export const reports: ReportData[] = [
@@ -126,6 +127,7 @@ export const reports: ReportData[] = [
     access: "All staff",
     link: "https://app.powerbi.com/...",
     source: "Internal",
+    last_update:'2024-05-12',
     version_control: {
       version: "1.4.2",
       version_date: "2024-04-20",
@@ -187,6 +189,8 @@ export const reports: ReportData[] = [
     category: "University",
     access: "Compliance Team only",
     link: "https://app.powerbi.com/...",
+    last_update:'2024-05-12',
+
     source: "Internal + External",
     version_control: {
       version: "2.0.0",
@@ -249,6 +253,7 @@ export const reports: ReportData[] = [
     category: "Faculty",
     access: "Academic staff only",
     link: "https://app.powerbi.com/...",
+    last_update:'2024-05-12',
     source: "Internal",
     version_control: {
       version: "1.3.5",
@@ -311,6 +316,7 @@ export const reports: ReportData[] = [
     category: "Institution",
     access: "All staff",
     link: "https://app.powerbi.com/...",
+    last_update:'2024-05-12',
     source: "External",
     version_control: {
       version: "1.0.8",

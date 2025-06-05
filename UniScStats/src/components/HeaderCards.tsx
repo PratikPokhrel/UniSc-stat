@@ -15,7 +15,7 @@ import {
 } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const HeroSection = () => {
+const HeaderCards = () => {
   const navigate = useNavigate();
 
   const [isVisible, setIsVisible] = useState(false);
@@ -175,4 +175,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default HeaderCards;

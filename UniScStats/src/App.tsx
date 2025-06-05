@@ -11,17 +11,22 @@ import Login from './pages/login';
 import { AuthProvider, useAuth } from './AuthContext';
 import DataGovernanceDashboard from './pages/governance/DataGovernance';
 import DataCatalog from './pages/data-catalog';
+import AboutPage from './pages/about';
+import Header from './components/Header';
+import MetaDataDashboard from './pages/governance/MetaDataDashboard';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();  // Use AuthContext for dynamic state
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<><Login /></>} />
+       <Route path="/about" element={<AboutPage />} />
       {isAuthenticated ? (
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/governance/:id" element={<DataGovernanceDashboard />} />
+          <Route path="/metadata" element={<MetaDataDashboard />} />
           <Route path="/report-list" element={<UniversityReports />} />
           <Route path="/bi-catalog" element={<DataCatalog />} />
           <Route path="/faculties" element={<UniversityAnalyticsPage />} />
