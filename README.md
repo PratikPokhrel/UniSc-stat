@@ -53,8 +53,25 @@ Contains reusable UI components, such as buttons and cards. These components can
 Contains custom reusable hooks/functions, which can be reused and reproduced in different pages of the application. Hooks such as UseMobile and UseToast.
 
 **/Pages**  
-This directory contains the actual route pages for the application, such as the data catalogue dashboard page and, metadata dashboard page.  
-These pages are used using react-router in `app.tsx`:
+This directory contains all the **top-level route components** for the application.  
+Each file in this directory represents a standalone page or view that can be directly linked to via the application's routing configuration.
+
+Common pages may include:
+
+- `Dashboard.tsx` – the main landing page after login, showing high-level metrics or interactive charts.
+- `Governance.tsx` – displays data governance-related information or policies.
+- `About.tsx` – static content describing the purpose, mission, or background of the application.
+
+These pages are connected via **React Router** and mapped in `App.tsx` using `react-router-dom`.  
+Each component in `/Pages` may internally use reusable components (from `/components`) and may fetch data via hooks, APIs, or contexts.
+
+### 📍 Example Route Mapping in `App.tsx`
+
+```tsx
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './Pages/Dashboard';
+import Governance from './Pages/Governance';
+import About from './Pages/About';
 
 **/public**  
 This directory contains the static files, such as images and logos. 
