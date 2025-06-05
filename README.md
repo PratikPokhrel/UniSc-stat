@@ -8,7 +8,7 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 # DataPortal3 Redesign Project - Requirements
 
 ## Project Overview
-**Goal:** Redesign university data portal with role-based personalized dashboards, elegant visualizations, and on-demand insights for executive decision-making.
+**Goal:** Redesign university data portal with role-based personalised dashboards, elegant visualisations, and on-demand insights for executive decision-making.
 
 **Key Stakeholders:** University executives (VCP, Deans, Directors), ICT Team
 
@@ -34,16 +34,22 @@ Contains all the external and React libraries and plugins of the application.
 **/components**  
 Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
 
+**/hooks**  
+Contains custom reusable hooks/functions, which can be reused and reproduced in different pages of the application. Hooks such as UseMobile and UseToast.
+
 **/Pages**  
-This directory contains the actual route pages for the application, such as the data catalogue dashboard page, metadata dashboard page.  
+This directory contains the actual route pages for the application, such as the data catalogue dashboard page and, metadata dashboard page.  
 These pages are used using react-router in `app.tsx`:
 
-```tsx
+**/public**  
+This directory contains the static files, such as images and logos. 
+
+```app.tsx
 <Route path="/metadata" element={<MetaDataDashboard />} />
 <Route path="/report-list" element={<UniversityReports />} />
 <Route path="/bi-catalog" element={<DataCatalog />} />
 
-**index.tsx**  
+**index.tsx** 
 This is the main entry point of the React application.  
 It renders the root `<App />` component into the DOM using `ReactDOM.createRoot`.  
 Common initializations happen here, such as:
@@ -218,4 +224,3 @@ Email: pratikpokhrel!@outlook.com
    - Heatmaps for density patterns
    - Donut charts for quick stats
 
-Would you like me to elaborate on any specific aspect of the wireframes or task prioritization?
