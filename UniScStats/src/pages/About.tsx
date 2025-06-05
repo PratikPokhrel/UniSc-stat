@@ -159,31 +159,7 @@ const AboutPage = () => {
         </div>
 
         {/* Resources Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Getting Started
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <ResourceCard
-              icon={<BookOpen className="w-6 h-6" />}
-              title="User Guide"
-              description="Complete documentation for all platform features"
-              linkText="Read Guide"
-            />
-            <ResourceCard
-              icon={<Clock className="w-6 h-6" />}
-              title="Training"
-              description="Book a session with our data team"
-              linkText="View Calendar"
-            />
-            <ResourceCard
-              icon={<MapPin className="w-6 h-6" />}
-              title="Support"
-              description="Visit the Digital Solutions team"
-              linkText="Get Help"
-            />
-          </div>
-        </div>
+       
 
         {/* Final CTA */}
         <div className="text-center bg-white rounded-2xl shadow-sm border border-gray-100 py-16 px-6">
@@ -191,9 +167,7 @@ const AboutPage = () => {
             <GraduationCap className="w-10 h-10 text-amber-500" />
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to explore UniSC's data?</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join our community of data-informed decision makers.
-          </p>
+         
           <a
            onClick={()=>navigate("/navigate")}
             className="inline-block px-8 py-4 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg shadow-sm transition-colors"
