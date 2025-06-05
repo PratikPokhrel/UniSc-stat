@@ -14,7 +14,7 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 
 
 
-# UniScStats Data Portal
+# UniSC Data Portal
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -42,6 +42,33 @@ These pages are used using react-router in `app.tsx`:
 <Route path="/metadata" element={<MetaDataDashboard />} />
 <Route path="/report-list" element={<UniversityReports />} />
 <Route path="/bi-catalog" element={<DataCatalog />} />
+
+**index.tsx**  
+This is the main entry point of the React application.  
+It renders the root `<App />` component into the DOM using `ReactDOM.createRoot`.  
+Common initializations happen here, such as:
+
+- Wrapping the application with `<BrowserRouter>` for routing
+- Wrapping with global context providers (like `AuthProvider`)
+- Attaching global styles
+
+Example:
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 ## ✨ Features
 
