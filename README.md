@@ -8,229 +8,251 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 # DataPortal3 Redesign Project - Requirements
 
 ## Project Overview
-**Goal:** Redesign university data portal with role-based personalized dashboards, elegant visualizations, and on-demand insights for executive decision-making.
+**Goal:** Redesign university data portal with role-based personalised dashboards, elegant visualisations, and on-demand insights for executive decision-making.
 
 **Key Stakeholders:** University executives (VCP, Deans, Directors), ICT Team
 
-## Objectives & Requirements
 
-### Stage 1: Elegant Visualization & Dashboard Foundation
-- [ ] Implement interactive chart library (PowerBI + ECharts integration)
-- [ ] Create 5 core executive dashboards:
-  - Enrollment Trends (Real-time)
-  - Admissions Pipeline
-  - Student Success Metrics
-  - Attrition Heatmaps
-  - Offer Acceptance Rates
-- [ ] Develop responsive grid layout system
-- [ ] Add dark/light mode toggle
 
-### Stage 2: On-Demand Insights Engine
-- [ ] Natural language query interface
-- [ ] Pre-built quick analysis templates:
+# UniSC Data Portal
+
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
+A comprehensive university statistics dashboard with secure access controls, real-time data visualisation, and modular UI components.
+
+## Project Structure
+
+**main.tsx**  
+This is the entry point of the React application when using Vite.  
+Initialises the root React component and renders the app into the DOM.  
+It typically wraps the `<App />` component with high-level providers like `BrowserRouter`, `AuthContext`, or any other global context providers.  
+It also sets up global styling and is responsible for bootstrapping the application.
+
+**package.json**  
+This file is the metadata and dependency manifest for your React application.
+
+It contains:
+
+- **Project metadata**: Name, version, description, author, license, etc.
+- **Scripts**: Custom NPM commands for running, building, testing, linting, and formatting the application. Example:
   ```json
-  "quick_insights": [
-    "ProgramComparison2024",
-    "AttritionForecast",
-    "EnrollmentProjection"
-  ]
-  ```
-- [ ] Cache system for frequent requests
-- [ ] Automated report generation (PDF/Excel)
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
+  }
+  
+**/components**  
+Contains reusable UI components, such as buttons and cards. These components can be reused in different pages.
 
-### Stage 3: Role-Based Personalization
-- [ ] Azure AD role integration matrix:
-  | Role | Dashboard Access | Data Permissions |
-  |------|------------------|------------------|
-  | VCP | Full             | University-wide |
-  | Dean | School-level     | Department-specific |
-- [ ] Customizable widget system
-- [ ] User preference storage (localStorage + cloud sync)
+**/hooks**  
+Contains custom reusable hooks/functions, which can be reused and reproduced in different pages of the application. Hooks such as UseMobile and UseToast.
 
-## Technical Specifications
+**/Pages**  
+This directory contains all the **top-level route components** for the application.  
+Each file in this directory represents a standalone page or view that can be directly linked to via the application's routing configuration.
 
-### Authentication & Authorization (.NET 8)
+Common pages may include:
+
+- `Dashboard.tsx` – the main landing page after login, showing high-level metrics or interactive charts.
+- `Governance.tsx` – displays data governance-related information or policies.
+- `About.tsx` – static content describing the purpose, mission, or background of the application.
+
+These pages are connected via **React Router** and mapped in `App.tsx` using `react-router-dom`.  
+Each component in `/Pages` may internally use reusable components (from `/components`) and may fetch data via hooks, APIs, or contexts.
+
+### 📍 Example Route Mapping in `App.tsx`
+
+```tsx
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './Pages/Dashboard';
+import Governance from './Pages/Governance';
+import About from './Pages/About';
+
+**/public**  
+This directory contains the static files, such as images and logos. 
+
+```app.tsx
+<Route path="/metadata" element={<MetaDataDashboard />} />
+<Route path="/report-list" element={<UniversityReports />} />
+<Route path="/bi-catalog" element={<DataCatalog />} />
+
+**index.tsx** 
+This is the main entry point of the React application.  
+It renders the root `<App />` component into the DOM using `ReactDOM.createRoot`.  
+Common initializations happen here, such as:
+
+- Wrapping the application with `<BrowserRouter>` for routing
+- Wrapping with global context providers (like `AuthProvider`)
+- Attaching global styles
+
+Example:
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+
+## ✨ Features
+
+- **Interactive Dashboards**
+  - Faculty performance metrics
+  - Enrollment trends visualization
+  - Custom report generation
+
+- **Authentication & Security**
+  - JWT-based authentication
+  - Protected routes
+  - Role-based access control
+
+- **Data Visualization**
+  - Line/bar charts for time-series data
+  - Mermaid.js integration for diagrams
+  - Responsive data tables
+
+- **Developer Experience**
+  - TypeScript support
+  - Custom UI component library
+  - Vite-powered builds
+  - Dockerized deployment
+
+## 📦 Project Structure
+src/
+├── components/ # Shared components
+├── ui/ # UI component library
+│ ├── primitives/ # Base components (Button, Input, etc.)
+│ ├── composites/ # Complex components (DataGrid, Chart)
+│ ├── hooks/ # Custom hooks
+│ └── lib/ # Utility functions
+├── pages/
+│ └── governance/ # Feature-based routing
+│ ├── auth/ # Authentication flows
+│ ├── dashboard/ # Data visualization
+│ └── reports/ # Report generation
+├── contexts/ # React contexts
+├── styles/
+├── types/ # TypeScript definitions
+├── App.tsx # Root component
+└── main.tsx # Entry point
+
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js v18+
+- npm v9+ 
+- Docker (optional)
+
+### Installation
+
 ```bash
-# Create base project
-dotnet new webapp -o DataPortal3 -au Individual
-```
-- [ ] Implement Azure AD integration
-- [ ] Role-based policy configuration:
-  ```csharp
-  services.AddAuthorization(options => {
-    options.AddPolicy("ExecutiveAccess", policy => 
-      policy.RequireRole("VCP", "Provost", "Dean"));
-  });
-  ```
-- [ ] Secure API endpoints with JWT
-- [ ] Audit logging middleware
+# Clone repository
+git clone https://github.com/your-org/uniscstats.git
+cd uniscstats
 
-### Containerized Deployment
-```dockerfile
-# Test stage in Dockerfile
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS test
-RUN dotnet test /src/tests/DataPortal3.Tests
+# Install dependencies (choose one)
+npm install
 
-# Production build
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
-USER 10001
-ENTRYPOINT ["dotnet", "DataPortal3.dll"]
-```
+Development
+bash
+npm run dev
+Access at: [http://localhost:8000]
 
-### PowerBI Integration
-- [ ] Embedded authentication setup
-- [ ] Report lifecycle management
-- [ ] Cross-filtering between portal/PowerBI
+Production Build
+bash
+npm run build
+Outputs to: dist/
 
-## Development Notes
+🔧 Configuration
+Environment Variables
+Create .env file in root:
 
-### ICT Intern Involvement Plan
-1. Frontend module development (HTML/JS)
-2. Style guide implementation
-3. Basic chart configuration
-4. Documentation tasks
+ini
+VITE_API_BASE_URL=https://api.yourdomain.com
 
-### Migration Path
-```mermaid
-graph LR
-  A[Current JSON] --> B[SQL Server]
-  B --> C[Azure CosmosDB]
-  C --> D[.NET Web API]
-```
+🐳 Docker Deployment
+Build Container
+bash
+docker build -t uniscstats.
+Run Container
+bash
+docker run -d \
+  -p 3000:80 \
+  -e VITE_API_BASE_URL=https://prod.api.example.com \
+  --name uniscstats \
+  uniscstats
+Docker Compose
+yaml
+version: '3.8'
+services:
+  uniscstats:
+    image: uniscstats
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_BASE_URL=https://prod.api.example.com
+    restart: unless-stopped
+🧩 UI Components
+The component library includes:
 
-## Current Implementation Status
+Component	Description	Usage Example
 
-### Completed Features
-✅ Client-side filtering/search  
-✅ Basic dashboard framework  
-✅ Static authentication  
-✅ Chart.js integration
-
-### Immediate Next Steps
-1. Implement .NET authentication backend
-2. Migrate data to Azure SQL
-3. Create role-based access control
-4. Develop API endpoints for:
-   - Dynamic data loading
-   - User preferences
-   - Report metadata
-
-## Testing Requirements
-- [ ] Load testing (500+ concurrent users)
-- [ ] Security penetration testing
-- [ ] Cross-browser validation matrix
-- [ ] Mobile responsiveness checklist
-
-## Success Metrics
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Dashboard Load Time | <2s | Azure Monitor |
-| Query Response | <5s | Application Insights |
-| User Adoption | 85%+ | Google Analytics |
-```
+Import components from @/ui:
+tsx
+import { Button, Button, Slider } from '@/ui';
+📊 Data Flow
+Diagram
+Code
 
 
-Here's a combined task list and Mermaid wireframe visualization for the MyUniSC Data Portal projects:
 
-### Task List Roadmap
+🤝 Contributing
+Fork the repository
 
-**Phase 1: Foundation Setup (Weeks 1-4)**
-```markdown
-- [ ] Set up Azure AD/EntraID authentication
-- [ ] Create role matrix (VCP/Dean/Staff/ExecStaff)
-- [ ] Develop base dashboard template
-- [ ] Implement static JSON data source
-- [ ] Build basic navigation structure
-- [ ] Configure Azure Static Web App hosting
-- [ ] Create security audit checklist
-```
+Create your feature branch (git checkout -b feature/amazing-feature)
 
-**Phase 2: Core Features (Weeks 5-8)**
-```markdown
-- [ ] Develop role-based view switching
-- [ ] Implement PowerBI report embedding
-- [ ] Build dynamic filter components
-- [ ] Create search functionality
-- [ ] Add dark/light mode toggle
-- [ ] Set up basic usage analytics
-```
+Commit changes (git commit -m 'Add amazing feature')
 
-**Phase 3: Enhancement & Testing (Weeks 9-12)**
-```markdown
-- [ ] Implement responsive grid system
-- [ ] Add card/list view toggle
-- [ ] Develop report metadata API
-- [ ] Conduct load testing
-- [ ] Perform security penetration tests
-- [ ] Create user training materials
-```
+Push to branch (git push origin feature/amazing-feature)
 
-### Mermaid Wireframe Visualization
+Open a Pull Request
 
-**Data Portal Dashboard View**
-```mermaid
-graph TD
-    A[Portal Header] --> B[Role Selector]
-    A --> C[Dark/Light Toggle]
-    A --> D[User Profile]
-    B --> E[Dashboard View]
-    E --> F[Left Navigation]
-    F --> G[Quick Filters]
-    E --> H[Main Grid]
-    H --> I1[Enrollment Chart]
-    H --> I2[Attrition Heatmap]
-    H --> I3[Success Metrics]
-    H --> I4[Custom Widget]
-    E --> J[Insights Toolbar]
-    J --> K[Natural Language Input]
-    J --> L[Quick Export]
-```
+Code Standards
+TypeScript strict mode
 
-**Reports Catalog View**
-```mermaid
-graph TD
-    A[Catalog Header] --> B[Search Bar]
-    A --> C[View Toggle]
-    B --> D[Filters Panel]
-    D --> E1[Category]
-    D --> E2[Status]
-    D --> E3[Access Level]
-    A --> F[Main Content]
-    F --> G[Card View]
-    G --> H1[Report Card]
-    H1 --> I1[Preview]
-    H1 --> I2[Metadata]
-    H1 --> I3[Access Button]
-    F --> J[List View]
-    J --> K1[Report Title]
-    J --> K2[Quick Stats]
-    J --> K3[Last Updated]
-```
+ESLint + Prettier enforced
 
-**Mobile View**
-```mermaid
-graph TD
-    A[Hamburger Menu] --> B[User Context]
-    B --> C1[Role: Executive]
-    B --> C2[Dark Mode]
-    A --> D[Main Content]
-    D --> E[Stacked Cards]
-    E --> F1[Collapsed Filters]
-    E --> F2[Chart Preview]
-    E --> F3[Quick Actions]
-    A --> G[Floating Search]
-```
+Atomic component design
 
-Key UI Components Legend:
-1. **Role-Based Color Coding**: Executive views use purple accents, staff views use blue
-2. **Grid System**: 12-column responsive layout with card-based widgets
-3. **Visual Hierarchy**: 
-   - Primary Actions: Purple buttons
-   - Secondary Actions: Gray outlines
-   - Emergency Metrics: Red highlights
+Meaningful commit messages
+
+📄 License
+MIT License - see LICENSE for details.
+
+📬 Contact
+Project Maintainers:
+Name: Pratik Pokharel
+Email: pratikpokhrel!@outlook.com
+
+
 4. **Data Visualization**: 
    - Line charts for trends
    - Heatmaps for density patterns
    - Donut charts for quick stats
 
-Would you like me to elaborate on any specific aspect of the wireframes or task prioritization?
