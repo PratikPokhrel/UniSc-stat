@@ -21,6 +21,11 @@ const Header = () => {
 
   const allNavItems = [
     {
+      title: "Data Domains",
+      parentRoute: "/herm",
+      subItems: []
+    },
+    {
       title: "BI Navigator",
       subItems: [{ name: "Reports", route: '/bi-catalog' }]
     },
@@ -28,10 +33,10 @@ const Header = () => {
       title: "Metadata & Lineage",
       subItems: [{ name: "Reports", route: '/metadata' }]
     },
-    {
-      title: "Data & Analysis",
-      subItems: [{ name: "Reports", route: '/report-list' }]
-    },
+    // {
+    //   title: "Data & Analysis",
+    //   subItems: [{ name: "Reports", route: '/report-list' }]
+    // },
     {
       title: "About",
       parentRoute: "/about",

@@ -6,8 +6,8 @@ import { MailIcon } from 'lucide-react';
 import Header from '@/components/Header';
 
 const Login = () => {
-  const [username, setUsername] = useState('admin@usc.edu.au');
-  const [password, setPassword] = useState('admin@usc.edu.au');
+  const [username, setUsername] = useState('CDOtest@usc.edu.au');
+  const [password, setPassword] = useState('CDOtest@usc.edu.au');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
-      if (username === 'admin@usc.edu.au' && password === 'admin@usc.edu.au') {
+      if (username === 'CDOtest@usc.edu.au' && password === 'CDOtest@usc.edu.au') {
         login();
         setTimeout(() => navigate('/'), 0);
       } else {

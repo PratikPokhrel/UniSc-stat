@@ -88,7 +88,7 @@ export const reports: ReportData[] = [
           { date: "2024-04-05", description: "Mapped faculty codes to display names" , duration: 2},
           { date: "2024-04-22", description: "Derived full-time/part-time flags from credit load",duration: 2 },
           { date: "2024-05-03", description: "Corrected invalid email domains in contact data",duration: 3 },
-          { date: "2024-05-12", description: "Applied GDPR redaction rules on archived reviews",duration: 4 }
+          { date: "2024-05-12", description: "Applied  redaction rules on archived reviews",duration: 4 }
         ]
       },
       data_ownership: {
@@ -151,7 +151,7 @@ export const reports: ReportData[] = [
           { date: "2024-04-05", description: "Mapped faculty codes to display names" },
           { date: "2024-04-22", description: "Derived full-time/part-time flags from credit load" },
           { date: "2024-05-03", description: "Corrected invalid email domains in contact data" },
-          { date: "2024-05-12", description: "Applied GDPR redaction rules on archived reviews" }
+          { date: "2024-05-12", description: "Applied  redaction rules on archived reviews" }
         ]
       },
       data_ownership: {
