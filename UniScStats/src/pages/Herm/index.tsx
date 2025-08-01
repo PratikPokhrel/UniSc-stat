@@ -18,6 +18,7 @@ import GovernanceDomainsDashboard from '../governance/GovernanceDomain.js';
 import OrganizationalCoverage from './OrganizationalCoverage.js';
 import organizationalData  from './org_uit_data.jsx'; // Import organizational data
 import HERMMappingInterface from './HERMmapping.js';
+import MaturityAssessment from '../governance/maturity-assissment.js';
 
 const HERMDashboard = () => {
   const [activeTab, setActiveTab] = useState('org');
@@ -87,7 +88,8 @@ const HERMDashboard = () => {
       <nav className="flex-1 overflow-y-auto min-w-[16rem]">
         {[
           { id: 'org', name: 'Governance Structure', icon: <FiUsers /> },
-          { id: 'org-raw', name: 'Organisation Units', icon: <FiBriefcase  /> },
+          { id: 'org-raw', name: 'Organisation Units', icon: <FiBriefcase  /> }, 
+          { id: 'maturity', name: 'Maturity', icon: <FiBriefcase  /> }, 
           { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
           { id: 'overview', name: 'Overview', icon: <FiHome /> },
           { id: 'domains', name: 'Domains', icon: <FiLayers /> },
@@ -129,6 +131,7 @@ const HERMDashboard = () => {
             {activeTab === 'overview' && (<OverviewTab domains={domainStats} onSelectDomain={setSelectedDomain} setActiveTab={setActiveTab} />)}
             {activeTab === 'domains' && (<GovernanceDomainsDashboard/>)}
             {activeTab === 'org' && (<OrgStructureView />)}
+            {activeTab === 'maturity' && (<MaturityAssessment />)}
             {activeTab === 'org-raw' && (<OrganisationRaw />)}
             {activeTab === 'capabilities' && (<HERMMappingInterface organizationalData={organizationalData} />)}
           </>

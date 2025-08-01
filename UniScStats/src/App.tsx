@@ -19,6 +19,7 @@ import 'toastr/build/toastr.min.css';
 import HERMDashboard from './pages/Herm';
 import VerticalOrgChart from './pages/Herm/governance-structure-list';
 import DCPCanvasDemo from './pages/Herm/canvas/dcp-canvas';
+import QualityDashboard from './pages/Herm/quality-dashboard';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();  // Use AuthContext for dynamic state
@@ -30,6 +31,7 @@ const AppRoutes = () => {
       {isAuthenticated ? (
         <Route element={<Layout />}>
           <Route path="/" element={<HERMDashboard />} />
+          <Route path="/quality" element={<QualityDashboard />} />
           <Route path="/domains" element={<GovernanceDomainsDashboard />} />
           <Route path="/data-product" element={<DataProductsPage />} />
           <Route path="/data-product-details/:id" element={<PurviewDataProductModal />} />

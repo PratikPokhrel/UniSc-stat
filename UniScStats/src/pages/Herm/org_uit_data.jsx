@@ -137,7 +137,7 @@ const organizationalData = {
         ],
         teamMembers: [
             { id: 'user-2', name: 'Andrei Stoian', role: 'Business Intelligence  Manager', email: 'a.stoian@usc.edu', avatar: '👨‍💻', color: 'bg-blue-100 border-blue-300', textColor: 'text-blue-800', department: 'Analytics', permissions: ['assess', 'review'] },
-            { id: 'user-4', name: 'Steve Perry', role: 'Lead Data Governance', email: 'sperry@usc.edu', avatar: '👨‍🏗️', color: 'bg-orange-100 border-orange-300', textColor: 'text-orange-800', department: 'Architecture', permissions: ['assess', 'design'] },
+            { id: 'user-4', name: 'Steve Perry', role: 'Lead Data Governance', email: 'sperry@usc.edu', avatar: '👨‍💼', color: 'bg-orange-100 border-orange-300', textColor: 'text-orange-800', department: 'Architecture', permissions: ['assess', 'design'] },
             { id: 'user-1', name: 'Paul Butler', role: 'Senior Analytics Manager', email: 'p.butler@usc.edu', avatar: '👨‍💼', color: 'bg-purple-100 border-purple-300', textColor: 'text-purple-800', department: 'Data Strategy', permissions: ['assess', 'approve'] },
         ]
     },

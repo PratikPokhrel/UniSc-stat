@@ -9,22 +9,16 @@ import {
     Key,
     FileText,
     Box,
-    Workflow,
     GitBranch,
-    Table,
     Code,
     Activity,
     Layers,
-    Settings,
     Zap,
     Cpu,
     HardDrive,
     Wifi,
     FlaskConical,
-    Shield,
-    User,
-    Clock,
-    Lock
+    ShieldCheck
 } from 'lucide-react';
 import ReactFlow, {
     Controls,
@@ -37,6 +31,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { dataCollections } from './data-collection';
+import DataQualityDashboard from '../quality-dashboard';
 
 // Data sensitivity classification levels
 const SensitivityLevels = {
@@ -885,6 +880,15 @@ const generateLineage = useCallback((entity) => {
                                 </button>
                                 <button
                                     onClick={() => {
+                                        setActiveTab('data-quality');
+                                    }}
+                                    className={`whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm transition-colors ${activeTab === 'data-quality' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+                                >
+                                    <ShieldCheck className="w-4 h-4 inline mr-2" />
+                                   Data Quality Matrix
+                                </button>
+                                 <button
+                                    onClick={() => {
                                         setActiveTab('lineage');
                                         generateLineage(selectedItem);
                                     }}
@@ -978,6 +982,12 @@ const generateLineage = useCallback((entity) => {
                                         )}
                                     </div>
                                     {renderSchemaTable(selectedItem.schema)}
+                                </div>
+                            )}
+
+                              {activeTab === 'data-quality' && (
+                                <div className="space-y-4">
+                                    <DataQualityDashboard/>
                                 </div>
                             )}
 
