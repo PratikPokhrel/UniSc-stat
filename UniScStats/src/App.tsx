@@ -20,6 +20,7 @@ import HERMDashboard from './pages/Herm';
 import VerticalOrgChart from './pages/Herm/governance-structure-list';
 import DCPCanvasDemo from './pages/Herm/canvas/dcp-canvas';
 import QualityDashboard from './pages/Herm/quality-dashboard';
+import DataQualityDashboard from './pages/governance/data-quality-dashboard';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();  // Use AuthContext for dynamic state
@@ -39,6 +40,7 @@ const AppRoutes = () => {
           <Route path="/metadata" element={<MetaDataDashboard />} />
           <Route path="/report-list" element={<UniversityReports />} />
           <Route path="/bi-catalog" element={<DataCatalog />} />
+          <Route path="/db" element={<DataQualityDashboard />} />
           <Route path="/herm" element={<HERMDashboard />}>
               <Route path=":orgUnit" element={<DCPCanvasDemo />} />
           </Route>

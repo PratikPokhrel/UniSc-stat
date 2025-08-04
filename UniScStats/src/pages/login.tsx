@@ -6,8 +6,8 @@ import { MailIcon } from 'lucide-react';
 import Header from '@/components/Header';
 
 const Login = () => {
-  const [username, setUsername] = useState('CDOtest@usc.edu.au');
-  const [password, setPassword] = useState('CDOtest@usc.edu.au');
+  const [username, setUsername] = useState('DGL@usc.edu.au');
+  const [password, setPassword] = useState('DGL@usc.edu.au');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
-      if (username === 'CDOtest@usc.edu.au' && password === 'CDOtest@usc.edu.au') {
+      if (username === 'DGL@usc.edu.au' && password === 'DGL@usc.edu.au') {
         login();
         setTimeout(() => navigate('/'), 0);
       } else {
@@ -49,7 +49,6 @@ const Login = () => {
           />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
         </div>
-
 
         {/* Card */}
         <div className="relative z-10 w-full max-w-sm px-6 py-8 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/20 mx-4">

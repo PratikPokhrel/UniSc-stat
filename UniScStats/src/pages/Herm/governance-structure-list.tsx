@@ -10,7 +10,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { orgData } from './orgData';
-import organisationalData from './org_uit_data.jsx';
+import organisationalData from './org_unit_data.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const VerticalOrgChart = ({ initialSearchTerm }) => {

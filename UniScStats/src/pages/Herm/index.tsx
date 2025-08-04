@@ -1,27 +1,28 @@
 // src/components/HERMDashboard.js
 import { useState, useEffect } from 'react';
-import { 
-  FiHome, FiBook, FiLayers, FiDatabase, FiUsers, FiSettings, 
-  FiChevronDown, FiChevronRight, FiSearch, FiDownload, 
+import {
+  FiHome, FiBook, FiLayers, FiDatabase, FiUsers, FiSettings,
+  FiChevronDown, FiChevronRight, FiSearch, FiDownload,
   FiChevronLeft,
-  FiBriefcase
+  FiBriefcase,
+  FiPieChart
 } from 'react-icons/fi';
 import {
   domains,
   capabilities,
-  activities,
 } from './hermData.js';
 import OrganisationRaw from './organisation-raw.js';
 import OrgStructureView from './governance-structure.js';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import GovernanceDomainsDashboard from '../governance/GovernanceDomain.js';
 import OrganizationalCoverage from './OrganizationalCoverage.js';
-import organizationalData  from './org_uit_data.jsx'; // Import organizational data
+import organizationalData from './org_unit_data.jsx'; // Import organizational data
 import HERMMappingInterface from './HERMmapping.js';
 import MaturityAssessment from '../governance/maturity-assissment.js';
+import DataQualityDashboard from '../governance/data-quality-dashboard.js';
 
 const HERMDashboard = () => {
-  const [activeTab, setActiveTab] = useState('org');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [selectedCapability, setSelectedCapability] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +41,7 @@ const HERMDashboard = () => {
   // Reset activeTab when navigating back to /herm
   useEffect(() => {
     if (!orgUnit && !location.pathname.includes('orgunit')) {
-      setActiveTab('org'); // Or your default tab
+      setActiveTab('dashboard'); // Or your default tab
     }
   }, [location.pathname, orgUnit]);
 
@@ -48,8 +49,8 @@ const HERMDashboard = () => {
   // Filter capabilities based on selections
   const filteredCapabilities = capabilities.filter(cap => {
     const matchesDomain = !selectedDomain || cap.domain === selectedDomain;
-    const matchesSearch = !searchTerm || 
-      cap.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = !searchTerm ||
+      cap.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       cap.id.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesDomain && matchesSearch;
   });
@@ -62,65 +63,66 @@ const HERMDashboard = () => {
   }));
 
   return (
-   <div className="flex h-screen bg-gray-50">
-  {/* Sidebar with toggle button */}
-  <div className="flex">
-    {/* Sidebar Content */}
-    <div className={`bg-white shadow-md flex flex-col transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'}`}>
-      <div className="p-4 border-b min-w-[16rem]">
-        <h1 className="text-xl font-bold text-gray-800">Governance Portal</h1>
-        <p className="text-sm text-gray-500">University of the Sunshine Coast</p>
-      </div>
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar with toggle button */}
+      <div className="flex">
+        {/* Sidebar Content */}
+        <div className={`bg-white shadow-md flex flex-col transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'}`}>
+          <div className="p-4 border-b min-w-[16rem]">
+            <h1 className="text-xl font-bold text-gray-800">Governance Portal</h1>
+            <p className="text-sm text-gray-500">University of the Sunshine Coast</p>
+          </div>
 
-      <div className="p-3 border-b min-w-[16rem]">
-        <div className="relative">
-          <FiSearch className="absolute left-3 top-3 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="p-3 border-b min-w-[16rem]">
+            <div className="relative">
+              <FiSearch className="absolute left-3 top-3 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <nav className="flex-1 overflow-y-auto min-w-[16rem]">
+            {[
+              { id: 'dashboard', name: 'Dashboard', icon: <FiPieChart /> },
+              { id: 'org', name: 'Governance Structure', icon: <FiUsers /> },
+              { id: 'org-raw', name: 'Organisation Units', icon: <FiBriefcase /> },
+              { id: 'maturity', name: 'Maturity Assessment', icon: <FiBriefcase /> },
+              { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
+              { id: 'overview', name: 'Overview', icon: <FiHome /> },
+              { id: 'domains', name: 'Domains', icon: <FiLayers /> },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setSelectedDomain(null);
+                  setSelectedCapability(null);
+                  navigate('/herm');
+                }}
+                className={`flex items-center w-full px-4 py-3 text-left ${activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'}`}>
+                <span className="mr-3">{item.icon}</span>
+                {item.name}
+              </button>
+            ))}
+          </nav>
         </div>
+
+        {/* Toggle Button - positioned at middle of sidebar */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className={`self-center -mr-3 z-10 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition-all duration-200 ${sidebarOpen ? '' : 'ml-3'}`}
+          aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
+        >
+          {sidebarOpen ? <FiChevronLeft /> : <FiChevronRight />}
+        </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto min-w-[16rem]">
-        {[
-          { id: 'org', name: 'Governance Structure', icon: <FiUsers /> },
-          { id: 'org-raw', name: 'Organisation Units', icon: <FiBriefcase  /> }, 
-          { id: 'maturity', name: 'Maturity', icon: <FiBriefcase  /> }, 
-          { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
-          { id: 'overview', name: 'Overview', icon: <FiHome /> },
-          { id: 'domains', name: 'Domains', icon: <FiLayers /> },
-        ].map((item) => (
-          <button
-            key={item.id}
-            onClick={() => {
-              setActiveTab(item.id);
-              setSelectedDomain(null);
-              setSelectedCapability(null);
-              navigate('/herm');
-            }}
-            className={`flex items-center w-full px-4 py-3 text-left ${activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'}`}>
-            <span className="mr-3">{item.icon}</span>
-            {item.name}
-          </button>
-        ))}
-      </nav>
-    </div>
-
-    {/* Toggle Button - positioned at middle of sidebar */}
-    <button
-      onClick={() => setSidebarOpen(!sidebarOpen)}
-      className={`self-center -mr-3 z-10 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition-all duration-200 ${sidebarOpen ? '' : 'ml-3'}`}
-      aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
-    >
-      {sidebarOpen ? <FiChevronLeft /> : <FiChevronRight />}
-    </button>
-  </div>
-
-  {/* Main Content */}
+      {/* Main Content */}
       <div className="flex-1 overflow-auto p-6">
         {orgUnit ? (
           // Show the nested route content when orgUnit is present
@@ -129,7 +131,8 @@ const HERMDashboard = () => {
           // Show regular tab content when no orgUnit is selected
           <>
             {activeTab === 'overview' && (<OverviewTab domains={domainStats} onSelectDomain={setSelectedDomain} setActiveTab={setActiveTab} />)}
-            {activeTab === 'domains' && (<GovernanceDomainsDashboard/>)}
+            {activeTab === 'domains' && (<GovernanceDomainsDashboard />)}
+            {activeTab === 'dashboard' && (<DataQualityDashboard />)}
             {activeTab === 'org' && (<OrgStructureView />)}
             {activeTab === 'maturity' && (<MaturityAssessment />)}
             {activeTab === 'org-raw' && (<OrganisationRaw />)}
@@ -208,11 +211,11 @@ export const DomainsTab = ({ domains, onSelect, selectedDomain, setActiveTab }) 
     <div>
       <h2 className="text-2xl font-bold mb-6">Domains</h2>
       <p className="text-gray-600 mb-6">Strategic business areas that group related capabilities.</p>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {domains.map((domain) => (
-          <div 
-            key={domain.id} 
+          <div
+            key={domain.id}
             className={`p-6 rounded-lg shadow cursor-pointer ${domain.color} ${selectedDomain === domain.id ? 'ring-2 ring-blue-500' : ''}`}
             onClick={() => onSelect(domain.id)}
           >
@@ -221,7 +224,7 @@ export const DomainsTab = ({ domains, onSelect, selectedDomain, setActiveTab }) 
                 <h3 className="font-bold text-lg">{domain.name}</h3>
                 <p className="text-gray-700">{domain.count} capabilities</p>
               </div>
-              <button 
+              <button
                 className="text-sm bg-white bg-opacity-50 px-3 py-1 rounded hover:bg-opacity-70"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -233,7 +236,7 @@ export const DomainsTab = ({ domains, onSelect, selectedDomain, setActiveTab }) 
               </button>
             </div>
             <p className="text-sm text-gray-600 mt-2">{domain.description}</p>
-            
+
             {selectedDomain === domain.id && (
               <div className="mt-4 pt-3 border-t border-white border-opacity-30">
                 <h4 className="text-sm font-semibold mb-2">Key Capabilities:</h4>

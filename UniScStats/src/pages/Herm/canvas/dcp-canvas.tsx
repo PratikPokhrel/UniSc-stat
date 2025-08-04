@@ -18,7 +18,7 @@ import {
     UserPlus,
     TrendingUp,
 } from 'lucide-react';
-import organizationalData from '../org_uit_data.jsx'; // Adjust the import path as necessary
+import organizationalData from '../org_unit_data.jsx'; // Adjust the import path as necessary
 import MaturityBadge from '@/components/badges/maturity-badge.js';
 import RiskBadge from '@/components/badges/risk-badge.js';
 import { colorClasses, themeColors } from './styles/theme-colors.js';

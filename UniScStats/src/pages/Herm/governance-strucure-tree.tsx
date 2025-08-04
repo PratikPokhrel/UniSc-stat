@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { orgData } from './orgData.js'; 
-import organizationalData from './org_uit_data.jsx'; 
+import organizationalData from './org_unit_data.jsx'; 
 
   
 

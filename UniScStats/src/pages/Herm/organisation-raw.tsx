@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Building2, Users, BookOpen, Filter, ChevronDown, Grid, List, X, ArrowRight, Check, ChevronUp, Layers } from 'lucide-react';
-import organizationalData from './org_uit_data.jsx'; // Adjust the import path as necessary
+import organizationalData from './org_unit_data.jsx'; // Adjust the import path as necessary
 import { useNavigate } from 'react-router-dom';
 
 const OrganisationRaw = () => {

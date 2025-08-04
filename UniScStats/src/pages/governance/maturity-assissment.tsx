@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Save, Download, Users, Shield, FileText, Settings, AlertTriangle, CheckCircle, Clock, Target, BarChart3, Database, Brain, Briefcase, User, MapPin, HelpCircle } from 'lucide-react';
 import { Area, AreaChart,  Cell, Label,  Pie, PieChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import organizationalData from './../Herm/org_uit_data.jsx';
-
+import organizationalData from '../Herm/org_unit_data.jsx';
 
 interface AssessmentHistory {
     [orgUnit: string]: {
@@ -24,7 +23,6 @@ interface AssessmentHistoryPanelProps {
     capabilityIndex: number;
     selectedOrgUnit: string;
 }
-
 
 const AssessmentHistoryPanel = ({
     history,
@@ -73,7 +71,7 @@ const MaturityAssessment = () => {
     const [selectedOrgUnit, setSelectedOrgUnit] = useState('IAU');
     const [assessments, setAssessments] = useState<Record<string, any>>({});
     const [assessmentHistory, setAssessmentHistory] = useState<AssessmentHistory>({});
-    const [activeTab, setActiveTab] = useState('assess');
+    const [activeTab, setActiveTab] = useState('dashboard');
     const [notes, setNotes] = useState<Record<string, string>>({});
     const [showHelp, setShowHelp] = useState(false);
 
@@ -90,11 +88,11 @@ const MaturityAssessment = () => {
     }));
 
     const maturityLevels = [
-        { level: 1, name: 'Initial', description: 'Ad-hoc processes, minimal documentation, reactive approach', color: 'bg-red-100 text-red-800 border-red-200' },
-        { level: 2, name: 'Developing', description: 'Basic processes emerging, some documentation, limited consistency', color: 'bg-orange-100 text-orange-800 border-orange-200' },
-        { level: 3, name: 'Defined', description: 'Documented processes, regular application, established procedures', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-        { level: 4, name: 'Managed', description: 'Monitored processes, metrics-driven, continuous improvement', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-        { level: 5, name: 'Optimized', description: 'Continuously optimized, predictive capabilities, innovation-driven', color: 'bg-green-100 text-green-800 border-green-200' }
+        { level: 1, code:'', name: 'Initial', description: 'Ad-hoc processes, minimal documentation, reactive approach', color: 'bg-red-100 text-red-800 border-red-200' },
+        { level: 2, code:'', name: 'Developing', description: 'Basic processes emerging, some documentation, limited consistency', color: 'bg-orange-100 text-orange-800 border-orange-200' },
+        { level: 3, code:'', name: 'Defined', description: 'Documented processes, regular application, established procedures', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+        { level: 4, code:'', name: 'Managed', description: 'Monitored processes, metrics-driven, continuous improvement', color: 'bg-blue-100 text-blue-800 border-blue-200' },
+        { level: 5, code:'', name: 'Optimized', description: 'Continuously optimized, predictive capabilities, innovation-driven', color: 'bg-green-100 text-green-800 border-green-200' }
     ];
 
     const [currentAssessor, setCurrentAssessor] = useState(organizationalData[selectedOrgUnit].teamMembers[1]);
@@ -137,7 +135,7 @@ const MaturityAssessment = () => {
         }));
     };
 
-    const getDomainAverageMaturity = (domainId: string, orgUnit = selectedOrgUnit) => {
+    const getDomainAverageMaturity = (domainId: string, orgUnit = selectedOrgUnit)  => {
         const domainAssessments = assessments[orgUnit]?.[domainId];
         if (!domainAssessments) return 0;
         const levels = Object.values(domainAssessments).map((a: any) => a.level);
@@ -201,13 +199,13 @@ const MaturityAssessment = () => {
     // Chart data calculation
     const chartData = domains.map(d => ({
         name: d.name,
-        value: parseFloat(getDomainAverageMaturity(d.id)),
-        color: getMaturityColor(parseFloat(getDomainAverageMaturity(d.id)))
+        value: parseFloat(getDomainAverageMaturity(d.id) as string),
+        color: getMaturityColor(parseFloat(getDomainAverageMaturity(d.id) as string))
     })).sort((a, b) => b.value - a.value);
 
     const distributionData = [1, 2, 3, 4, 5].map(level => ({
         name: `${maturityLevels[level - 1].name} (${level})`,
-        value: domains.filter(d => Math.floor(parseFloat(getDomainAverageMaturity(d.id))) === level).length,
+        value: domains.filter(d => Math.floor(parseFloat(getDomainAverageMaturity(d.id) as string)) === level).length,
         color: maturityLevels[level - 1].color.split(' ')[0].replace('bg-', '')
     })).filter(item => item.value > 0);
 
@@ -222,7 +220,7 @@ const MaturityAssessment = () => {
                                 <BarChart3 className="h-10 w-10 text-blue-600" />
                                 <div className="ml-4">
                                     <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                                        Governance Maturity Assessment
+                                         Maturity Assessment
                                     </h1>
                                     <p className="mt-1 text-sm text-gray-500">
                                         CAUDIT Higher Education Reference Model (HERM) Framework
@@ -290,20 +288,20 @@ const MaturityAssessment = () => {
                                         {/* Compact Metrics */}
                                         <div className="flex items-center gap-2">
                                             <Target className="h-4 w-4 text-blue-500" />
-                                            <span className={`text-sm ${getMaturityColor(parseFloat(getOverallMaturity()))}`}>
+                                            <span className={`text-sm ${getMaturityColor(parseFloat(getOverallMaturity() as string))}`}>
                                                 {getOverallMaturity()}/5.0
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <CheckCircle className="h-4 w-4 text-green-500" />
                                             <span className="text-sm text-gray-700">
-                                                {Object.values(assessments[selectedOrgUnit] || {}).reduce((total: number, domain: any) => total + Object.keys(domain).length, 0)} assessed
+                                                {Object.values(assessments[selectedOrgUnit] || {}).reduce((total: number, domain: any) => total + Object.keys(domain).length, 0) as any} assessed
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <AlertTriangle className="h-4 w-4 text-yellow-500" />
                                             <span className="text-sm text-yellow-600">
-                                                {domains.filter(d => parseFloat(getDomainAverageMaturity(d.id)) < 3 && parseFloat(getDomainAverageMaturity(d.id)) > 0).length} gaps
+                                                {domains.filter(d => parseFloat(getDomainAverageMaturity(d.id) as string) < 3 && parseFloat(getDomainAverageMaturity(d.id) as string) > 0).length} gaps
                                             </span>
                                         </div>
                                     </div>
@@ -337,6 +335,13 @@ const MaturityAssessment = () => {
                 {/* Tabs */}
                 <div className="border-b border-gray-200 mb-6">
                     <nav className="-mb-px flex space-x-8">
+
+                         <button
+                            onClick={() => setActiveTab('dashboard')}
+                            className={`${activeTab === 'dashboard' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                        >
+                            Maturity Dashboard
+                        </button>
                         <button
                             onClick={() => setActiveTab('assess')}
                             className={`${activeTab === 'assess' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
@@ -349,12 +354,7 @@ const MaturityAssessment = () => {
                         >
                             Compliance Analysis
                         </button>
-                        <button
-                            onClick={() => setActiveTab('dashboard')}
-                            className={`${activeTab === 'dashboard' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
-                        >
-                            Maturity Dashboard
-                        </button>
+                       
                     </nav>
                 </div>
 
@@ -601,7 +601,7 @@ const MaturityAssessment = () => {
                             {/* Domain Maturity Levels - Half Doughnut Charts */}
                             <div className="bg-white shadow rounded-lg overflow-hidden">
                                 <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-                                    <h3 className="text-lg font-medium leading-6 text-gray-900">Domain Maturity Levels</h3>
+                                    <h3 className="text-lg font-medium leading-6 text-gray-900">Capability Maturity Levels</h3>
                                 </div>
                                 <div className="p-4">
                                     <div className="flex overflow-x-auto pb-4 gap-6">
@@ -643,10 +643,11 @@ const MaturityAssessment = () => {
                                                                 fill={
                                                                     domain.value >= 4 ? '#10B981' :
                                                                         domain.value >= 3 ? '#3B82F6' :
-                                                                            domain.value >= 2 ? '#F59E0B' : '#EF4444'
+                                                                            domain.value >= 2 ? '#F59E0B' : 
+                                                                                 domain.value == 0 ? '#A2AF9B': '#EF4444'
                                                                 }
                                                             >
-                                                                {domain.value.toFixed(1)}
+                                                                {domain.value.toFixed(1) == '0.0' ? 'N/A' : domain.value.toFixed(1)}
                                                             </text>
                                                             <text
                                                                 x="50%"
@@ -655,7 +656,8 @@ const MaturityAssessment = () => {
                                                                 dominantBaseline="middle"
                                                                 className="text-xs text-gray-500"
                                                             >
-                                                                /5.0
+                                                                 {domain.value.toFixed(1) == '0.0' ? '' : '/5.0'}
+                                                                
                                                             </text>
                                                         </PieChart>
                                                     </ResponsiveContainer>

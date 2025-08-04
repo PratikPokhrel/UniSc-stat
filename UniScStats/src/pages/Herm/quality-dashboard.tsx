@@ -1,3 +1,4 @@
+import { ClockIcon, DatabaseIcon, RulerIcon, TableIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
@@ -328,27 +329,31 @@ const DataQualityDashboard = () => {
         <div className="w-full min-h-screen bg-gray-50 p-6">
             <div className="max-w-full mx-auto">
                 {/* Header */}
-                {/* <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-white p-4 sm:p-4 rounded-xl shadow-sm border border-gray-100">
-                    <div className="space-y-1">
+               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 bg-white p-5 rounded-lg shadow-xs border border-gray-100">
+                    <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">Data Quality</h3>
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 tracking-tight">Data Quality</h3>
                         </div>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm">
-                            <span className="text-gray-500">Last refreshed: {new Date().toLocaleString()}</span>
-                            <span className="text-gray-500">Records: 1.25M</span>
-                            <span className="text-gray-500">Tables: 47</span>
-                            <span className="text-gray-500">Rules: 156</span>
+                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-gray-500">
+                            <span className="flex items-center gap-1.5">
+                                <ClockIcon className="h-3.5 w-3.5" />
+                                Last refreshed: {new Date().toLocaleString()}
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <DatabaseIcon className="h-3.5 w-3.5" />
+                                Records: 1.25M
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <TableIcon className="h-3.5 w-3.5" />
+                                Tables: 47
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <RulerIcon className="h-3.5 w-3.5" />
+                                Rules: 156
+                            </span>
                         </div>
                     </div>
-                    <div className="flex gap-2 w-full sm:w-auto">
-                        <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white border border-gray-300 text-sm rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Export
-                        </button>
-                    </div>
-                </div> */}
+                </div>
 
                 {/* Main Content Area */}
                 <div className="flex flex-col lg:flex-row gap-6">
