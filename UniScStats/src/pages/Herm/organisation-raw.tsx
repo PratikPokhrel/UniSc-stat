@@ -9,7 +9,7 @@ const OrganisationRaw = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [viewMode, setViewMode] = useState('grid');
     const [showFilters, setShowFilters] = useState(true);
-    const [filterHERM, setFilterHERM] = useState(false); // Add this with your other state declarations
+    const [filterHERM, setFilterHERM] = useState(true); // Add this with your other state declarations
     const navigate = useNavigate();
 
     const getCategoryColor = (category) => {
@@ -636,7 +636,7 @@ const OrganisationRaw = () => {
         setSelectedCategory('all');
         setFilterHERM(false); // Also clear the HERM filter
     };
-    const onCardClickNavigate = (departmentCode) => { navigate(`/herm/${departmentCode}`); }
+    const onCardClickNavigate = (departmentCode) => { navigate(`/governance/${departmentCode}`); }
 
     return (
         <div className="min-h-screen bg-gray-50">

@@ -21,8 +21,8 @@ const Header = () => {
 
   const allNavItems = [
     {
-      title: "Data Domains",
-      parentRoute: "/herm",
+      title: "Governance Portal",
+      parentRoute: "/governance",
       subItems: []
     },
     {

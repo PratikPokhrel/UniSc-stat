@@ -112,7 +112,7 @@ const VerticalOrgChart = ({ initialSearchTerm }) => {
 
   // Click handler for L4 nodes
   const handleClick = () => {
-    if (isClickableL4) navigate(`/herm/${parentUdc}`)
+    if (isClickableL4) navigate(`/governance/${parentUdc}`)
   };
 
   if (!matchesSearch(node)) {

@@ -17,6 +17,7 @@ import {
     Lightbulb,
     UserPlus,
     TrendingUp,
+    ChartBar,
 } from 'lucide-react';
 import organizationalData from '../org_unit_data.jsx'; // Adjust the import path as necessary
 import MaturityBadge from '@/components/badges/maturity-badge.js';

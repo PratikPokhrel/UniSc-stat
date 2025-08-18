@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Save, Download, Users, Shield, FileText, Settings, AlertTriangle, CheckCircle, Clock, Target, BarChart3, Database, Brain, Briefcase, User, MapPin, HelpCircle } from 'lucide-react';
-import { Area, AreaChart,  Cell, Label,  Pie, PieChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { ChevronDown, ChevronRight, Save, Download, Users, Shield, FileText, Settings, AlertTriangle, CheckCircle, Clock, Target, BarChart3, Database, Brain, Briefcase, User, MapPin, HelpCircle, TrendingUp, Globe, Layers } from 'lucide-react';
+import { Area, AreaChart, Bar, CartesianGrid, Cell, Label, Legend, Pie, PieChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, RadialBar, RadialBarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis, BarChart } from 'recharts';
 import organizationalData from '../Herm/org_unit_data.jsx';
 
 interface AssessmentHistory {
@@ -88,11 +88,11 @@ const MaturityAssessment = () => {
     }));
 
     const maturityLevels = [
-        { level: 1, code:'', name: 'Initial', description: 'Ad-hoc processes, minimal documentation, reactive approach', color: 'bg-red-100 text-red-800 border-red-200' },
-        { level: 2, code:'', name: 'Developing', description: 'Basic processes emerging, some documentation, limited consistency', color: 'bg-orange-100 text-orange-800 border-orange-200' },
-        { level: 3, code:'', name: 'Defined', description: 'Documented processes, regular application, established procedures', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-        { level: 4, code:'', name: 'Managed', description: 'Monitored processes, metrics-driven, continuous improvement', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-        { level: 5, code:'', name: 'Optimized', description: 'Continuously optimized, predictive capabilities, innovation-driven', color: 'bg-green-100 text-green-800 border-green-200' }
+        { level: 1, code: '', name: 'Initial', description: 'Ad-hoc processes, minimal documentation, reactive approach', color: 'bg-red-100 text-red-800 border-red-200' },
+        { level: 2, code: '', name: 'Developing', description: 'Basic processes emerging, some documentation, limited consistency', color: 'bg-orange-100 text-orange-800 border-orange-200' },
+        { level: 3, code: '', name: 'Defined', description: 'Documented processes, regular application, established procedures', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+        { level: 4, code: '', name: 'Managed', description: 'Monitored processes, metrics-driven, continuous improvement', color: 'bg-blue-100 text-blue-800 border-blue-200' },
+        { level: 5, code: '', name: 'Optimized', description: 'Continuously optimized, predictive capabilities, innovation-driven', color: 'bg-green-100 text-green-800 border-green-200' }
     ];
 
     const [currentAssessor, setCurrentAssessor] = useState(organizationalData[selectedOrgUnit].teamMembers[1]);
@@ -135,7 +135,7 @@ const MaturityAssessment = () => {
         }));
     };
 
-    const getDomainAverageMaturity = (domainId: string, orgUnit = selectedOrgUnit)  => {
+    const getDomainAverageMaturity = (domainId: string, orgUnit = selectedOrgUnit) => {
         const domainAssessments = assessments[orgUnit]?.[domainId];
         if (!domainAssessments) return 0;
         const levels = Object.values(domainAssessments).map((a: any) => a.level);
@@ -196,6 +196,32 @@ const MaturityAssessment = () => {
         a.click();
     };
 
+    // Helper function to get color hex based on maturity level
+    const getMaturityColorHex = (value: number) => {
+        if (value >= 4) return '#10B981'; // Green
+        if (value >= 3) return '#3B82F6'; // Blue
+        if (value >= 2) return '#F59E0B'; // Yellow
+        if (value > 0) return '#EF4444';  // Red
+        return '#9CA3AF';                 // Gray (not assessed)
+    };
+
+    // Helper function to get maturity level name
+    const getMaturityLevelName = (value: number) => {
+        if (value >= 4.5) return 'Optimized';
+        if (value >= 3.5) return 'Managed';
+        if (value >= 2.5) return 'Defined';
+        if (value >= 1.5) return 'Developing';
+        if (value > 0) return 'Initial';
+        return 'Not Assessed';
+    };
+
+    // First, create a helper function to safely parse maturity values
+    const parseMaturityValue = (value) => {
+        const num = parseFloat(value);
+        return isNaN(num) ? 0 : num;
+    };
+
+
     // Chart data calculation
     const chartData = domains.map(d => ({
         name: d.name,
@@ -212,15 +238,15 @@ const MaturityAssessment = () => {
     return (
         <div className="w-full bg-gray-50">
             {/* Header */}
-            <header className="bg-white shadow-sm">
-                <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <header className="bg-white shadow-sm rounded-lg">
+                <div className="w-full mx-auto px-4 sm:px-6 lg:px-2 py-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center">
                                 <BarChart3 className="h-10 w-10 text-blue-600" />
                                 <div className="ml-4">
                                     <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                                         Maturity Assessment
+                                        Maturity Assessment
                                     </h1>
                                     <p className="mt-1 text-sm text-gray-500">
                                         CAUDIT Higher Education Reference Model (HERM) Framework
@@ -336,7 +362,7 @@ const MaturityAssessment = () => {
                 <div className="border-b border-gray-200 mb-6">
                     <nav className="-mb-px flex space-x-8">
 
-                         <button
+                        <button
                             onClick={() => setActiveTab('dashboard')}
                             className={`${activeTab === 'dashboard' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                         >
@@ -354,7 +380,7 @@ const MaturityAssessment = () => {
                         >
                             Compliance Analysis
                         </button>
-                       
+
                     </nav>
                 </div>
 
@@ -377,7 +403,7 @@ const MaturityAssessment = () => {
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0">
-                                                        {domain.icon}
+                                                        {domain?.icon}
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">{domain.name}</div>
@@ -422,7 +448,7 @@ const MaturityAssessment = () => {
                                                 </div>
 
                                                 <div className="px-4 py-5 sm:p-6">
-                                                    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                                                    {/* <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
                                                         <div className="flex">
                                                             <div className="flex-shrink-0">
                                                                 <Shield className="h-5 w-5 text-yellow-400" />
@@ -438,9 +464,9 @@ const MaturityAssessment = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
 
-                                                    <p className="text-gray-600 mb-6">{domain.description}</p>
+                                                    <p className="text-gray-600 font-bold mb-6">{domain.description}</p>
 
                                                     <div className="space-y-6">
                                                         {domain.capabilities.map((capability, index) => (
@@ -469,11 +495,11 @@ const MaturityAssessment = () => {
                                                                             key={level.level}
                                                                             onClick={() => handleMaturityAssignment(selectedDomain, index, level.level)}
                                                                             className={`p-3 rounded-lg border-2 text-center transition-all ${assessments[selectedOrgUnit]?.[selectedDomain]?.[index]?.level === level.level
-                                                                                    ? level.color + ' border-current shadow-md'
-                                                                                    : 'border-gray-200 hover:border-gray-300 bg-white-200 hover:bg-gray-100'
+                                                                                ? level.color + ' border-current shadow-md'
+                                                                                : 'border-gray-200 hover:border-gray-300 bg-white-200 hover:bg-gray-100'
                                                                                 }`}
                                                                         >
-                                                                            <div className="font-bold text-lg">{level.level}</div>
+                                                                            <div className="font-bold text-lg">{"L"}{level.level}</div>
                                                                             <div className="text-xs font-medium">{level.name}</div>
                                                                         </button>
                                                                     ))}
@@ -596,114 +622,449 @@ const MaturityAssessment = () => {
 
                 {activeTab === 'dashboard' && (
                     <div className="space-y-6">
-                        {/* Charts Section */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Domain Maturity Levels - Half Doughnut Charts */}
-                            <div className="bg-white shadow rounded-lg overflow-hidden">
-                                <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-                                    <h3 className="text-lg font-medium leading-6 text-gray-900">Capability Maturity Levels</h3>
-                                </div>
-                                <div className="p-4">
-                                    <div className="flex overflow-x-auto pb-4 gap-6">
-                                        {chartData.map((domain, index) => (
-                                            <div key={index} className="flex-shrink-0 w-48">
-                                                <div className="text-sm font-medium text-gray-700 mb-2 text-center truncate px-2">
-                                                    {domain.name}
-                                                </div>
-                                                <div className="relative h-40 mx-auto" style={{ width: '160px' }}>
-                                                    <ResponsiveContainer width="100%" height="100%">
-                                                        <PieChart>
-                                                            <Pie
-                                                                data={[
-                                                                    { name: 'Completed', value: domain.value },
-                                                                    { name: 'Remaining', value: 5 - domain.value }
-                                                                ]}
-                                                                cx="50%"
-                                                                cy="90%"
-                                                                startAngle={180}
-                                                                endAngle={0}
-                                                                innerRadius={60}
-                                                                outerRadius={80}
-                                                                paddingAngle={0}
-                                                                dataKey="value"
-                                                            >
-                                                                <Cell fill={
-                                                                    domain.value >= 4 ? '#10B981' :
-                                                                        domain.value >= 3 ? '#3B82F6' :
-                                                                            domain.value >= 2 ? '#F59E0B' : '#EF4444'
-                                                                } />
-                                                                <Cell fill="#F3F4F6" />
-                                                            </Pie>
-                                                            <text
-                                                                x="50%"
-                                                                y="85%"
-                                                                textAnchor="middle"
-                                                                dominantBaseline="middle"
-                                                                className="text-2xl font-bold"
-                                                                fill={
-                                                                    domain.value >= 4 ? '#10B981' :
-                                                                        domain.value >= 3 ? '#3B82F6' :
-                                                                            domain.value >= 2 ? '#F59E0B' : 
-                                                                                 domain.value == 0 ? '#A2AF9B': '#EF4444'
-                                                                }
-                                                            >
-                                                                {domain.value.toFixed(1) == '0.0' ? 'N/A' : domain.value.toFixed(1)}
-                                                            </text>
-                                                            <text
-                                                                x="50%"
-                                                                y="95%"
-                                                                textAnchor="middle"
-                                                                dominantBaseline="middle"
-                                                                className="text-xs text-gray-500"
-                                                            >
-                                                                 {domain.value.toFixed(1) == '0.0' ? '' : '/5.0'}
-                                                                
-                                                            </text>
-                                                        </PieChart>
-                                                    </ResponsiveContainer>
-                                                </div>
-                                                <div className="mt-1 text-xs text-gray-500 text-center truncate px-2">
-                                                    {domain.hermAlignment}
-                                                </div>
-                                            </div>
-                                        ))}
+                        {/* Charts Section - Now 3 columns */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            {/* Capability Maturity Radar */}
+                            <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+                                <div className="px-5 py-4 border-b border-gray-200">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="flex items-center">
+                                            <BarChart3 className="h-5 w-5 text-blue-600 mr-2" />
+                                            <h3 className="text-lg font-semibold text-gray-800">
+                                                Capability Maturity
+                                            </h3>
+                                        </div>
+                                        <p className="text-sm text-gray-500">
+                                            |  Assessment across all HERM-aligned domains
+                                        </p>
                                     </div>
+                                </div>
+
+                                <div className="p-4 aspect-[4/2.1] relative">
+                                    <div className="absolute inset-0 opacity-10 [background:radial-gradient(circle_at_center,#3b82f6_0,transparent_50%)]"></div>
+
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <RadarChart
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius="80%"
+                                            margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
+                                            data={chartData}
+                                        >
+                                            {/* Custom polar grid with subtle styling */}
+                                            <PolarGrid
+                                                gridType="circle"
+                                                radialLines={false}
+                                                stroke="#E5E7EB"
+                                                strokeWidth={0.5}
+                                                fillOpacity={0.1}
+                                            />
+
+                                            {/* Target circle at level 3 */}
+                                            <PolarGrid
+                                                gridType="circle"
+                                                radialLines={false}
+                                                stroke="#3B82F6"
+                                                strokeWidth={1}
+                                                strokeDasharray="4 4"
+                                                polarRadius={[0, 20, 40, 60, 80].map(percent => { percent })}
+                                                fillOpacity={0}
+                                            />
+
+                                            {/* Axis with better styling */}
+                                            <PolarAngleAxis
+                                                dataKey="name"
+                                                tick={{ fill: '#4B5563', fontSize: 12, fontWeight: 600 }}
+                                                tickLine={{ stroke: '#D1D5DB' }}
+                                                axisLine={{ stroke: '#D1D5DB' }}
+                                            />
+
+                                            {/* Radius axis with level indicators */}
+                                            <PolarRadiusAxis
+                                                angle={30}
+                                                domain={[1, 5]}
+                                                tickCount={6}
+                                                tick={{ fill: '#6B7280', fontSize: 12 }}
+                                                tickFormatter={(value) => `${value}`}
+                                                ticks={[1, 2, 3, 4, 5]}
+                                                axisLine={{ stroke: '#D1D5DB' }}
+                                            />
+
+                                            {/* Main radar with gradient fill */}
+                                            <Radar
+                                                name="Maturity Level"
+                                                dataKey="value"
+                                                stroke="#4F46E5"
+                                                strokeWidth={2}
+                                                fill="url(#radarGradient)"
+                                                fillOpacity={0.8}
+                                                dot={{ fill: '#4F46E5', strokeWidth: 2, r: 4 }}
+                                                activeDot={{ fill: '#FFFFFF', stroke: '#4F46E5', strokeWidth: 2, r: 5 }}
+                                                animationEasing="ease-out"
+                                                animationDuration={800}
+                                            >
+                                                {/* Add labels for each point */}
+                                                {chartData.map((entry, index) => (
+                                                    <Label
+                                                        key={`label-${index}`}
+                                                        position="top"
+                                                        content={({ x, y }) => (
+                                                            <text
+                                                                x={x}
+                                                                y={y - 10}
+                                                                textAnchor="middle"
+                                                                fill="#4F46E5"
+                                                                fontSize={12}
+                                                                fontWeight="bold"
+                                                            >
+                                                                {entry.value.toFixed(1)}
+                                                            </text>
+                                                        )}
+                                                    />
+                                                ))}
+                                            </Radar>
+
+                                            {/* Gradient definition */}
+                                            <defs>
+                                                <linearGradient id="radarGradient" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="0%" stopColor="#6366F1" stopOpacity={0.8} />
+                                                    <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0.5} />
+                                                </linearGradient>
+                                            </defs>
+
+                                            {/* Custom tooltip */}
+                                            <Tooltip
+                                                content={({ active, payload, label }) => {
+                                                    if (active && payload && payload.length) {
+                                                        const value = payload[0].value;
+                                                        let levelText = '';
+                                                        let levelColor = '';
+
+                                                        if (value < 2) {
+                                                            levelText = 'Initial';
+                                                            levelColor = '#EF4444';
+                                                        } else if (value < 3) {
+                                                            levelText = 'Developing';
+                                                            levelColor = '#F59E0B';
+                                                        } else if (value < 4) {
+                                                            levelText = 'Defined';
+                                                            levelColor = '#10B981';
+                                                        } else {
+                                                            levelText = 'Optimized';
+                                                            levelColor = '#3B82F6';
+                                                        }
+
+                                                        return (
+                                                            <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
+                                                                <div className="font-bold text-gray-900">{label}</div>
+                                                                <div className="flex items-center mt-1">
+                                                                    <span className="inline-block w-3 h-3 rounded-full mr-2" style={{ backgroundColor: levelColor }}></span>
+                                                                    <span className="text-sm">
+                                                                        <span className="font-medium">{value}/5.0</span> - {levelText}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="text-xs text-gray-500 mt-1">
+                                                                    {domains.find(d => d.name === label)?.hermAlignment}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
+                                            />
+
+                                            {/* Custom legend */}
+                                            <Legend
+                                                content={() => (
+                                                    <div className="flex justify-center space-x-4 mt-2">
+                                                        <div className="flex items-center space-x-1">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
+                                                                Target: 3.0+
+                                                            </span>
+                                                            <Clock className="h-3 w-3 text-gray-400" />
+                                                            <span className="text-xs text-gray-500 text-bold">
+                                                                DEC, 2025
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            />
+                                        </RadarChart>
+                                    </ResponsiveContainer>
                                 </div>
                             </div>
 
-                            {/* Quarterly Trend Chart - Now taking full width */}
-                            <div className="bg-white shadow rounded-lg overflow-hidden">
-                                <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-                                    <h3 className="text-lg font-medium leading-6 text-gray-900">Quarterly Maturity Trend</h3>
+                            {/* Maturity Distribution by Level (Horizontal Bar Chart) */}
+                            <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+                                <div className="px-5 py-4 border-b border-gray-200">
+                                    <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                                        <Layers className="h-5 w-5 text-blue-600 mr-2" />
+                                        Maturity Distribution
+                                    </h3>
                                 </div>
-                                <div className="p-4 h-80">
+                                <div className="p-4 aspect-[4/2.1]">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart
+                                            layout="vertical"
+                                            data={[
+                                                { level: 'Level 1', value: 4, color: '#EF4444', label: 'Initial' },
+                                                { level: 'Level 2', value: 5, color: '#F59E0B', label: 'Developing' },
+                                                { level: 'Level 3', value: 6, color: '#10B981', label: 'Defined' },
+                                                { level: 'Level 4', value: 7, color: '#3B82F6', label: 'Managed' },
+                                                { level: 'Level 5', value: 3, color: '#8B5CF6', label: 'Optimized' },
+                                            ]}
+                                            margin={{ top: 20, right: 30, left: 40, bottom: 20 }}
+                                        >
+                                            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
+                                            <XAxis
+                                                type="number"
+                                                tick={{ fill: '#6B7280', fontSize: 12 }}
+                                                axisLine={{ stroke: '#D1D5DB' }}
+                                                tickLine={{ stroke: '#D1D5DB' }}
+                                            />
+                                            <YAxis
+                                                dataKey="level"
+                                                type="category"
+                                                width={80}
+                                                tick={{ fill: '#6B7280', fontSize: 12 }}
+                                                axisLine={{ stroke: '#D1D5DB' }}
+                                                tickLine={{ stroke: '#D1D5DB' }}
+                                            />
+                                            <Tooltip
+                                                content={({ active, payload }) => {
+                                                    if (active && payload && payload.length) {
+                                                        return (
+                                                            <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
+                                                                <p className="font-bold">{payload[0].payload.label}</p>
+                                                                <p className="text-sm">
+                                                                    {payload[0].value} capabilities
+                                                                </p>
+                                                                <p className="text-xs text-gray-500 mt-1">
+                                                                    {Math.round((payload[0].value / 45) * 100)}% of total
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
+                                            />
+                                            <Bar
+                                                dataKey="value"
+                                                name="Capabilities"
+                                                animationDuration={1500}
+                                            >
+                                                {[
+                                                    { level: 'Level 1', value: 8, color: '#EF4444' },
+                                                    { level: 'Level 2', value: 12, color: '#F59E0B' },
+                                                    { level: 'Level 3', value: 15, color: '#10B981' },
+                                                    { level: 'Level 4', value: 7, color: '#3B82F6' },
+                                                    { level: 'Level 5', value: 3, color: '#8B5CF6' },
+                                                ].map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))}
+                                            </Bar>
+                                            <ReferenceLine
+                                                x={15}
+                                                stroke="#6B7280"
+                                                strokeDasharray="4 4"
+                                                label={{
+                                                    value: 'Target',
+                                                    position: 'right',
+                                                    fill: '#6B7280',
+                                                    fontSize: 12
+                                                }}
+                                            />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Domain Comparison (Radial Bar Chart) */}
+                            <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+                                <div className="px-5 py-4 border-b border-gray-200">
+                                    <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                                        <Globe className="h-5 w-5 text-blue-600 mr-2" />
+                                        Domain Comparison
+                                    </h3>
+                                </div>
+                                <div className="p-4 aspect-[4/2.1]">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <RadialBarChart
+                                            innerRadius="20%"
+                                            outerRadius="90%"
+                                            data={domains.slice(0, 6).map(domain => {
+                                                const maturityValue = parseMaturityValue(getDomainAverageMaturity(domain.id));
+                                                return {
+                                                    name: domain.name,
+                                                    value: maturityValue,
+                                                    fill: getMaturityColorHex(maturityValue)
+                                                };
+                                            })}
+                                            startAngle={180}
+                                            endAngle={-180}
+                                        >
+                                            <PolarGrid stroke="#E5E7EB" />
+                                            <PolarAngleAxis
+                                                type="number"
+                                                domain={[0, 5]}
+                                                angleAxisId={0}
+                                                tick={false}
+                                            />
+                                            <RadialBar
+                                                background
+                                                dataKey="value"
+                                                cornerRadius={4}
+                                                animationBegin={100}
+                                                animationDuration={1000}
+                                                animationEasing="ease-out"
+                                            >
+                                                {domains.slice(0, 6).map((entry, index) => (
+                                                    <Cell
+                                                        key={`cell-${index}`}
+                                                        fill={getMaturityColorHex(parseFloat(getDomainAverageMaturity(entry.id)) || '#9CA3AF')}
+                                                    />
+                                                ))}
+                                            </RadialBar>
+                                            <Tooltip
+                                                formatter={(value) => [`${value.toFixed(1)}/5.0`, 'Maturity Level']}
+                                                contentStyle={{
+                                                    backgroundColor: '#fff',
+                                                    borderColor: '#E5E7EB',
+                                                    borderRadius: '0.5rem',
+                                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                                }}
+                                            />
+                                            <Legend
+                                                layout="horizontal"
+                                                verticalAlign="bottom"
+                                                align="center"
+                                                wrapperStyle={{
+                                                    paddingTop: '20px',
+                                                    fontSize: '12px'
+                                                }}
+                                                formatter={(value) => {
+                                                    const domain = domains.find(d => d.name === value);
+                                                    if (!domain) return value;
+                                                    const maturityValue = parseMaturityValue(getDomainAverageMaturity(domain.id));
+                                                    return `${domain.name} (${maturityValue.toFixed(1)})`;
+                                                }}
+                                            />
+                                        </RadialBarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                      
+                        </div>
+
+                        {/* Second row with Quarterly Maturity Trend */}
+                        <div className="grid grid-cols-1 gap-6">
+                            {/* Quarterly Maturity Trend - Compact Version */}
+                            <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+                                <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+                                    <h3 className="text-md font-semibold text-gray-800 flex items-center">
+                                        <TrendingUp className="h-4 w-4 text-blue-600 mr-2" />
+                                        Quarterly Maturity Trend
+                                    </h3>
+                                    <div className="flex items-center text-xs text-gray-500">
+                                        <span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1"></span>
+                                        Current: 2.7
+                                        <span className="inline-block w-2 h-2 rounded-full bg-green-500 mx-2 ml-3 mr-1"></span>
+                                        Target: 3.0
+                                    </div>
+                                </div>
+
+                                <div className="p-3 h-64"> {/* Reduced height from aspect ratio */}
                                     <ResponsiveContainer width="100%" height="100%">
                                         <AreaChart
                                             data={[
                                                 { quarter: 'Q1 2024', maturity: 2.1 },
                                                 { quarter: 'Q2 2024', maturity: 2.4 },
-                                                { quarter: 'Q3 2024', maturity: 2.7 },
-                                                { quarter: 'Q4 2024', maturity: 3.0 },
-                                                { quarter: 'Q1 2025', maturity: 3.2 },
-                                                { quarter: 'Q2 2025', maturity: 3.5 },
+                                                { quarter: 'Q3 2024', maturity: 2.5 },
+                                                { quarter: 'Q4 2024', maturity: 2.6 },
+                                                { quarter: 'Q1 2025', maturity: 2.7 },
+                                                { quarter: 'Q2 2025', maturity: 2.7 },
                                             ]}
-                                            margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                                            margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
                                         >
-                                            <XAxis dataKey="quarter" />
-                                            <YAxis domain={[0, 5]} />
-                                            <Tooltip
-                                                formatter={(value) => [`${value}/5.0`, 'Maturity Level']}
-                                                labelFormatter={(quarter) => `Quarter: ${quarter}`}
+                                            {/* Simplified X Axis */}
+                                            <XAxis
+                                                dataKey="quarter"
+                                                axisLine={false}
+                                                tickLine={false}
+                                                tick={{ fill: '#6B7280', fontSize: 11 }}
+                                                padding={{ left: 10, right: 10 }}
                                             />
+
+                                            {/* Compact Y Axis */}
+                                            <YAxis
+                                                domain={[1, 5]}
+                                                axisLine={false}
+                                                tickLine={false}
+                                                tick={{ fill: '#6B7280', fontSize: 11 }}
+                                                ticks={[1, 2, 3, 4, 5]}
+                                                tickFormatter={(value) => `${value}`}
+                                                width={20}
+                                            />
+
+                                            {/* Gradient Area */}
+                                            <defs>
+                                                <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.8} />
+                                                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.1} />
+                                                </linearGradient>
+                                            </defs>
+
+                                            {/* Slimmer Area */}
                                             <Area
                                                 type="monotone"
                                                 dataKey="maturity"
-                                                stroke="#6f8ec0ff"
-                                                fill="#93C5FD"
-                                                fillOpacity={0.8}
+                                                stroke="#3B82F6"
+                                                strokeWidth={2}
+                                                fill="url(#areaGradient)"
+                                                fillOpacity={1}
+                                                activeDot={{
+                                                    r: 4,
+                                                    strokeWidth: 1,
+                                                    fill: '#FFFFFF',
+                                                    stroke: '#3B82F6'
+                                                }}
+                                                animationDuration={1000}
                                             />
-                                            <ReferenceLine y={3} stroke="#F59E0B" strokeDasharray="5 5" />
-                                            <Label value="Target" offset={10} position="right" fill="#F59E0B" />
+
+                                            {/* Target Reference Line */}
+                                            <ReferenceLine
+                                                y={3}
+                                                stroke="#10B981"
+                                                strokeWidth={1.5}
+                                                strokeDasharray="3 3"
+                                            />
+
+                                            {/* Light Grid */}
+                                            <CartesianGrid
+                                                vertical={false}
+                                                strokeDasharray="2 2"
+                                                stroke="#E5E7EB"
+                                                strokeOpacity={0.5}
+                                            />
+
+                                            {/* Compact Tooltip */}
+                                            <Tooltip
+                                                content={({ active, payload, label }) => {
+                                                    if (active && payload && payload.length) {
+                                                        const value = payload[0].value;
+                                                        const isAboveTarget = value >= 3;
+                                                        return (
+                                                            <div className="bg-white p-2 rounded-md shadow-md border border-gray-200 text-xs">
+                                                                <p className="font-semibold">{label}</p>
+                                                                <p className={isAboveTarget ? 'text-green-600' : 'text-blue-600'}>
+                                                                    {value.toFixed(1)}/5.0
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
+                                            />
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -713,7 +1074,7 @@ const MaturityAssessment = () => {
                         {/* HERM Alignment Overview */}
                         <div className="bg-white shadow rounded-lg overflow-hidden">
                             <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-                                <h3 className="text-lg font-medium leading-6 text-gray-900">HERM Framework Alignment</h3>
+                                <h3 className="text-lg font-medium leading-6 text-gray-900">Across CAUDIT-HERM Capabilities</h3>
                             </div>
                             <div className="px-4 py-5 sm:p-6">
                                 <div className="space-y-4">
@@ -819,7 +1180,7 @@ const MaturityAssessment = () => {
                 {/* Maturity Level Reference */}
                 <div className="bg-white shadow rounded-lg overflow-hidden mt-6">
                     <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">CAUDIT HERM Maturity Level Reference</h3>
+                        <h3 className="text-lg font-medium leading-6 text-gray-900">DMBOK (Data Management Body of Knowledge) maturity levels</h3>
                     </div>
                     <div className="px-4 py-5 sm:p-6">
                         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">

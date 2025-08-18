@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Area, AreaChart, Legend, ReferenceLine } from 'recharts';
-import {  Database,  TrendingUp,  GripVertical, BarChart3, Target,  Activity, Award,  ChevronDown, RefreshCw, ChevronRight, Bell, User } from 'lucide-react';
-import organizationalData from '../Herm/org_unit_data.jsx'; // Assuming you have a JSON file with your data
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
+  PieChart, Pie, Cell, Area, AreaChart, Legend, ReferenceLine, LineChart, Line, LabelList 
+} from 'recharts';
+import {  
+  Database, TrendingUp, GripVertical, BarChart3, Target, 
+  Activity, Award, ChevronDown, RefreshCw, ChevronRight, Bell, User 
+} from 'lucide-react';
+import organizationalData from '../Herm/org_unit_data.jsx';
 
 const IAU_HERM_Dashboard = () => {
   const [widgets, setWidgets] = useState([
@@ -10,11 +17,11 @@ const IAU_HERM_Dashboard = () => {
     { id: 'information-management', type: 'doughnut', title: 'Information & Data Management', value: '84.3%', color: 'bg-amber-100', draggable: false },
     { id: 'analytics-insights', type: 'doughnut', title: 'Analytics & Business Intelligence', value: '88.7%', color: 'bg-purple-100', draggable: false },
     { id: 'business-management', type: 'doughnut', title: 'Business & Operations Management', value: '85.1%', color: 'bg-indigo-100', draggable: false },
-    { id: 'data-quality', type: 'metrics-grid', title: 'Data Quality Indicators', draggable: true },
+    { id: 'data-quality', type: 'metrics-grid', title: 'IAU Data Quality Indicators', draggable: true },
     { id: 'capability-maturity', type: 'radar', title: 'Capability Maturity Matrix', draggable: true },
     { id: 'application-health', type: 'chart', title: 'System Health & Performance', draggable: true },
     { id: 'governance-score', type: 'area', title: 'Governance Performance Trend', draggable: true },
-    { id: 'risk-assessment', type: 'risk', title: 'Risk Managemen', draggable: true },
+    { id: 'risk-assessment', type: 'risk', title: 'Risk Management', draggable: true },
     { id: 'herm-framework-summary', type: 'herm-summary', title: 'HERM Framework Summary', draggable: true },
   ]);
   const [animate, setAnimate] = useState(false);
@@ -28,12 +35,12 @@ const IAU_HERM_Dashboard = () => {
     'strategy-management': {
       score: 88.2,
       breakdown: [
-        { name: 'Completeness', value: 92, color: '#6EE7B7' },  // Soft green
-        { name: 'Accuracy', value: 87, color: '#93C5FD' },       // Soft blue
-        { name: 'Consistency', value: 85, color: '#FCD34D' },    // Soft yellow
-        { name: 'Timeliness', value: 90, color: '#FCA5A5' },     // Soft red
-        { name: 'Validity', value: 89, color: '#C4B5FD' },       // Soft purple
-        { name: 'Uniqueness', value: 86, color: '#F9A8D4' }      // Soft pink
+        { name: 'Completeness', value: 92 },
+        { name: 'Accuracy', value: 22 },
+        { name: 'Consistency', value: 85 },
+        { name: 'Timeliness', value: 90 },
+        { name: 'Validity', value: 89 },
+        { name: 'Uniqueness', value: 86 }
       ],
       kpis: [
         'Completeness Target: 95%',
@@ -44,12 +51,12 @@ const IAU_HERM_Dashboard = () => {
     'information-management': {
       score: 84.5,
       breakdown: [
-        { name: 'Completeness', value: 88, color: '#6EE7B7' },
-        { name: 'Accuracy', value: 83, color: '#93C5FD' },
-        { name: 'Consistency', value: 85, color: '#FCD34D' },
-        { name: 'Timeliness', value: 82, color: '#FCA5A5' },
-        { name: 'Validity', value: 86, color: '#C4B5FD' },
-        { name: 'Uniqueness', value: 83, color: '#F9A8D4' }
+        { name: 'Completeness', value: 88 },
+        { name: 'Accuracy', value: 83 },
+        { name: 'Consistency', value: 45 },
+        { name: 'Timeliness', value: 82 },
+        { name: 'Validity', value: 86 },
+        { name: 'Uniqueness', value: 83 }
       ],
       kpis: [
         'Accuracy Standard: 90%',
@@ -60,12 +67,12 @@ const IAU_HERM_Dashboard = () => {
     'analytics-insights': {
       score: 91.3,
       breakdown: [
-        { name: 'Completeness', value: 94, color: '#6EE7B7' },
-        { name: 'Accuracy', value: 93, color: '#93C5FD' },
-        { name: 'Consistency', value: 89, color: '#FCD34D' },
-        { name: 'Timeliness', value: 92, color: '#FCA5A5' },
-        { name: 'Validity', value: 91, color: '#C4B5FD' },
-        { name: 'Uniqueness', value: 89, color: '#F9A8D4' }
+        { name: 'Completeness', value: 53 },
+        { name: 'Accuracy', value: 93 },
+        { name: 'Consistency', value: 89 },
+        { name: 'Timeliness', value: 92 },
+        { name: 'Validity', value: 91 },
+        { name: 'Uniqueness', value: 89 }
       ],
       kpis: [
         'Completeness Target: 95%',
@@ -76,12 +83,12 @@ const IAU_HERM_Dashboard = () => {
     'business-management': {
       score: 86.8,
       breakdown: [
-        { name: 'Completeness', value: 89, color: '#6EE7B7' },
-        { name: 'Accuracy', value: 85, color: '#93C5FD' },
-        { name: 'Consistency', value: 87, color: '#FCD34D' },
-        { name: 'Timeliness', value: 88, color: '#FCA5A5' },
-        { name: 'Validity', value: 86, color: '#C4B5FD' },
-        { name: 'Uniqueness', value: 84, color: '#F9A8D4' }
+        { name: 'Completeness', value: 89 },
+        { name: 'Accuracy', value: 64 },
+        { name: 'Consistency', value: 73 },
+        { name: 'Timeliness', value: 88 },
+        { name: 'Validity', value: 86 },
+        { name: 'Uniqueness', value: 84 }
       ],
       kpis: [
         'Consistency Target: 90%',
@@ -90,11 +97,12 @@ const IAU_HERM_Dashboard = () => {
       ]
     }
   };
+
   const capabilityMaturityData = [
-    { category: 'Strategy & Planning Management', maturity: 95, risk: 85, target: 95, capabilities: 4 },
-    { category: 'Information & Data Management', maturity: 78, risk: 65, target: 85, capabilities: 7 },
-    { category: 'Analytics & Business Intelligence', maturity: 96, risk: 90, target: 95, capabilities: 2 },
-    { category: 'Business & Operations Management', maturity: 82, risk: 75, target: 88, capabilities: 7 }
+    { category: 'Strategy & Planning Management', maturity: 95, risk: 20, target: 95, capabilities: 4 },
+    { category: 'Information & Data Management', maturity: 78, risk: 35, target: 85, capabilities: 7 },
+    { category: 'Analytics & Business Intelligence', maturity: 96, risk: 45, target: 95, capabilities: 2 },
+    { category: 'Business & Operations Management', maturity: 82, risk: 40, target: 88, capabilities: 7 }
   ];
 
   const systemHealthData = [
@@ -105,15 +113,15 @@ const IAU_HERM_Dashboard = () => {
   ];
 
   const governanceTrend = [
-    { month: 'Jan', overall: 82, human: 88, environment: 79, relationships: 85, methodology: 81 },
-    { month: 'Feb', overall: 84, human: 89, environment: 81, relationships: 86, methodology: 83 },
-    { month: 'Mar', overall: 85, human: 90, environment: 82, relationships: 87, methodology: 84 },
-    { month: 'Apr', overall: 86, human: 91, environment: 83, relationships: 88, methodology: 85 },
-    { month: 'May', overall: 87, human: 91, environment: 84, relationships: 89, methodology: 85 },
-    { month: 'Jun', overall: 87, human: 92, environment: 84, relationships: 89, methodology: 85 },
-    { month: 'Aug', overall: 85, human: 92, environment: 84, relationships: 89, methodology: 84 },
-    { month: 'Sep', overall: 87, human: 92, environment: 84, relationships: 85, methodology: 85 },
-    { month: 'Oct', overall: 87, human: 92, environment: 81, relationships: 89, methodology: 82 },
+    { month: 'Jan', overall: 82, 'Strategy & Planning Management': 88, 'Information & Data Management': 79, 'Analytics & Business Intelligence': 85, 'Business & Operations Management': 81 },
+    { month: 'Feb', overall: 84, 'Strategy & Planning Management': 89, 'Information & Data Management': 81, 'Analytics & Business Intelligence': 86, 'Business & Operations Management': 83 },
+    { month: 'Mar', overall: 85, 'Strategy & Planning Management': 90, 'Information & Data Management': 82, 'Analytics & Business Intelligence': 87, 'Business & Operations Management': 84 },
+    { month: 'Apr', overall: 86, 'Strategy & Planning Management': 91, 'Information & Data Management': 83, 'Analytics & Business Intelligence': 88, 'Business & Operations Management': 85 },
+    { month: 'May', overall: 87, 'Strategy & Planning Management': 91, 'Information & Data Management': 84, 'Analytics & Business Intelligence': 89, 'Business & Operations Management': 85 },
+    { month: 'Jun', overall: 87, 'Strategy & Planning Management': 92, 'Information & Data Management': 84, 'Analytics & Business Intelligence': 89, 'Business & Operations Management': 85 },
+    { month: 'Aug', overall: 85, 'Strategy & Planning Management': 92, 'Information & Data Management': 84, 'Analytics & Business Intelligence': 89, 'Business & Operations Management': 84 },
+    { month: 'Sep', overall: 87, 'Strategy & Planning Management': 92, 'Information & Data Management': 84, 'Analytics & Business Intelligence': 85, 'Business & Operations Management': 85 },
+    { month: 'Oct', overall: 87, 'Strategy & Planning Management': 92, 'Information & Data Management': 81, 'Analytics & Business Intelligence': 89, 'Business & Operations Management': 82 }
   ];
 
   const dataQualityMetrics = [
@@ -157,10 +165,83 @@ const IAU_HERM_Dashboard = () => {
     </div>
   );
 
+  const renderRadarCard = (widget) => {
+    const data = hermBreakdown[widget.id];
+    const radarData = data.breakdown.map(item => ({
+      subject: item.name,
+      value: item.value,
+      fullMark: 100
+    }));
+
+    const colors = {
+      'strategy-management': '#10B981',
+      'information-management': '#F59E0B',
+      'analytics-insights': '#8B5CF6',
+      'business-management': '#6366F1'
+    };
+
+    return (
+      <div className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200 h-full">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-md font-semibold text-gray-800 truncate">{widget.title}</h3>
+          <div className="flex items-center space-x-2">
+            <Database className="w-4 h-4 text-indigo-500" />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center h-full">
+          <div className="text-center mb-2">
+            <span className="text-3xl font-bold" style={{ color: colors[widget.id] }}>
+              {Math.round(data.score)}%
+            </span>
+            <div className="text-gray-600 text-sm">Overall Score</div>
+          </div>
+
+          <div className="w-full h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                <PolarGrid stroke="#E5E7EB" />
+                <PolarAngleAxis 
+                  dataKey="subject" 
+                  tick={{ fontSize: 10 }}
+                />
+                <PolarRadiusAxis 
+                  angle={30} 
+                  domain={[0, 100]} 
+                  tickCount={6}
+                  tick={{ fontSize: 9 }}
+                />
+                <Radar
+                  name="Score"
+                  dataKey="value"
+                  stroke={colors[widget.id]}
+                  fill={colors[widget.id]}
+                  fillOpacity={0.4}
+                  animationBegin={100}
+                  animationDuration={800}
+                />
+                <Tooltip 
+                  formatter={(value) => [`${value}%`, 'Score']}
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '0.5rem',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderCAUDITHERMSummary = () => {
     const { IAU } = organizationalData;
 
-    // Helper function to calculate average maturity score
     const calculateMaturityScore = (capabilities) => {
       const maturityValues = {
         'Optimizing': 100,
@@ -174,7 +255,6 @@ const IAU_HERM_Dashboard = () => {
       return Math.round(total / capabilities.length);
     };
 
-    // Calculate summary metrics for each capability group
     const capabilityGroups = Object.entries(IAU.capabilities).map(([key, group]) => {
       const capabilities = group.capabilities;
       return {
@@ -189,7 +269,6 @@ const IAU_HERM_Dashboard = () => {
       };
     });
 
-    // Calculate overall summary
     const totalCapabilities = capabilityGroups.reduce((sum, group) => sum + group.capabilityCount, 0);
     const overallMaturity = Math.round(
       capabilityGroups.reduce((sum, group) => sum + group.maturityScore, 0) /
@@ -211,7 +290,6 @@ const IAU_HERM_Dashboard = () => {
           </div>
         </div>
 
-        {/* Overall Summary */}
         <div className="w-full mb-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex justify-between items-center">
             <div>
@@ -230,7 +308,6 @@ const IAU_HERM_Dashboard = () => {
           </div>
         </div>
 
-        {/* Capability Group Details */}
         <div className="space-y-3">
           {capabilityGroups.map((group) => (
             <div
@@ -280,242 +357,185 @@ const IAU_HERM_Dashboard = () => {
     );
   };
 
-  const renderDoughnutCard = (widget) => {
-    const data = hermBreakdown[widget.id];
-    const centerValue = Math.round(data.score);
+  const renderCapabilityMatrix = () => {
+    const colors = {
+      maturity: "#6366F1",
+      risk: "#F59E0B",
+      gap: "#E5E7EB",
+      text: "#374151",
+      lightText: "#6B7280",
+    };
+
+    const dataWithGap = capabilityMaturityData.map((item) => ({
+      ...item,
+      gap: Math.max(0, 100 - item.maturity - item.risk),
+    }));
 
     return (
-      <div className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200 h-full">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-md font-semibold text-gray-800 truncate">{widget.title}</h3>
+      <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 group">
+        <div className="flex items-center justify-between mb-4 px-1">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-800">Capability Maturity Matrix</h3>
+            <p className="text-xs text-gray-500 mt-1">Performance across key capability domains</p>
+          </div>
           <div className="flex items-center space-x-2">
-            <Database className="w-4 h-4 text-indigo-500" />
+            <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600">
+              <Target className="w-4 h-4" />
+            </div>
+            <div className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-move">
+              <GripVertical className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          {/* Donut Chart - Compact Size */}
-          <div className="relative w-24 h-24">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data.breakdown}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={30}
-                  outerRadius={45}
-                  paddingAngle={1}
-                  dataKey="value"
-                >
-                  {data.breakdown.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <text
-                  x="50%"
-                  y="50%"
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="text-sm font-bold"
-                  fill="#111827"
-                >
-                  {centerValue}%
-                </text>
-              </PieChart>
-            </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart
+            data={dataWithGap}
+            layout="vertical"
+            margin={{ top: 10, right: 10, left: 10, bottom: 5 }}
+            barCategoryGap={12}
+          >
+            <defs>
+              <linearGradient id="maturityGradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor={colors.maturity} stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#818CF8" stopOpacity={0.9} />
+              </linearGradient>
+              <linearGradient id="riskGradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor={colors.risk} stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#FBBF24" stopOpacity={0.9} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid
+              strokeDasharray="2 2"
+              stroke="#F3F4F6"
+              horizontal={true}
+              vertical={false}
+            />
+
+            <XAxis
+              type="number"
+              domain={[0, 100]}
+              tick={{ fontSize: 11, fill: colors.lightText }}
+              axisLine={false}
+              tickLine={false}
+              tickMargin={8}
+            />
+
+            <YAxis
+              dataKey="category"
+              type="category"
+              width={90}
+              tick={{ fontSize: 12, fill: colors.text, fontWeight: 500 }}
+              axisLine={false}
+              tickLine={false}
+            />
+
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "white",
+                border: "1px solid #E5E7EB",
+                borderRadius: "6px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                padding: "8px 12px",
+                fontSize: "12px",
+                color: colors.text,
+              }}
+              formatter={(value, name) => [
+                <span className="font-medium">{value}%</span>,
+                <span className="text-gray-500">{name}</span>,
+              ]}
+              labelFormatter={(label) => (
+                <span className="font-semibold text-sm">{label}</span>
+              )}
+              cursor={{ fill: "#F9FAFB" }}
+            />
+
+            <Bar
+              dataKey="maturity"
+              name="Maturity"
+              stackId="a"
+              fill="url(#maturityGradient)"
+              radius={[0, 4, 4, 0]}
+              animationBegin={100}
+              animationDuration={800}
+            >
+              <LabelList
+                dataKey="maturity"
+                position="insideLeft"
+                fill="white"
+                fontSize={11}
+                formatter={(value) => `${value}%`}
+              />
+            </Bar>
+
+            <Bar
+              dataKey="risk"
+              name="Risk"
+              stackId="a"
+              fill="url(#riskGradient)"
+              radius={[0, 4, 4, 0]}
+              animationBegin={300}
+              animationDuration={800}
+            >
+              <LabelList
+                dataKey="risk"
+                position="insideRight"
+                fill="white"
+                fontSize={11}
+                formatter={(value) => `${value}%`}
+              />
+            </Bar>
+
+            <Bar
+              dataKey="gap"
+              name="Gap"
+              stackId="a"
+              fill={colors.gap}
+              radius={[0, 4, 4, 0]}
+              legendType="none"
+            />
+
+            <ReferenceLine
+              x={85}
+              stroke="#9CA3AF"
+              strokeWidth={1}
+              strokeDasharray="3 3"
+              label={{
+                position: "right",
+                value: "Target",
+                fill: "#4B5563",
+                fontSize: 10,
+              }}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+
+        <div className="flex justify-center space-x-4 mt-4">
+          <div className="flex items-center">
+            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-300 mr-2"></div>
+            <span className="text-xs font-medium text-gray-700">Maturity</span>
           </div>
-
-          {/* Metrics Grid - Compact Layout */}
-          <div className="flex-1 min-w-0">
-            <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
-              {data.breakdown.map((metric, idx) => (
-                <div key={idx} className="flex items-center truncate">
-                  <span
-                    className="w-2 h-2 rounded-full mr-1.5 flex-shrink-0"
-                    style={{ backgroundColor: metric.color }}
-                  ></span>
-                  <span className="truncate">
-                    <span className="text-gray-600">{metric.name.substring(0, 3)}:</span>
-                    <span className="font-medium ml-0.5">{metric.value}%</span>
-                  </span>
-                </div>
-              ))}
+          <div className="flex items-center">
+            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-300 mr-2"></div>
+            <span className="text-xs font-medium text-gray-700">Risk</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2.5 h-2.5 bg-gray-200 mr-2 rounded-full"></div>
+            <span className="text-xs font-medium text-gray-700">Gap</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2.5 h-2.5 border border-gray-400 mr-2 relative rounded-sm">
+              <div className="absolute inset-0 border-t border-gray-400 transform rotate-45 origin-center"></div>
             </div>
-
-            {/* KPIs - Compact View */}
+            <span className="text-xs font-medium text-gray-700">Target</span>
           </div>
         </div>
       </div>
     );
   };
 
- const renderCapabilityMatrix = () => {
-  // Custom color palette
-  const colors = {
-    maturity: '#6366F1',
-    risk: '#F59E0B',
-    gap: '#E5E7EB',
-    text: '#374151',
-    lightText: '#6B7280'
-  };
-
-  return (
-    <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 group">
-      {/* Header with subtle hover effect */}
-      <div className="flex items-center justify-between mb-4 px-1">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800">Capability Maturity Matrix</h3>
-          <p className="text-xs text-gray-500 mt-1">Performance across key capability domains</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600">
-            <Target className="w-4 h-4" />
-          </div>
-          <div className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-move">
-            <GripVertical className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced Chart */}
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={capabilityMaturityData}
-          layout="vertical"
-          margin={{ top: 10, right: 10, left: 10, bottom: 5 }}
-          barCategoryGap={12}
-        >
-          {/* Clean grid lines */}
-          <CartesianGrid 
-            strokeDasharray="2 2" 
-            stroke="#F3F4F6" 
-            horizontal={true} 
-            vertical={false}
-          />
-
-          {/* Modern X-axis */}
-          <XAxis
-            type="number"
-            domain={[0, 100]}
-            tick={{ fontSize: 11, fill: colors.lightText }}
-            axisLine={false}
-            tickLine={false}
-            tickMargin={8}
-          />
-
-          {/* Stylish Y-axis */}
-          <YAxis
-            dataKey="category"
-            type="category"
-            width={90}
-            tick={{ fontSize: 12, fill: colors.text, fontWeight: 500 }}
-            axisLine={false}
-            tickLine={false}
-          />
-
-          {/* Enhanced tooltip */}
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'white',
-              border: '1px solid #E5E7EB',
-              borderRadius: '6px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              padding: '8px 12px',
-              fontSize: '12px',
-              color: colors.text
-            }}
-            formatter={(value, name) => [
-              <span className="font-medium">{value}%</span>, 
-              <span className="text-gray-500">{name}</span>
-            ]}
-            labelFormatter={(label) => (
-              <span className="font-semibold text-sm">{label}</span>
-            )}
-            cursor={{ fill: '#F9FAFB' }}
-          />
-
-          {/* Gradient bars */}
-          <defs>
-            <linearGradient id="maturityGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={colors.maturity} stopOpacity={0.9} />
-              <stop offset="100%" stopColor="#818CF8" stopOpacity={0.9} />
-            </linearGradient>
-            <linearGradient id="riskGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={colors.risk} stopOpacity={0.9} />
-              <stop offset="100%" stopColor="#FBBF24" stopOpacity={0.9} />
-            </linearGradient>
-          </defs>
-
-          {/* Bars with subtle animation */}
-          <Bar
-            dataKey="maturity"
-            name="Maturity"
-            stackId="a"
-            fill="url(#maturityGradient)"
-            radius={[0, 4, 4, 0]}
-            animationBegin={100}
-            animationDuration={800}
-          />
-          <Bar
-            dataKey="risk"
-            name="Risk"
-            stackId="a"
-            fill="url(#riskGradient)"
-            radius={[0, 4, 4, 0]}
-            animationBegin={300}
-            animationDuration={800}
-          />
-          <Bar
-            dataKey={({ maturity, risk }) => 100 - maturity - risk}
-            name="Gap"
-            stackId="a"
-            fill={colors.gap}
-            radius={[0, 4, 4, 0]}
-            legendType="none"
-          />
-
-          {/* Target line */}
-          <ReferenceLine
-            x={85}
-            stroke="#9CA3AF"
-            strokeWidth={1}
-            strokeDasharray="3 3"
-            label={{
-              position: 'right',
-              value: 'Target',
-              fill: '#4B5563',
-              fontSize: 10
-            }}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-
-      {/* Modern legend */}
-      <div className="flex justify-center space-x-4 mt-4">
-        <div className="flex items-center">
-          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-300 mr-2"></div>
-          <span className="text-xs font-medium text-gray-700">Maturity</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-300 mr-2"></div>
-          <span className="text-xs font-medium text-gray-700">Risk</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-2.5 h-2.5 rounded-full bg-gray-200 mr-2"></div>
-          <span className="text-xs font-medium text-gray-700">Gap</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-2.5 h-2.5 border border-gray-400 mr-2 relative">
-            <div className="absolute inset-0 border-t border-gray-400 transform rotate-45 origin-center"></div>
-          </div>
-          <span className="text-xs font-medium text-gray-700">Target</span>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const renderSystemHealth = () => (
+  const renderSystemHealth = () => (
     <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900">System Health & Performance</h3>
@@ -553,8 +573,6 @@ const renderSystemHealth = () => (
             dataKey="name"
             axisLine={false}
             tickLine={false}
-            // angle={-30}
-            textAnchor="middle"
             height={60}
             style={{paddingLeft:'4px'}}
             tick={{
@@ -656,7 +674,7 @@ const renderSystemHealth = () => (
     </div>
   );
 
-const renderGovernanceTrend = () => (
+  const renderGovernanceTrend = () => (
     <div className="p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-lg font-semibold text-gray-800">Governance Performance Trend</h3>
@@ -665,11 +683,11 @@ const renderGovernanceTrend = () => (
           <GripVertical className="w-4 h-4 text-gray-400 cursor-move hover:text-gray-600 transition-colors" />
         </div>
       </div>
+
       <ResponsiveContainer width="100%" height={320}>
-        <AreaChart
+        <LineChart
           data={governanceTrend}
           margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
-        // Removed background style
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" vertical={false} />
           <XAxis
@@ -694,49 +712,34 @@ const renderGovernanceTrend = () => (
             }}
             labelStyle={{ color: '#111827', fontWeight: '600' }}
           />
-          <Area
+
+          <Line
             type="monotone"
             dataKey="overall"
-            stackId="1"
             stroke="#6366F1"
-            fill="#6366F1"
-            fillOpacity={0.1}
             strokeWidth={2}
+            dot={false}
           />
-          <Area
-            type="monotone"
-            dataKey="human"
-            stackId="2"
-            stroke="#10B981"
-            fill="#10B981"
-            fillOpacity={0.1}
-            strokeWidth={2}
-          />
-          <Area
-            type="monotone"
-            dataKey="environment"
-            stackId="3"
-            stroke="#F59E0B"
-            fill="#F59E0B"
-            fillOpacity={0.1}
-            strokeWidth={2}
-          />
-          <Area
-            type="monotone"
-            dataKey="relationships"
-            stackId="4"
-            stroke="#8B5CF6"
-            fill="#8B5CF6"
-            fillOpacity={0.1}
-            strokeWidth={2}
-          />
-        </AreaChart>
+
+          {systemHealthData.map((system, index) => {
+            const colors = ['#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#3B82F6', '#6B7280'];
+            return (
+              <Line
+                key={system.name}
+                type="monotone"
+                dataKey={system.name}
+                stroke={colors[index % colors.length]}
+                strokeWidth={2}
+                dot={false}
+              />
+            );
+          })}
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
 
   const renderRiskDashboard = () => {
-    // Mock data matching your screenshot
     const dataAssetsByDimension = [
       { dimension: 'Accuracy', count: 40 },
       { dimension: 'Completeness', count: 30 },
@@ -759,7 +762,6 @@ const renderGovernanceTrend = () => (
         </div>
 
         <div className="space-y-4">
-          {/* Horizontal Bar Chart */}
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -799,7 +801,6 @@ const renderGovernanceTrend = () => (
             </ResponsiveContainer>
           </div>
 
-          {/* Summary Table */}
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -846,7 +847,7 @@ const renderGovernanceTrend = () => (
       <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 w-full">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h3 className="text-md font-semibold text-gray-800">Data Quality Indicators</h3>
+            <h3 className="text-md font-semibold text-gray-800"><span className='text-blue-600'>IAU</span> Data Quality Indicators</h3>
             <p className="text-xs text-gray-500">Current metrics snapshot</p>
           </div>
           <div className="flex items-center space-x-2">
@@ -860,11 +861,7 @@ const renderGovernanceTrend = () => (
             <div key={idx} className="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors h-[166px]">
               <div className="flex justify-between items-center mb-1">
                 <span className="text-md font-medium text-gray-800 flex items-center">
-                  <span className="w-2 h-2 rounded-full mr-2" style={{ backgroundColor: donutColors[metric.metric] }} />
                   <span className='text-md font-bold'>{metric.metric}</span>
-                </span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${metric.trend === 'up' ? 'bg-green-100 text-green-800' : metric.trend === 'down' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}`}>
-                  {metric.trend === 'up' ? '↑' : metric.trend === 'down' ? '↓' : '→'}
                 </span>
               </div>
 
@@ -907,7 +904,11 @@ const renderGovernanceTrend = () => (
                     {metric.value >= metric.target ? 'Target met' : metric.value >= metric.target - 5 ? 'Close' : 'Needs work'}
                   </div>
                   <div className="text-xs text-gray-400 mt-0.5">
-                    {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {new Date().toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
                   </div>
                 </div>
               </div>
@@ -917,12 +918,13 @@ const renderGovernanceTrend = () => (
       </div>
     );
   };
+
   const renderWidget = (widget) => {
     switch (widget.type) {
       case 'metric':
         return renderMetricCard(widget);
       case 'doughnut':
-        return renderDoughnutCard(widget);
+        return renderRadarCard(widget);
       case 'radar':
         return renderCapabilityMatrix();
       case 'chart':
@@ -943,10 +945,8 @@ const renderGovernanceTrend = () => (
   return (
     <div className="min-h-screen bg-gray-50 p-">
       <div className="max-w-8xl mx-auto my-auto">
-        {/* Header Section */}
         <div className="mb-4">
-          {/* Breadcrumb */}
-          <div className="flex items-center text-sm text-gray-600 mb-">
+          <div className="flex items-center text-sm text-gray-600 mb-2">
             <a href="#" className="hover:text-blue-600">Home</a>
             <ChevronRight className="h-4 w-4 mx-1 text-gray-400" />
             <a href="#" className="hover:text-blue-600">Dashboards</a>
@@ -961,9 +961,9 @@ const renderGovernanceTrend = () => (
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  <span className='text-blue-600'> IAU </span> DQ Dashboard
+                  <span className='text-blue-600'> IAU </span> Data Quality Dashboard
                 </h1>
-                <p className="text-gray-600">Insights & Analytics Unit - Data Capability Portfolio</p>
+                <p className="text-gray-600">Insights & Analytics Unit </p>
                 <div className="flex items-center mt-2 space-x-3 text-sm">
                   <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">ORG_L3_279</span>
                   <div className="hidden md:flex items-center">
@@ -975,19 +975,8 @@ const renderGovernanceTrend = () => (
             </div>
           </div>
 
-          {/* Filter Controls */}
           <div className="flex w-full items-center mb-2">
             <div className="flex flex-wrap items-center gap-3 ml-auto">
-              <div className="relative">
-                <select className="px-3 py-2 pr-8 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-500 appearance-none">
-                  <option>All Systems</option>
-                  <option>Strategy Management</option>
-                  <option>Portfolio Management</option>
-                  <option>BI & Analytics</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
-              </div>
-
               <div className="flex items-center space-x-2">
                 <select className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-500">
                   <option>Current Quarter</option>
@@ -1011,9 +1000,9 @@ const renderGovernanceTrend = () => (
                 </button>
                 <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg hidden group-hover:block z-10">
                   <div className="py-1">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">PDF</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Excel</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">CSV</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={()=>alert("PDF Generation is not implemented yet")}>PDF</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={()=>alert("Excel Generation is not implemented yet")}>Excel</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={()=>alert("CSV Generation is not implemented yet")}>CSV</a>
                   </div>
                 </div>
               </div>
@@ -1021,7 +1010,6 @@ const renderGovernanceTrend = () => (
           </div>
         </div>
 
-        {/* Dashboard Grid */}
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="widgets" direction="horizontal">
             {(provided) => (

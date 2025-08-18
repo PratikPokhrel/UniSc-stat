@@ -36,15 +36,15 @@ const AppRoutes = () => {
           <Route path="/domains" element={<GovernanceDomainsDashboard />} />
           <Route path="/data-product" element={<DataProductsPage />} />
           <Route path="/data-product-details/:id" element={<PurviewDataProductModal />} />
-          <Route path="/governance/:id" element={<DataGovernanceDashboard />} />
+          {/* <Route path="/governance/:id" element={<DataGovernanceDashboard />} /> */}
           <Route path="/metadata" element={<MetaDataDashboard />} />
           <Route path="/report-list" element={<UniversityReports />} />
           <Route path="/bi-catalog" element={<DataCatalog />} />
           <Route path="/db" element={<DataQualityDashboard />} />
-          <Route path="/herm" element={<HERMDashboard />}>
+          <Route path="/governance" element={<HERMDashboard />}>
               <Route path=":orgUnit" element={<DCPCanvasDemo />} />
           </Route>
-          <Route path="/herm/:orgUnit" element={<DCPCanvasDemo />} />
+          <Route path="/governance/:orgUnit" element={<DCPCanvasDemo />} />
           <Route path="/org-stu" element={<VerticalOrgChart initialSearchTerm={""}/>} />
           <Route path="/faculties" element={<UniversityAnalyticsPage />} />
           <Route path="/performance" element={<StudentPerformanceReport />} />

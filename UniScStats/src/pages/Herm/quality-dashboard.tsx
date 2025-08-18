@@ -344,12 +344,8 @@ const DataQualityDashboard = () => {
                                 Records: 1.25M
                             </span>
                             <span className="flex items-center gap-1.5">
-                                <TableIcon className="h-3.5 w-3.5" />
-                                Tables: 47
-                            </span>
-                            <span className="flex items-center gap-1.5">
                                 <RulerIcon className="h-3.5 w-3.5" />
-                                Rules: 156
+                                Rules: 8
                             </span>
                         </div>
                     </div>

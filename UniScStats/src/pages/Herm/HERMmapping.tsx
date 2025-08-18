@@ -31,8 +31,8 @@ const HERMMappingInterface = () => {
   };
 
   const filteredBusinessCapabilities = useMemo(() => {
-    return businessCapabilities.filter(cap =>cap.name.toLowerCase().includes(searchTerm.toLowerCase()) ||cap.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (cap.children && cap.children.some(child =>child.name.toLowerCase().includes(searchTerm.toLowerCase()) ||child.code.toLowerCase().includes(searchTerm.toLowerCase()))));
+    return businessCapabilities.filter(cap => cap.name.toLowerCase().includes(searchTerm.toLowerCase()) || cap.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (cap.children && cap.children.some(child => child.name.toLowerCase().includes(searchTerm.toLowerCase()) || child.code.toLowerCase().includes(searchTerm.toLowerCase()))));
   }, [businessCapabilities, searchTerm]);
 
   const filteredApplicationCapabilities = useMemo(() => {
@@ -53,481 +53,481 @@ const HERMMappingInterface = () => {
 
 
 
-const DashboardTab = () => {
-  const [showAllCapabilities, setShowAllCapabilities] = useState(false);
-  const [selectedCapability, setSelectedCapability] = useState(null);
+  const DashboardTab = () => {
+    const [showAllCapabilities, setShowAllCapabilities] = useState(false);
+    const [selectedCapability, setSelectedCapability] = useState(null);
 
-  const totalBusinessCapabilities = businessCapabilities.length;
-  const totalCoreCapabilities = businessCapabilities.reduce((acc, cap) => acc + cap.children.length, 0);
-  const totalApplications = applicationCapabilities.reduce(
-    (acc, domain) => acc + domain.portfolios.reduce(
-      (pAcc, portfolio) => pAcc + portfolio.applications.length, 0), 0);
-  const totalPortfolios = applicationCapabilities.reduce(
-    (acc, domain) => acc + domain.portfolios.length, 0);
+    const totalBusinessCapabilities = businessCapabilities.length;
+    const totalCoreCapabilities = businessCapabilities.reduce((acc, cap) => acc + cap.children.length, 0);
+    const totalApplications = applicationCapabilities.reduce(
+      (acc, domain) => acc + domain.portfolios.reduce(
+        (pAcc, portfolio) => pAcc + portfolio.applications.length, 0), 0);
+    const totalPortfolios = applicationCapabilities.reduce(
+      (acc, domain) => acc + domain.portfolios.length, 0);
 
-  return (
-    <div className="relative">
-      <div className={`transition-all duration-300 ${showAllCapabilities ? 'mr-64' : ''}`}>
-        <div className="space-y-4">
-          {/* Compact Key Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Business Capabilities Card */}
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-medium text-gray-500">Business Capabilities</p>
-                  <p className="text-xl font-bold text-gray-900 mt-0.5">
-                    {totalBusinessCapabilities}
-                    <span className="text-xs font-normal text-gray-500 ml-1">domains</span>
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-gray-100">
-                <p className="text-xs text-gray-600">
-                  <span className="font-medium text-gray-900">{totalCoreCapabilities}</span> core capabilities
-                </p>
-                <div className="mt-1.5 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-blue-500 rounded-full"
-                    style={{ width: `${Math.min(100, totalCoreCapabilities / 50 * 100)}%` }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Application Capabilities Card */}
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-medium text-gray-500">Applications</p>
-                  <p className="text-xl font-bold text-gray-900 mt-0.5">
-                    {totalApplications}
-                    <span className="text-xs font-normal text-gray-500 ml-1">systems</span>
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-gray-100">
-                <p className="text-xs text-gray-600">
-                  Across <span className="font-medium text-gray-900">{totalPortfolios}</span> portfolios
-                </p>
-                <div className="mt-1.5 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-green-500 rounded-full"
-                    style={{ width: `${Math.min(100, totalPortfolios / 15 * 100)}%` }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Governance Maturity Card */}
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-medium text-gray-500">Governance Maturity</p>
-                  <div className="flex items-center mt-0.5">
-                    <p className="text-xl font-bold text-gray-900">N/A</p>
-                    <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                      N/A
-                    </span>
+    return (
+      <div className="relative">
+        <div className={`transition-all duration-300 ${showAllCapabilities ? 'mr-64' : ''}`}>
+          <div className="space-y-4">
+            {/* Compact Key Metrics Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Business Capabilities Card */}
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">Business Capabilities</p>
+                    <p className="text-xl font-bold text-gray-900 mt-0.5">
+                      {totalBusinessCapabilities}
+                      <span className="text-xs font-normal text-gray-500 ml-1">domains</span>
+                    </p>
                   </div>
                 </div>
-                <div className="p-2 bg-purple-50 rounded-lg">
-                  <ShieldCheck className="w-4 h-4 text-purple-600" />
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <p className="text-xs text-gray-600">
+                    <span className="font-medium text-gray-900">{totalCoreCapabilities}</span> core capabilities
+                  </p>
+                  <div className="mt-1.5 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-blue-500 rounded-full"
+                      style={{ width: `${Math.min(100, totalCoreCapabilities / 50 * 100)}%` }}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="mt-3 pt-3 border-t border-gray-100">
-                <div className="mt-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-red-500 to-red-300 rounded-full w-0.1/5" />
+
+              {/* Application Capabilities Card */}
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">Applications</p>
+                    <p className="text-xl font-bold text-gray-900 mt-0.5">
+                      {totalApplications}
+                      <span className="text-xs font-normal text-gray-500 ml-1">systems</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <p className="text-xs text-gray-600">
+                    Across <span className="font-medium text-gray-900">{totalPortfolios}</span> portfolios
+                  </p>
+                  <div className="mt-1.5 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-green-500 rounded-full"
+                      style={{ width: `${Math.min(100, totalPortfolios / 15 * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Governance Maturity Card */}
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">Governance Maturity</p>
+                    <div className="flex items-center mt-0.5">
+                      <p className="text-xl font-bold text-gray-900">N/A</p>
+                      <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                        N/A
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-2 bg-purple-50 rounded-lg">
+                    <ShieldCheck className="w-4 h-4 text-purple-600" />
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <div className="mt-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-red-500 to-red-300 rounded-full w-0.1/5" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Main Dashboard Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Business Capabilities Overview */}
-            <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="text-base font-semibold text-gray-900 flex items-center">
-                  <Users className="w-4 h-4 text-blue-600 mr-2" />
-                  Business Capabilities Overview
-                </h3>
-              </div>
-              <div className="p-4">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                          Domain
-                        </th>
-                        <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                          Capabilities
-                        </th>
-                        <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                          Status
-                        </th>
-                        <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                          Coverage
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {businessCapabilities.slice(0, 8).map((capability) => (
-                        <tr key={capability.id} className="hover:bg-gray-50 cursor-pointer">
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <div className="flex-shrink-0 h-4 w-4 text-blue-500">
-                                <Database className="w-4 h-4" />
-                              </div>
-                              <div className="ml-3">
-                                <div className="text-sm font-medium text-gray-900">{capability.name}</div>
-                                <div className="text-xs text-gray-500">{capability.code}</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{capability.children.length}</div>
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            <span className="px-2 inline-flex text-xs leading-4 font-semibold rounded-full bg-green-100 text-green-800">
-                              Active
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            <div className="w-full bg-gray-200 rounded-full h-1.5">
-                              <div
-                                className="bg-blue-600 h-1.5 rounded-full"
-                                style={{ width: `${Math.min(100, capability.children.length * 10)}%` }}
-                              />
-                            </div>
-                          </td>
+            {/* Main Dashboard Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Business Capabilities Overview */}
+              <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <div className="p-4 border-b border-gray-200">
+                  <h3 className="text-base font-semibold text-gray-900 flex items-center">
+                    <Users className="w-4 h-4 text-blue-600 mr-2" />
+                    Business Capabilities Overview
+                  </h3>
+                </div>
+                <div className="p-4">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            Domain
+                          </th>
+                          <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            Capabilities
+                          </th>
+                          <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            Status
+                          </th>
+                          <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            Coverage
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mt-3 text-right">
-                  <button
-                    onClick={() => setShowAllCapabilities(true)}
-                    className="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center justify-end"
-                  >
-                    View all business capabilities
-                    <ChevronRight className="w-3 h-3 ml-1" />
-                  </button>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {businessCapabilities.slice(0, 8).map((capability) => (
+                          <tr key={capability.id} className="hover:bg-gray-50 cursor-pointer">
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="flex-shrink-0 h-4 w-4 text-blue-500">
+                                  <Database className="w-4 h-4" />
+                                </div>
+                                <div className="ml-3">
+                                  <div className="text-sm font-medium text-gray-900">{capability.name}</div>
+                                  <div className="text-xs text-gray-500">{capability.code}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">{capability.children.length}</div>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-4 font-semibold rounded-full bg-green-100 text-green-800">
+                                Active
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div className="w-full bg-gray-200 rounded-full h-1.5">
+                                <div
+                                  className="bg-blue-600 h-1.5 rounded-full"
+                                  style={{ width: `${Math.min(100, capability.children.length * 10)}%` }}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="mt-3 text-right">
+                    <button
+                      onClick={() => setShowAllCapabilities(true)}
+                      className="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center justify-end"
+                    >
+                      View all business capabilities
+                      <ChevronRight className="w-3 h-3 ml-1" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* HERM Compliance Status */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="text-base font-semibold text-gray-900 flex items-center">
-                  <ShieldCheck className="w-4 h-4 text-purple-600 mr-2" />
-                  HERM Compliance
-                </h3>
-              </div>
-              <div className="p-4">
-                <div className="space-y-3">
-                  {[
-                    { name: 'Business Capability Model', status: 'Compliant', progress: 90 },
-                    { name: 'Application Reference Model', status: 'Partial', progress: 65 },
-                    { name: 'Data Governance Framework', status: 'Compliant', progress: 85 },
-                  ].map((item, index) => (
-                    <div key={index}>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-xs font-medium text-gray-700">{item.name}</span>
-                        <span className={`text-xs font-medium ${item.status === 'Compliant' ? 'text-green-600' :
-                          item.status === 'Partial' ? 'text-yellow-600' : 'text-red-600'
-                          }`}>
-                          {item.status}
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
-                        <div
-                          className={`h-1.5 rounded-full ${item.status === 'Compliant' ? 'bg-green-500' :
-                            item.status === 'Partial' ? 'bg-yellow-500' : 'bg-red-500'
-                            }`}
-                          style={{ width: `${item.progress}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+              {/* HERM Compliance Status */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <div className="p-4 border-b border-gray-200">
+                  <h3 className="text-base font-semibold text-gray-900 flex items-center">
+                    <ShieldCheck className="w-4 h-4 text-purple-600 mr-2" />
+                    HERM Compliance
+                  </h3>
                 </div>
-                <div className="mt-4 bg-blue-50 p-3 rounded-lg border border-blue-200">
-                  <h4 className="text-xs font-medium text-blue-800 mb-2">Overall Compliance Score</h4>
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-blue-900">N/A</p>
-                      <p className="text-xs text-blue-700">CAUDIT HERM standards</p>
-                    </div>
-                    <div className="relative w-12 h-12">
-                      <svg className="w-full h-full" viewBox="0 0 36 36">
-                        <path
-                          d="M18 2.0845
+                <div className="p-4">
+                  <div className="space-y-3">
+                    {[
+                      { name: 'Business Capability Model', status: 'Compliant', progress: 90 },
+                      { name: 'Application Reference Model', status: 'Partial', progress: 65 },
+                      { name: 'Data Governance Framework', status: 'N/A', progress: 0 },
+                    ].map((item, index) => (
+                      <div key={index}>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-xs font-medium text-gray-700">{item.name}</span>
+                          <span className={`text-xs font-medium ${item.status === 'Compliant' ? 'text-green-600' :
+                            item.status === 'Partial' ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                            {item.status}
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-1.5">
+                          <div
+                            className={`h-1.5 rounded-full ${item.status === 'Compliant' ? 'bg-green-500' :
+                              item.status === 'Partial' ? 'bg-yellow-500' : 'bg-red-500'
+                              }`}
+                            style={{ width: `${item.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <h4 className="text-xs font-medium text-blue-800 mb-2">Overall Compliance Score</h4>
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-blue-900">N/A</p>
+                        <p className="text-xs text-blue-700">CAUDIT HERM</p>
+                      </div>
+                      <div className="relative w-12 h-12">
+                        <svg className="w-full h-full" viewBox="0 0 36 36">
+                          <path
+                            d="M18 2.0845
                             a 15.9155 15.9155 0 0 1 0 31.831
                             a 15.9155 15.9155 0 0 1 0 -31.831"
-                          fill="none"
-                          stroke="#E5E7EB"
-                          strokeWidth="3"
-                        />
-                        <path
-                          d="M18 2.0845
+                            fill="none"
+                            stroke="#E5E7EB"
+                            strokeWidth="3"
+                          />
+                          <path
+                            d="M18 2.0845
                             a 15.9155 15.9155 0 0 1 0 31.831
                             a 15.9155 15.9155 0 0 1 0 -31.831"
-                          fill="none"
-                          stroke="#3B82F6"
-                          strokeWidth="3"
-                          strokeDasharray="72, 100"
-                        />
-                      </svg>
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-bold text-blue-700">
-                       N/A
+                            fill="none"
+                            stroke="#3B82F6"
+                            strokeWidth="3"
+                            strokeDasharray="72, 100"
+                          />
+                        </svg>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-bold text-blue-700">
+                          N/A
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Recent Activity and Application Domains */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Recent Activity */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="text-base font-semibold text-gray-900 flex items-center">
-                  <Clock className="w-4 h-4 text-gray-600 mr-2" />
-                  Recent Activity
-                </h3>
-              </div>
-              <div className="p-4">
-                <div className="space-y-3">
-                  {[
-                    {
-                      type: 'update',
-                      title: 'Updated BC003.4 Professional Development',
-                      description: 'Added new capability to HR domain',
-                      time: '2h ago',
-                      user: 'System Update'
-                    },
-                    {
-                      type: 'enhancement',
-                      title: 'Enhanced AC115 Student Information System',
-                      description: 'Added new product examples',
-                      time: '1d ago',
-                      user: 'Data Steward'
-                    },
-                    {
-                      type: 'review',
-                      title: 'Completed framework alignment review',
-                      description: 'Verified against HERM v2.3 standards',
-                      time: '3d ago',
-                      user: 'Governance Team'
-                    }
-                  ].map((activity, index) => (
-                    <div key={index} className="flex items-start">
-                      <div className={`flex-shrink-0 mt-0.5 ${activity.type === 'update' ? 'text-blue-500' :
-                        activity.type === 'enhancement' ? 'text-green-500' : 'text-purple-500'
-                        }`}>
-                        {activity.type === 'update' ? (
-                          <Edit3 className="w-4 h-4" />
-                        ) : activity.type === 'enhancement' ? (
-                          <Plus className="w-4 h-4" />
-                        ) : (
-                          <BookOpen className="w-4 h-4" />
-                        )}
-                      </div>
-                      <div className="ml-2">
-                        <p className="text-xs font-medium text-gray-900">{activity.title}</p>
-                        <p className="text-xs text-gray-600">{activity.description}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">
-                          {activity.time} • {activity.user}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+            {/* Recent Activity and Application Domains */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Recent Activity */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="p-4 border-b border-gray-200">
+                  <h3 className="text-base font-semibold text-gray-900 flex items-center">
+                    <Clock className="w-4 h-4 text-gray-600 mr-2" />
+                    Recent Activity
+                  </h3>
                 </div>
-                <div className="mt-3 text-right">
-                  <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                    View all activity →
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Application Domains Overview */}
-            <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="text-base font-semibold text-gray-900 flex items-center">
-                  <Layers className="w-4 h-4 text-green-600 mr-2" />
-                  Application Domains
-                </h3>
-              </div>
-              <div className="p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {applicationCapabilities.slice(0, 4).map((domain) => (
-                    <div key={domain.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-sm font-medium text-gray-900">{domain.name}</h4>
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {domain.code}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-600 mb-3 line-clamp-2">{'Application domain'}</p>
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <span className="text-xs text-gray-500">Portfolios:</span>
-                          <span className="ml-1 text-xs font-medium text-gray-900">
-                            {domain.portfolios.length}
-                          </span>
+                <div className="p-4">
+                  <div className="space-y-3">
+                    {[
+                      {
+                        type: 'update',
+                        title: 'Updated BC003.4 Professional Development',
+                        description: 'Added new capability to HR domain',
+                        time: '2h ago',
+                        user: 'System Update'
+                      },
+                      {
+                        type: 'enhancement',
+                        title: 'Enhanced AC115 Student Information System',
+                        description: 'Added new product examples',
+                        time: '1d ago',
+                        user: 'Data Steward'
+                      },
+                      {
+                        type: 'review',
+                        title: 'Completed framework alignment review',
+                        description: 'Verified against HERM v2.3 standards',
+                        time: '3d ago',
+                        user: 'Governance Team'
+                      }
+                    ].map((activity, index) => (
+                      <div key={index} className="flex items-start">
+                        <div className={`flex-shrink-0 mt-0.5 ${activity.type === 'update' ? 'text-blue-500' :
+                          activity.type === 'enhancement' ? 'text-green-500' : 'text-purple-500'
+                          }`}>
+                          {activity.type === 'update' ? (
+                            <Edit3 className="w-4 h-4" />
+                          ) : activity.type === 'enhancement' ? (
+                            <Plus className="w-4 h-4" />
+                          ) : (
+                            <BookOpen className="w-4 h-4" />
+                          )}
                         </div>
-                        <div>
-                          <span className="text-xs text-gray-500">Applications:</span>
-                          <span className="ml-1 text-xs font-medium text-gray-900">
-                            {domain.portfolios.reduce((acc, p) => acc + p.applications.length, 0)}
-                          </span>
+                        <div className="ml-2">
+                          <p className="text-xs font-medium text-gray-900">{activity.title}</p>
+                          <p className="text-xs text-gray-600">{activity.description}</p>
+                          <p className="text-xs text-gray-500 mt-0.5">
+                            {activity.time} • {activity.user}
+                          </p>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <div className="mt-3 text-right">
+                    <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                      View all activity →
+                    </button>
+                  </div>
                 </div>
-                <div className="mt-3 text-right">
-                  <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                    View all application domains →
-                  </button>
+              </div>
+
+              {/* Application Domains Overview */}
+              <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="p-4 border-b border-gray-200">
+                  <h3 className="text-base font-semibold text-gray-900 flex items-center">
+                    <Layers className="w-4 h-4 text-green-600 mr-2" />
+                    Application Domains
+                  </h3>
+                </div>
+                <div className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {applicationCapabilities.slice(0, 4).map((domain) => (
+                      <div key={domain.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-sm font-medium text-gray-900">{domain.name}</h4>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {domain.code}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-3 line-clamp-2">{'Application domain'}</p>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <span className="text-xs text-gray-500">Portfolios:</span>
+                            <span className="ml-1 text-xs font-medium text-gray-900">
+                              {domain.portfolios.length}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-xs text-gray-500">Applications:</span>
+                            <span className="ml-1 text-xs font-medium text-gray-900">
+                              {domain.portfolios.reduce((acc, p) => acc + p.applications.length, 0)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 text-right">
+                    <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                      View all application domains →
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Capabilities Sidebar - Made narrower */}
-      <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${showAllCapabilities ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="h-full flex flex-col">
-          {/* Sidebar Header */}
-          <div className="p-3 border-b border-gray-200 flex justify-between items-center">
-            <h3 className="text-sm font-semibold text-gray-900">
-              {selectedCapability ? selectedCapability.name : 'All Business Capabilities'}
-            </h3>
-            <button
-              onClick={() => {
-                setShowAllCapabilities(false);
-                setSelectedCapability(null);
-              }}
-              className="p-1 rounded-md hover:bg-gray-100"
-            >
-              <X className="w-4 h-4 text-gray-500" />
-            </button>
-          </div>
-
-          {/* Sidebar Content */}
-          <div className="flex-1 overflow-y-auto">
-            {selectedCapability ? (
-              <div className="p-3">
-                <button
-                  onClick={() => setSelectedCapability(null)}
-                  className="flex items-center text-xs text-blue-600 mb-3"
-                >
-                  <ChevronLeft className="w-3 h-3 mr-1" />
-                  Back to list
-                </button>
-
-                <div className="bg-gray-50 p-3 rounded-lg mb-3">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      {selectedCapability.code}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {selectedCapability.type}
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold mt-1">{selectedCapability.name}</h4>
-                  <p className="text-xs text-gray-600 mt-1">{selectedCapability.description}</p>
-                </div>
-
-                {selectedCapability.children && selectedCapability.children.length > 0 && (
-                  <div>
-                    <h5 className="text-xs font-semibold text-gray-700 mb-2">Child Capabilities</h5>
-                    <div className="space-y-2">
-                      {selectedCapability.children.map(child => (
-                        <div
-                          key={child.id}
-                          className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                        >
-                          <div className="flex justify-between">
-                            <span className="text-xs font-medium">{child.name}</span>
-                            <span className="text-xs text-gray-500">{child.code}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="divide-y divide-gray-200">
-                {businessCapabilities.map(capability => (
-                  <div
-                    key={capability.id}
-                    onClick={() => setSelectedCapability(capability)}
-                    className="p-3 hover:bg-gray-50 cursor-pointer transition-colors"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-900">{capability.name}</h4>
-                        <p className="text-xs text-gray-500">{capability.code}</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                          {capability.children.length}
-                        </span>
-                        <ChevronRight className="w-3 h-3 ml-1 text-gray-400" />
-                      </div>
-                    </div>
-                    {capability.description && (
-                      <p className="text-xs text-gray-600 mt-1 line-clamp-2">{capability.description}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar Footer */}
-          <div className="p-3 border-t border-gray-200 bg-gray-50">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-gray-600">
-                Showing {selectedCapability ? '1 capability' : `${businessCapabilities.length} domains`}
-              </span>
+        {/* Capabilities Sidebar - Made narrower */}
+        <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${showAllCapabilities ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="h-full flex flex-col">
+            {/* Sidebar Header */}
+            <div className="p-3 border-b border-gray-200 flex justify-between items-center">
+              <h3 className="text-sm font-semibold text-gray-900">
+                {selectedCapability ? selectedCapability.name : 'All Business Capabilities'}
+              </h3>
               <button
                 onClick={() => {
                   setShowAllCapabilities(false);
                   setSelectedCapability(null);
                 }}
-                className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+                className="p-1 rounded-md hover:bg-gray-100"
               >
-                Close
+                <X className="w-4 h-4 text-gray-500" />
               </button>
+            </div>
+
+            {/* Sidebar Content */}
+            <div className="flex-1 overflow-y-auto">
+              {selectedCapability ? (
+                <div className="p-3">
+                  <button
+                    onClick={() => setSelectedCapability(null)}
+                    className="flex items-center text-xs text-blue-600 mb-3"
+                  >
+                    <ChevronLeft className="w-3 h-3 mr-1" />
+                    Back to list
+                  </button>
+
+                  <div className="bg-gray-50 p-3 rounded-lg mb-3">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {selectedCapability.code}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {selectedCapability.type}
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-bold mt-1">{selectedCapability.name}</h4>
+                    <p className="text-xs text-gray-600 mt-1">{selectedCapability.description}</p>
+                  </div>
+
+                  {selectedCapability.children && selectedCapability.children.length > 0 && (
+                    <div>
+                      <h5 className="text-xs font-semibold text-gray-700 mb-2">Child Capabilities</h5>
+                      <div className="space-y-2">
+                        {selectedCapability.children.map(child => (
+                          <div
+                            key={child.id}
+                            className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                          >
+                            <div className="flex justify-between">
+                              <span className="text-xs font-medium">{child.name}</span>
+                              <span className="text-xs text-gray-500">{child.code}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-200">
+                  {businessCapabilities.map(capability => (
+                    <div
+                      key={capability.id}
+                      onClick={() => setSelectedCapability(capability)}
+                      className="p-3 hover:bg-gray-50 cursor-pointer transition-colors"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-900">{capability.name}</h4>
+                          <p className="text-xs text-gray-500">{capability.code}</p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                            {capability.children.length}
+                          </span>
+                          <ChevronRight className="w-3 h-3 ml-1 text-gray-400" />
+                        </div>
+                      </div>
+                      {capability.description && (
+                        <p className="text-xs text-gray-600 mt-1 line-clamp-2">{capability.description}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar Footer */}
+            <div className="p-3 border-t border-gray-200 bg-gray-50">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-600">
+                  Showing {selectedCapability ? '1 capability' : `${businessCapabilities.length} domains`}
+                </span>
+                <button
+                  onClick={() => {
+                    setShowAllCapabilities(false);
+                    setSelectedCapability(null);
+                  }}
+                  className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Overlay when sidebar is open */}
-      {showAllCapabilities && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-0"
-          onClick={() => {
-            setShowAllCapabilities(false);
-            setSelectedCapability(null);
-          }}
-        />
-      )}
-    </div>
-  );
-};
+        {/* Overlay when sidebar is open */}
+        {showAllCapabilities && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-30 z-0"
+            onClick={() => {
+              setShowAllCapabilities(false);
+              setSelectedCapability(null);
+            }}
+          />
+        )}
+      </div>
+    );
+  };
 
 
   // Business Capabilities Tab - Enhanced Card View

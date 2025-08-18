@@ -9,7 +9,6 @@ import { ReportData, reports } from './data';
 import { useParams } from 'react-router-dom';
 
 
-
 const DataGovernanceDashboard = () => {
     const { id } = useParams<{ id: string }>();
     const [report, setReport] = useState<ReportData | undefined>(undefined);

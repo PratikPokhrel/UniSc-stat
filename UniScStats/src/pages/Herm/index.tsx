@@ -20,6 +20,8 @@ import organizationalData from './org_unit_data.jsx'; // Import organizational d
 import HERMMappingInterface from './HERMmapping.js';
 import MaturityAssessment from '../governance/maturity-assissment.js';
 import DataQualityDashboard from '../governance/data-quality-dashboard.js';
+import DataControlsDashboard from './data-controls.js';
+import { FaRegHeart } from 'react-icons/fa';
 
 const HERMDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -44,6 +46,7 @@ const HERMDashboard = () => {
       setActiveTab('dashboard'); // Or your default tab
     }
   }, [location.pathname, orgUnit]);
+
 
 
   // Filter capabilities based on selections
@@ -92,6 +95,7 @@ const HERMDashboard = () => {
               { id: 'org', name: 'Governance Structure', icon: <FiUsers /> },
               { id: 'org-raw', name: 'Organisation Units', icon: <FiBriefcase /> },
               { id: 'maturity', name: 'Maturity Assessment', icon: <FiBriefcase /> },
+              { id: 'health', name: 'Health Metrics', icon: <FaRegHeart /> },
               { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
               { id: 'overview', name: 'Overview', icon: <FiHome /> },
               { id: 'domains', name: 'Domains', icon: <FiLayers /> },
@@ -102,7 +106,7 @@ const HERMDashboard = () => {
                   setActiveTab(item.id);
                   setSelectedDomain(null);
                   setSelectedCapability(null);
-                  navigate('/herm');
+                  navigate('/governance');
                 }}
                 className={`flex items-center w-full px-4 py-3 text-left ${activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'}`}>
                 <span className="mr-3">{item.icon}</span>
@@ -137,6 +141,7 @@ const HERMDashboard = () => {
             {activeTab === 'maturity' && (<MaturityAssessment />)}
             {activeTab === 'org-raw' && (<OrganisationRaw />)}
             {activeTab === 'capabilities' && (<HERMMappingInterface organizationalData={organizationalData} />)}
+            {activeTab === 'health' && (<DataControlsDashboard  />)}
           </>
         )}
       </div>
