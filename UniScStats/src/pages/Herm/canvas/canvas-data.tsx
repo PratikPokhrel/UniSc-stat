@@ -30,17 +30,10 @@ import ReactFlow, {
     Position
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { dataCollections } from './data-collection';
 import DataQualityDashboard from '../quality-dashboard';
+import { dataCollections } from './data';
 
-// Data sensitivity classification levels
-const SensitivityLevels = {
-    PUBLIC: { level: 'Public', description: 'No restrictions, can be publicly shared', color: 'bg-green-100 text-green-800' },
-    INTERNAL: { level: 'Internal', description: 'General business use, no sensitive data', color: 'bg-blue-100 text-blue-800' },
-    CONFIDENTIAL: { level: 'Confidential', description: 'Sensitive business data', color: 'bg-yellow-100 text-yellow-800' },
-    HIGHLY_CONFIDENTIAL: { level: 'Highly Confidential', description: 'Very sensitive business data', color: 'bg-orange-100 text-orange-800' },
-    RESTRICTED: { level: 'Restricted', description: 'Highly sensitive personal or regulated data', color: 'bg-red-100 text-red-800' }
-};
+
 
 // Enhanced custom node component with proper styling and icons
 const CustomNode = ({ data }) => {

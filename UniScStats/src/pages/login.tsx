@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import MicrosoftLogo from '../../public/assets/icons/microsoft-ar21.svg';
 import { MailIcon } from 'lucide-react';
 import Header from '@/components/Header';

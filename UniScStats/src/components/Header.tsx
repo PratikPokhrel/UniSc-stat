@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from '@/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -29,9 +29,15 @@ const Header = () => {
       title: "BI Navigator",
       subItems: [{ name: "Reports", route: '/bi-catalog' }]
     },
-    {
-      title: "Metadata & Lineage",
-      subItems: [{ name: "Reports", route: '/metadata' }]
+    // {
+    //   title: "Metadata & Lineage",
+    //   subItems: [{ name: "Reports", route: '/metadata' }]
+    // },
+     {
+      title: "Data Hub",
+      subItems: [{ name: "Source and Destination", route: '/data-sources' },
+                 { name: "LIX Integrations", route: '/lix' }
+      ]
     },
     // {
     //   title: "Data & Analysis",

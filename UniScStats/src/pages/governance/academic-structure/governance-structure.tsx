@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaSitemap, FaListUl, FaInfoCircle } from 'react-icons/fa';
-import UniversityOrgChart from './governance-strucure-tree';
-import VerticalOrgChart from './governance-structure-list';
 import { Search } from 'lucide-react';
+import UniversityOrgChart from './governance-structure-tree';
+import VerticalOrgChart from './governance-structure-list';
 
 const GovernanceStructure = () => {
     const [activeView, setActiveView] = useState('tree'); 

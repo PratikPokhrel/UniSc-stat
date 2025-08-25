@@ -15,9 +15,11 @@ import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar
 } from 'recharts';
 import * as XLSX from 'xlsx';
+import { useNavigate } from 'react-router-dom';
 
 
 const IAUDataHealthDashboard = () => {
+  const navigate = useNavigate();
   // HERM Framework Domains
   const hermDomains = [
     'Strategy & Planning Management', 'Information & Data Management', 'Analytics & Business Intelligence', 'Business & Operations Management'
@@ -35,10 +37,10 @@ const IAUDataHealthDashboard = () => {
       lastModified: '2025-08-15',
       healthStatus: 'healthy',
       sensitivity: 'High',
-      completeness: 98,
-      freshness: 95,
-      usage: 42,
-      hermCoverage: 85
+      completeness: 42,
+      freshness: 41,
+      usage: 28,
+      hermCoverage: 36
     },
     {
       id: 2,
@@ -50,10 +52,10 @@ const IAUDataHealthDashboard = () => {
       lastModified: '2025-08-10',
       healthStatus: 'healthy',
       sensitivity: 'Medium',
-      completeness: 92,
-      freshness: 88,
+      completeness: 42,
+      freshness: 41,
       usage: 28,
-      hermCoverage: 78
+      hermCoverage: 36
     },
     {
       id: 3,
@@ -311,34 +313,34 @@ const IAUDataHealthDashboard = () => {
   };
 
   // Add this function to your component (you'll need to import it at the top)
-const exportToExcel = () => {
-  // Prepare the data for export
-  const exportData = dataAssets.map(asset => ({
-    'Dataset Name': asset.name,
-    'HERM Domain': asset.hermDomain,
-    'Classification': asset.classification,
-    'Owner': asset.owner,
-    'Size': asset.size,
-    'Last Modified': asset.lastModified,
-    'Health Status': asset.healthStatus,
-    'Sensitivity': asset.sensitivity,
-    'Completeness (%)': asset.completeness,
-    'Freshness (%)': asset.freshness,
-    'Usage': asset.usage,
-    'HERM Coverage (%)': asset.hermCoverage,
-    'Description': asset.description || ''
-  }));
+  const exportToExcel = () => {
+    // Prepare the data for export
+    const exportData = dataAssets.map(asset => ({
+      'Dataset Name': asset.name,
+      'HERM Domain': asset.hermDomain,
+      'Classification': asset.classification,
+      'Owner': asset.owner,
+      'Size': asset.size,
+      'Last Modified': asset.lastModified,
+      'Health Status': asset.healthStatus,
+      'Sensitivity': asset.sensitivity,
+      'Completeness (%)': asset.completeness,
+      'Freshness (%)': asset.freshness,
+      'Usage': asset.usage,
+      'HERM Coverage (%)': asset.hermCoverage,
+      'Description': asset.description || ''
+    }));
 
-  // Create worksheet
-  const ws = XLSX.utils.json_to_sheet(exportData);
-  
-  // Create workbook
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "IAU Data Assets");
-  
-  // Export the file
-  XLSX.writeFile(wb, "IAU_Data_Assets_Health.xlsx");
-};
+    // Create worksheet
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "IAU Data Assets");
+
+    // Export the file
+    XLSX.writeFile(wb, "IAU_Data_Assets_Health.xlsx");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
@@ -748,30 +750,36 @@ const exportToExcel = () => {
                     {filteredAssets.length > 0 ? (
                       filteredAssets.map((asset) => (
                         <React.Fragment key={asset.id}>
-                          <tr className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap">
+                          <tr
+                            className="transition-all duration-200 hover:bg-blue-50 hover:shadow-inner cursor-pointer group"
+                            onClick={() => navigate(`/governance/data-asset-health/${asset.name}`)}
+                          >
+                            <td className="px-6 py-4 whitespace-nowrap group-hover:pl-8 transition-all duration-200">
                               <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10 rounded-md bg-blue-100 flex items-center justify-center">
-                                  <Database className="h-5 w-5 text-blue-600" />
+                                <div className="flex-shrink-0 h-10 w-10 rounded-md bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-200">
+                                  <Database className="h-5 w-5 text-blue-600 group-hover:text-blue-800 transition-colors duration-200" />
                                 </div>
                                 <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">{asset.name}</div>
-                                  <div className="text-sm text-gray-500">{asset.owner}</div>
+                                  <div className="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-200">{asset.name}</div>
+                                  <div className="text-sm text-gray-500 group-hover:text-blue-600 transition-colors duration-200">{asset.owner}</div>
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{asset.hermDomain}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{asset.hermDomain}</td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {renderHealthBadge(asset.healthStatus)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {renderSensitivityBadge(asset.sensitivity)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{asset.lastModified}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{asset.lastModified}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <button
-                                onClick={() => toggleExpandAsset(asset.id)}
-                                className="text-blue-600 hover:text-blue-900 mr-3"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleExpandAsset(asset.id);
+                                }}
+                                className="text-blue-600 hover:text-blue-900 mr-3 transition-colors duration-200 group-hover:scale-110 transform"
                               >
                                 {expandedAsset === asset.id ? (
                                   <ChevronUp className="h-4 w-4" />
@@ -779,14 +787,20 @@ const exportToExcel = () => {
                                   <ChevronDown className="h-4 w-4" />
                                 )}
                               </button>
-                              <button className="text-gray-600 hover:text-gray-900">
-                                <ExternalLink onClick={() => window.open('https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/347878be-dec6-48f2-a00d-fefc58702ca8/438e4bf1ca77e0ed5236?experience=power-bi')} className="h-4 w-4" />
+                              <button
+                                className="text-gray-600 hover:text-gray-900 transition-colors duration-200 group-hover:scale-110 transform"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.open('https://app.powerbi.com/groups/me/apps/694e9e63-77cf-4946-a76b-e4bd14c4bf64/reports/347878be-dec6-48f2-a00d-fefc58702ca8/438e4bf1ca77e0ed5236?experience=power-bi');
+                                }}
+                              >
+                                <ExternalLink className="h-4 w-4" />
                               </button>
                             </td>
                           </tr>
                           {expandedAsset === asset.id && (
-                            <tr>
-                              <td colSpan="6" className="px-6 py-4 bg-gray-50">
+                            <tr className="bg-blue-50 transition-all duration-300">
+                              <td colSpan={6} className="px-6 py-4">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                   <div>
                                     <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Health Metrics</h4>
@@ -798,7 +812,7 @@ const exportToExcel = () => {
                                         </div>
                                         <div className="w-full bg-gray-200 rounded-full h-2">
                                           <div
-                                            className={`h-2 rounded-full ${asset.completeness > 90 ? 'bg-emerald-500' : asset.completeness > 75 ? 'bg-amber-500' : 'bg-red-500'}`}
+                                            className={`h-2 rounded-full transition-all duration-500 ${asset.completeness > 90 ? 'bg-emerald-500' : asset.completeness > 75 ? 'bg-amber-500' : 'bg-red-500'}`}
                                             style={{ width: `${asset.completeness}%` }}
                                           ></div>
                                         </div>
@@ -810,7 +824,7 @@ const exportToExcel = () => {
                                         </div>
                                         <div className="w-full bg-gray-200 rounded-full h-2">
                                           <div
-                                            className={`h-2 rounded-full ${asset.freshness > 90 ? 'bg-emerald-500' : asset.freshness > 75 ? 'bg-amber-500' : 'bg-red-500'}`}
+                                            className={`h-2 rounded-full transition-all duration-500 ${asset.freshness > 90 ? 'bg-emerald-500' : asset.freshness > 75 ? 'bg-amber-500' : 'bg-red-500'}`}
                                             style={{ width: `${asset.freshness}%` }}
                                           ></div>
                                         </div>
@@ -827,7 +841,7 @@ const exportToExcel = () => {
                                         </div>
                                         <div className="w-full bg-gray-200 rounded-full h-2">
                                           <div
-                                            className={`h-2 rounded-full ${asset.hermCoverage > 80 ? 'bg-blue-500' : asset.hermCoverage > 60 ? 'bg-indigo-500' : 'bg-purple-500'}`}
+                                            className={`h-2 rounded-full transition-all duration-500 ${asset.hermCoverage > 80 ? 'bg-blue-500' : asset.hermCoverage > 60 ? 'bg-indigo-500' : 'bg-purple-500'}`}
                                             style={{ width: `${asset.hermCoverage}%` }}
                                           ></div>
                                         </div>
@@ -859,7 +873,7 @@ const exportToExcel = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="6" className="px-6 py-8 text-center text-sm text-gray-500">
+                        <td colSpan={6} className="px-6 py-8 text-center text-sm text-gray-500">
                           No datasets found matching your criteria
                         </td>
                       </tr>
@@ -1068,15 +1082,15 @@ const exportToExcel = () => {
                   <div className="text-center">
                     <p className="text-sm text-gray-500 mb-1">Overall Health Score</p>
                     <div className="relative">
-                      <span className="text-7xl font-bold text-indigo-600">76%</span>
+                      <span className="text-7xl font-bold text-indigo-600">55%</span>
                       <div className="absolute -bottom-2 right-0 flex items-center">
 
                       </div>
                     </div>
                     <div className="mt-4 w-24 h-1 bg-indigo-100 rounded-full mx-auto">
-                      <div className="h-1 bg-indigo-500 rounded-full" style={{ width: '76%' }}></div>
+                      <div className="h-1 bg-indigo-500 rounded-full" style={{ width: '55%' }}></div>
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Good alignment</p>
+                    <p className="text-xs text-gray-500 mt-2">Average alignment</p>
                   </div>
                 </div>
               </div>

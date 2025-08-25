@@ -6,12 +6,12 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow" style={{ backgroundColor: '#f2f2f2' }}>
-        <Outlet /> {/* This renders the page content */}
-      </main>
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow" style={{ backgroundColor: '#f2f2f2' }}>
+          <Outlet /> {/* This renders the page content */}
+        </main>
+        <Footer />
     </div>
   );
 };

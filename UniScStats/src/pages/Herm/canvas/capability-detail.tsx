@@ -1,67 +1,9 @@
 import { Activity, Database, Edit, ExternalLink, FileText, Info, Layout, Mail, Network, PieChart, Users, X, Zap } from "lucide-react";
 import { FaSearch } from "react-icons/fa";
+import { capabilityOwners, mockActions, mockDependencies } from "./data";
 
 const CapabilityDetailModal = ({ item, orgInfo, onClose, type }) => {
     if (!item) return null;
-
-    // Capability owners data
-    const capabilityOwners = [
-        {
-            name: 'CDO',
-            role: 'CDOtest@usc.edu.au',
-            roles: ['Primary Owner', 'Responsible Officer'],
-            email: 'cdo.test@usc.edu',
-            isPrimary: true,
-            avatar: 'CDO'
-        },
-         {
-            name: 'Steve Perry',
-            role: 'GGovernance@usc.edu.au',
-            roles: ['Data Governance Lead'],
-            email: 'cdo.test@usc.edu',
-            isPrimary: false,
-            avatar: 'SP'
-        },
-        {
-            name: 'Andrei Stoian',
-            role: 'Business Intelligence Manager',
-            roles: ['IAU Manager'],
-            email: 'a.stoian@usc.edu', 
-            isPrimary: false,
-            avatar: 'AS'
-        },
-        
-    ];
-
-    // Priority actions with icons
-    const mockActions = [
-        {
-            title: 'Enhance stakeholder engagement process',
-            priority: 'high',
-            dueDate: 'AUG 15, 2025',
-            icon: <Users className="w-4 h-4" />
-        },
-        {
-            title: 'Implement new strategy framework',
-            priority: 'medium',
-            dueDate: 'SEP 1, 2025',
-            icon: <Layout className="w-4 h-4" />
-        },
-        {
-            title: 'Update capability documentation',
-            priority: 'low',
-            dueDate: 'Oct 30, 2025',
-            icon: <FileText className="w-4 h-4" />
-        }
-    ];
-
-    // Dependencies with icons
-    const mockDependencies = [
-        { name: 'Data Management (BC143)', icon: <Database className="w-4 h-4" /> },
-        { name: 'Business Intelligence (BC211)', icon: <PieChart className="w-4 h-4" /> },
-        { name: 'Enterprise Architecture', icon: <Network className="w-4 h-4" /> }
-    ];
-
     return (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
             <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-gray-200 animate-slideUp">

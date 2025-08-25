@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
-import { FiBarChart2, FiFolder, FiServer, FiUsers } from 'react-icons/fi';
 
 const DataCatalog = () => {
   const [reports, setReports] = useState<any[]>([]);
@@ -63,7 +62,6 @@ const DataCatalog = () => {
     loadCSV();
   }, []);
 
-  // 🔁 Filtering logic
   useEffect(() => {
     let activeCategories = selectedCategories;
 

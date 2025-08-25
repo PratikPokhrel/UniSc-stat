@@ -10,7 +10,7 @@ import {
     Brain,
     Building2,
     GraduationCap,
-    Users,
+    Users,                                                         
     Zap,
     Wrench,
     Microscope,
@@ -46,51 +46,76 @@ const organizationalData = {
         },
         capabilities: {
             'strategy-management': {
-                title: 'Strategy & Planning Management',
+                title: 'Strategy Management',
                 icon: <Target className="w-5 h-5" />,
                 color: 'blue',
                 capabilities: [
-                    { id: 'BC147', code: 'BC147', name: 'Strategy Management', description: 'Develops and manages organizational strategy, strategic planning processes, and strategic performance measurement.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Chief Data Officer' },
                     { id: 'BC148', code: 'BC148', name: 'Vision & Strategy Development', description: 'Creates and articulates organizational vision, mission, and strategic direction.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Chief Data Officer' },
                     { id: 'BC149', code: 'BC149', name: 'Strategic Plan Management', description: 'Manages the development, implementation, and monitoring of strategic plans across the organization.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Chief Data Officer' },
-                    { id: 'BC230', code: 'BC230', name: 'Business Planning', description: 'Coordinates business planning processes, including operational planning and resource allocation.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Chief Data Officer' }
+                ],
+                applicationPlatforms: [
+                    {
+                        code: 'AP008', name: 'Governance', description: 'Policy Management applications provide workflow and tracking, versioning and document management, and related features and functions tailored to the requirements of caring for an institution’s policies and related artefacts.', applicationCapabilities: [
+                            { code: 'AC099', name: 'Policy Management', description: 'Policy Management applications facilitate the institution-wide lifecycle management of policy artefacts.' }
+                        ]
+                    },
+                    {
+                        code: 'AP009', name: 'Change & Transformation', description: 'Strategy Management applications model, map, manage, and measure the relationship between an institutions strategic goals and its business outcomes.', applicationCapabilities: [
+                            { code: 'AC015', name: 'Strategy Management', description: 'Strategy Management applications model, map, manage, and measure the relationship between an institutions strategic goals.' }
+                        ]
+                    }
                 ]
             },
             'information-management': {
-                title: 'Information & Data Management',
+                title: 'Information Management',
                 icon: <Database className="w-5 h-5" />,
                 color: 'green',
                 capabilities: [
-                    { id: 'BC135', code: 'BC135', name: 'Information Management', description: 'Manages organizational information assets, information architecture, and information lifecycle.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Chief Data Officer' },
                     { id: 'BC136', code: 'BC136', name: 'Information Governance', description: 'Establishes and maintains information governance frameworks, policies, and procedures.', maturityLevel: 'Defined', riskLevel: 'High', owner: 'Information Governance Manager' },
+                    { id: 'BC138', code: 'BC138', name: 'Information Security Management', description: 'Information Security Management protects the confidentiality, integrity, and availability of information in an institutions care.', maturityLevel: 'Defined', riskLevel: 'High', owner: 'Information Governance Manager', shared: true, owner2:'ITS' },
+                    { id: 'BC139', code: 'BC139', name: 'Identity & Access Management', description: 'Identity & Access Management manages information about people and things, instantiates and enforces organisational business rules and policy regarding entitlements to systems and services, and mediates access requests and identity verification.', maturityLevel: 'Defined', riskLevel: 'High', owner: 'Information Governance Manager', shared: true, owner2:'ITS' },
+                    { id: 'BC211', code: 'BC211', name: 'Business Intelligence & Reporting', description: 'Delivers business intelligence solutions, dashboards, and reporting capabilities.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'BI Manager' },
                     { id: 'BC143', code: 'BC143', name: 'Data Management', description: 'Manages data assets, data quality, data integration, and data lifecycle processes.', maturityLevel: 'Optimizing', riskLevel: 'Medium', owner: 'Chief Data Officer' },
+                    { id: 'BC144', code: 'BC144', name: 'Advanced Analytics', description: 'Provides advanced analytics, predictive modeling, and data science capabilities.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'BI Manager' },
                     { id: 'BC145', code: 'BC145', name: 'Records Management', description: 'Manages organizational records, document retention, and compliance with record-keeping requirements.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Chief Data Officer' },
                     { id: 'BC146', code: 'BC146', name: 'Enterprise Content Management', description: 'Manages enterprise content, document management systems, and content lifecycle.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Chief Data Officer' },
                     { id: 'BC141', code: 'BC141', name: 'Intellectual Property Management', description: 'Manages intellectual property assets, patents, trademarks, and IP commercialization.', maturityLevel: 'Defined', riskLevel: 'High', owner: 'IP Manager  | Chief Data Officer' },
                     { id: 'BC231', code: 'BC231', name: 'Digital Preservation', description: 'Ensures long-term preservation and accessibility of digital assets and records.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Chief Data Officer' }
+                ],
+                applicationPlatforms: [
+                    {
+                        code: 'AP012', name: 'Digital Identity', description: 'Identity Governance & Administration applications facilitate the governance and delivery of digital-identity lifecycle-management for people and things.', 
+                        applicationCapabilities: [
+                            { code: 'AC112', name: 'Programme & Project Management', description: 'Identity Governance and Administration applications provide functionality that often includes identity provisioning, access provisioning, policy and role management, segregation-of-duties controls, auditing, and reporting. These features and functions are sometimes bundled into comprehensive Identity & Access Management platforms..' }
+                        ]
+                    }
                 ]
-            },
-            'analytics-insights': {
-                title: 'Analytics & Business Intelligence',
-                icon: <Brain className="w-5 h-5" />,
-                color: 'purple',
-                capabilities: [
-                    { id: 'BC144', code: 'BC144', name: 'Advanced Analytics', description: 'Provides advanced analytics, predictive modeling, and data science capabilities.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'BI Manager' },
-                    { id: 'BC211', code: 'BC211', name: 'Business Intelligence & Reporting', description: 'Delivers business intelligence solutions, dashboards, and reporting capabilities.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'BI Manager' }
-                ]
+               
             },
             'business-management': {
-                title: 'Business & Operations Management',
+                title: 'Business Capability Management',
                 icon: <Settings className="w-5 h-5" />,
                 color: 'blue',
                 capabilities: [
+                    { id: 'BC207', code: 'BC207', name: 'Change Management', description: 'Manages the effects of change on people.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner2: 'ITS', shared: true },
                     { id: 'BC206', code: 'BC206', name: 'Business Capability Management', description: 'Manages business capability framework, capability assessment, and capability development.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Enterprise Architect' },
+                    { id: 'BC209', code: 'BC209', name: 'Enterprise Architecture', description: 'Enterprise Architecture conducts enterprise analysis, design, planning, and implementation to aid successful development and execution of strategy.', maturityLevel: 'Optimizing', riskLevel: 'Low', shared:true, owner2: 'ITS' },
                     { id: 'BC216', code: 'BC216', name: 'Business Process Management', description: 'Manages business process design, optimization, and continuous improvement.', maturityLevel: 'Defined', riskLevel: 'Medium', owner: 'Process Excellence Manager' },
                     { id: 'BC218', code: 'BC218', name: 'Service Management', description: 'Manages service delivery, service design, and service improvement processes.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Service Manager' },
                     { id: 'BC208', code: 'BC208', name: 'Benefits Management', description: 'Manages benefits realization, value measurement, and outcome tracking.', maturityLevel: 'Defined', riskLevel: 'Medium', owner: 'Benefits Manager' },
                     { id: 'BC210', code: 'BC210', name: 'Portfolio & Programme Management', description: 'Manages project portfolios, programmes, and strategic initiatives.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Portfolio Manager' },
                     { id: 'BC243', code: 'BC243', name: 'Project Management', description: 'Manages individual projects, project methodologies, and project delivery.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'PMO Director' },
                     { id: 'BC244', code: 'BC244', name: 'Product Management', description: 'Manages product development, product lifecycle, and product strategy.', maturityLevel: 'Defined', riskLevel: 'Medium', owner: 'Product Manager' }
+                ],
+                applicationPlatforms: [
+                    
+                    {
+                        code: 'AP009', name: 'Change & Transformation', description: 'Strategy Management applications model, map, manage, and measure the relationship between an institutions strategic goals and its business outcomes.', applicationCapabilities: [
+                            { code: 'AC008', name: 'Product Management', description: 'Product Management applications curate information and enable workflows related to the ideation, design, build, and full lifecycle of digital and other products.' },
+                            { code: 'AC009', name: 'Portfolio Management', description: 'Portfolio Management applications arrange information about programmes and projects into collections able to be prioritised and value-managed as coordinated portfolios of work.' },
+                            { code: 'AC010', name: 'Programme & Project Management', description: 'Programme & Project Management applications manage information about the initiatives an institution considers or undertakes as structured programmes and their component projects.' }
+                        ]
+                    }
                 ]
             }
         },
@@ -305,7 +330,10 @@ const organizationalData = {
                     { id: 'BC001', code: 'BC001', name: 'Curriculum Management', description: 'Manages curriculum development, approval, and lifecycle processes.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Curriculum Manager' },
                     { id: 'BC002', code: 'BC002', name: 'Curriculum Planning', description: 'Plans and designs curriculum structure and learning pathways.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Curriculum Planner' },
                     { id: 'BC003', code: 'BC003', name: 'Curriculum Design', description: 'Designs curriculum content, learning outcomes, and assessment strategies.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Curriculum Designer' },
-                    { id: 'BC004', code: 'BC004', name: 'Curriculum Production', description: 'Produces and develops curriculum materials and resources.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Content Developer' }
+                    { id: 'BC004', code: 'BC004', name: 'Curriculum Production', description: 'Produces and develops curriculum materials and resources.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Content Developer' },
+                    { id: 'BC007', code: 'BC007', name: 'Curriculum Accrediation', description: 'Produces and develops curriculum materials and resources.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Content Developer' },
+                    { id: 'BC235', code: 'BC235', name: 'Offering Management', description: 'Produces and develops curriculum materials and resources.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Curriculum Designer' },
+                    { id: 'BC041', code: 'BC041', name: 'Curriculum Disestablishment', description: 'Produces and develops curriculum materials and resources.', maturityLevel: 'Defined', riskLevel: 'Low', owner: 'Curriculum Designer' }
                 ]
             },
             'learning-delivery': {
@@ -316,7 +344,8 @@ const organizationalData = {
                     { id: 'BC023', code: 'BC023', name: 'Curriculum Delivery', description: 'Manages the delivery of curriculum and learning experiences.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Learning Delivery Manager' },
                     { id: 'BC024', code: 'BC024', name: 'Learning & Teaching Resource Preparation', description: 'Prepares learning and teaching resources and materials.', maturityLevel: 'Managed', riskLevel: 'Medium', owner: 'Resource Coordinator' },
                     { id: 'BC025', code: 'BC025', name: 'Learning & Teaching Resource Management', description: 'Manages learning and teaching resources and infrastructure.', maturityLevel: 'Defined', riskLevel: 'Medium', owner: 'Resource Manager' },
-                    { id: 'BC026', code: 'BC026', name: 'Learning & Teaching Delivery', description: 'Delivers learning and teaching activities and experiences.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Teaching Delivery Lead' }
+                    { id: 'BC026', code: 'BC026', name: 'Learning & Teaching Delivery', description: 'Delivers learning and teaching activities and experiences.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Teaching Delivery Lead' },
+                    { id: 'BC059', code: 'BC059', name: 'Student Supervison', description: 'Delivers learning and teaching activities and experiences.', maturityLevel: 'Optimizing', riskLevel: 'Low', owner: 'Teaching Delivery Lead' }
                 ]
             },
             'assessment-quality': {

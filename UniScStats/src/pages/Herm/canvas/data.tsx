@@ -1,7 +1,5 @@
-// Enhanced data collections with schema information and data classification
 
 import {
-    Users,
     GraduationCap,
     DollarSign,
     Building,
@@ -11,12 +9,38 @@ import {
     Heart,
     Settings,
     Activity,
-    FileText,
-    BarChart3,
-    Database
+    BarChart3,Database, FileText, Layout, Network, PieChart, Users
 } from 'lucide-react';
 
-// Data sensitivity classification levels
+// Capability owners data
+export const capabilityOwners = [
+    {
+        name: 'CDO',
+        role: 'CDOtest@usc.edu.au',
+        roles: ['Primary Owner', 'Responsible Officer'],
+        email: 'cdo.test@usc.edu',
+        isPrimary: true,
+        avatar: 'CDO'
+    },
+    {
+        name: 'Steve Perry',
+        role: 'GGovernance@usc.edu.au',
+        roles: ['Data Governance Lead'],
+        email: 'cdo.test@usc.edu',
+        isPrimary: false,
+        avatar: 'SP'
+    },
+    {
+        name: 'Andrei Stoian',
+        role: 'Business Intelligence Manager',
+        roles: ['IAU Manager'],
+        email: 'a.stoian@usc.edu',
+        isPrimary: false,
+        avatar: 'AS'
+    },
+
+];
+
 const SensitivityLevels = {
     PUBLIC: { level: 'Public', description: 'No restrictions, can be publicly shared', color: 'bg-green-100 text-green-800' },
     INTERNAL: { level: 'Internal', description: 'General business use, no sensitive data', color: 'bg-blue-100 text-blue-800' },
@@ -24,6 +48,35 @@ const SensitivityLevels = {
     HIGHLY_CONFIDENTIAL: { level: 'Highly Confidential', description: 'Very sensitive business data', color: 'bg-orange-100 text-orange-800' },
     RESTRICTED: { level: 'Restricted', description: 'Highly sensitive personal or regulated data', color: 'bg-red-100 text-red-800' }
 };
+
+// Priority actions with icons
+export const mockActions = [
+    {
+        title: 'Enhance stakeholder engagement process',
+        priority: 'high',
+        dueDate: 'AUG 15, 2025',
+        icon: <Users className="w-4 h-4" />
+    },
+    {
+        title: 'Implement new strategy framework',
+        priority: 'medium',
+        dueDate: 'SEP 1, 2025',
+        icon: <Layout className="w-4 h-4" />
+    },
+    {
+        title: 'Update capability documentation',
+        priority: 'low',
+        dueDate: 'Oct 30, 2025',
+        icon: <FileText className="w-4 h-4" />
+    }
+];
+
+// Dependencies with icons
+export const mockDependencies = [
+    { name: 'Data Management (BC143)', icon: <Database className="w-4 h-4" /> },
+    { name: 'Business Intelligence (BC211)', icon: <PieChart className="w-4 h-4" /> },
+    { name: 'Enterprise Architecture', icon: <Network className="w-4 h-4" /> }
+];
 
 export const dataCollections = [
     {

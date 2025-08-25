@@ -253,7 +253,7 @@ const ApplicationDetailsPopup = ({ applicationKey, isOpen, onClose }) => {
   );
 };
 
-// Your provided applications data
+//  provided applications data
 const iauApplications = {
       'Azure AD': {
         name: 'Azure Active Directory',

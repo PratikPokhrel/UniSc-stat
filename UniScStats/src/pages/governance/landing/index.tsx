@@ -1,8 +1,7 @@
 // src/components/HERMDashboard.js
 import { useState, useEffect } from 'react';
 import {
-  FiHome, FiBook, FiLayers, FiDatabase, FiUsers, FiSettings,
-  FiChevronDown, FiChevronRight, FiSearch, FiDownload,
+  FiHome, FiLayers, FiDatabase, FiUsers, FiChevronRight, FiSearch,
   FiChevronLeft,
   FiBriefcase,
   FiPieChart
@@ -10,27 +9,29 @@ import {
 import {
   domains,
   capabilities,
-} from './hermData.js';
-import OrganisationRaw from './organisation-raw.js';
-import OrgStructureView from './governance-structure.js';
+} from '../../Herm/hermData.js';
+import OrganisationRaw from './../../governance/organization-unit/index';
+import OrgStructureView from '../academic-structure/governance-structure';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import GovernanceDomainsDashboard from '../governance/GovernanceDomain.js';
-import OrganizationalCoverage from './OrganizationalCoverage.js';
-import organizationalData from './org_unit_data.jsx'; // Import organizational data
-import HERMMappingInterface from './HERMmapping.js';
-import MaturityAssessment from '../governance/maturity-assissment.js';
-import DataQualityDashboard from '../governance/data-quality-dashboard.js';
-import DataControlsDashboard from './data-controls.js';
+import GovernanceDomainsDashboard from '../GovernanceDomain.js';
+import OrganizationalCoverage from '../../Herm/OrganizationalCoverage';
+import organizationalData from '../academic-structure/org_unit_data'; // Import organizational data
+import HERMMappingInterface from '../../Herm/HERMmapping.js';
+import DataQualityDashboard from '../dashboard/index.js';
+import DataControlsDashboard from '../../Herm/data-controls.js';
 import { FaRegHeart } from 'react-icons/fa';
+import UniversityDQDetails from '../data-quality-detail.js';
+import UniSCButton from '@/components/ui/unisc-button.js';
+import MaturityAssessment from '../maturity-assessment/index.js';
 
-const HERMDashboard = () => {
+const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [selectedCapability, setSelectedCapability] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
-  const { orgUnit } = useParams(); // Get the orgUnit param if it exists
+  const { orgUnit, unitId } = useParams(); // Get the orgUnit param if it exists
   const location = useLocation();
 
   // When an org unit is selected in the URL, show the canvas view
@@ -43,20 +44,16 @@ const HERMDashboard = () => {
   // Reset activeTab when navigating back to /herm
   useEffect(() => {
     if (!orgUnit && !location.pathname.includes('orgunit')) {
-      setActiveTab('dashboard'); // Or your default tab
+      setActiveTab('dashboard');
     }
   }, [location.pathname, orgUnit]);
 
-
-
-  // Filter capabilities based on selections
-  const filteredCapabilities = capabilities.filter(cap => {
-    const matchesDomain = !selectedDomain || cap.domain === selectedDomain;
-    const matchesSearch = !searchTerm ||
-      cap.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      cap.id.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesDomain && matchesSearch;
-  });
+  // Reset activeTab when navigating back to /herm
+  useEffect(() => {
+    if (!unitId && !location.pathname.includes('unitId')) {
+      setActiveTab('dashboard');
+    }
+  }, [location.pathname, unitId]);
 
 
   // Count capabilities by domain
@@ -66,7 +63,7 @@ const HERMDashboard = () => {
   }));
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex bg-gray-50">
       {/* Sidebar with toggle button */}
       <div className="flex">
         {/* Sidebar Content */}
@@ -99,6 +96,7 @@ const HERMDashboard = () => {
               { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
               { id: 'overview', name: 'Overview', icon: <FiHome /> },
               { id: 'domains', name: 'Domains', icon: <FiLayers /> },
+
             ].map((item) => (
               <button
                 key={item.id}
@@ -127,12 +125,11 @@ const HERMDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
-        {orgUnit ? (
-          // Show the nested route content when orgUnit is present
+<div className="flex-1 flex flex-col overflow-hidden">
+  <div className="flex-1 overflow-auto p-6">
+        {orgUnit || unitId ? (
           <Outlet />
         ) : (
-          // Show regular tab content when no orgUnit is selected
           <>
             {activeTab === 'overview' && (<OverviewTab domains={domainStats} onSelectDomain={setSelectedDomain} setActiveTab={setActiveTab} />)}
             {activeTab === 'domains' && (<GovernanceDomainsDashboard />)}
@@ -140,11 +137,13 @@ const HERMDashboard = () => {
             {activeTab === 'org' && (<OrgStructureView />)}
             {activeTab === 'maturity' && (<MaturityAssessment />)}
             {activeTab === 'org-raw' && (<OrganisationRaw />)}
+            {activeTab === 'dg-details' && (<UniversityDQDetails />)}
             {activeTab === 'capabilities' && (<HERMMappingInterface organizationalData={organizationalData} />)}
-            {activeTab === 'health' && (<DataControlsDashboard  />)}
+            {activeTab === 'health' && (<DataControlsDashboard />)}
           </>
         )}
       </div>
+    </div>
     </div>
   );
 };
@@ -269,4 +268,4 @@ export const DomainsTab = ({ domains, onSelect, selectedDomain, setActiveTab }) 
 };
 
 
-export default HERMDashboard;
+export default Index;

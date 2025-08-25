@@ -2,6 +2,7 @@ import { BusinessDomainAPI } from '@/api/business-domain';
 import { UserAPI } from '@/api/user';
 import ErrorCard from '@/components/ui/error';
 import Loader from '@/components/ui/loader';
+import UniSCButton from '@/components/ui/unisc-button';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { 
@@ -453,12 +454,12 @@ const handleRemoveUser = async (roleName: string, userId: string) => {
                           isSearchable
                         />
 
-                        <button
+                        <UniSCButton
                           onClick={() => setActiveRole(null)}
                           className="mt-2 px-3 py-1 bg-gray-200 text-gray-700 rounded-md text-sm hover:bg-gray-300"
                         >
                           Cancel
-                        </button>
+                        </UniSCButton>
                       </div>
                     )}
                     
@@ -484,12 +485,14 @@ const handleRemoveUser = async (roleName: string, userId: string) => {
                         )}
                       </div>
                       {assignedUsers.length > 0 && (
-                        <button 
+
+                        <UniSCButton icon={FiChevronRight} iconPosition='right'
+                        rounded='md'
                           onClick={() => setViewAllRole(roleName)}
                           className="ml-2 text-sm text-indigo-600 hover:text-indigo-800 flex items-center"
                         >
-                          View all <FiChevronRight className="ml-1" />
-                        </button>
+                          View all
+                        </UniSCButton>
                       )}
                     </div>
                   </div>
@@ -539,12 +542,11 @@ const handleRemoveUser = async (roleName: string, userId: string) => {
                 </ul>
               </div>
               <div className="px-6 py-4 border-t border-gray-200 flex justify-end">
-                <button
-                  onClick={() => setViewAllRole(null)}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                >
+                <UniSCButton
+                  onClick={onClose}
+                  className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Close
-                </button>
+                </UniSCButton>
               </div>
             </div>
           </div>
@@ -552,12 +554,12 @@ const handleRemoveUser = async (roleName: string, userId: string) => {
 
         {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end">
-          <button
+          <UniSCButton
             onClick={onClose}
             className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Done
-          </button>
+          </UniSCButton>
         </div>
       </div>
     </div>
