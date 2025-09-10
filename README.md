@@ -10,10 +10,6 @@ Navigate to UniScStats Folder/src ---- open terminal and add the command
 ## Project Overview
 **Goal:** Redesign university data portal with role-based personalised dashboards, elegant visualisations, and on-demand insights for executive decision-making.
 
-**Key Stakeholders:** University executives (VCP, Deans, Directors), ICT Team
-
-
-
 # UniSC Data Portal
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
