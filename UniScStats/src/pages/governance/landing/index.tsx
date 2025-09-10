@@ -21,7 +21,6 @@ import DataQualityDashboard from '../dashboard/index.js';
 import DataControlsDashboard from '../../Herm/data-controls.js';
 import { FaRegHeart } from 'react-icons/fa';
 import UniversityDQDetails from '../data-quality-detail.js';
-import UniSCButton from '@/components/ui/unisc-button.js';
 import MaturityAssessment from '../maturity-assessment/index.js';
 
 const Index = () => {
@@ -70,7 +69,7 @@ const Index = () => {
         <div className={`bg-white shadow-md flex flex-col transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'}`}>
           <div className="p-4 border-b min-w-[16rem]">
             <h1 className="text-xl font-bold text-gray-800">Governance Portal</h1>
-            <p className="text-sm text-gray-500">University of the Sunshine Coast</p>
+            <p className="text-sm text-blue-500 font-semibold">University of the Sunshine Coast</p>
           </div>
 
           <div className="p-3 border-b min-w-[16rem]">
@@ -96,7 +95,6 @@ const Index = () => {
               { id: 'capabilities', name: 'Capabilities', icon: <FiDatabase /> },
               { id: 'overview', name: 'Overview', icon: <FiHome /> },
               { id: 'domains', name: 'Domains', icon: <FiLayers /> },
-
             ].map((item) => (
               <button
                 key={item.id}
@@ -106,7 +104,11 @@ const Index = () => {
                   setSelectedCapability(null);
                   navigate('/governance');
                 }}
-                className={`flex items-center w-full px-4 py-3 text-left ${activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'}`}>
+                className={`flex items-center w-full px-4 py-3 text-left font-semibold ${activeTab === item.id
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+              >
                 <span className="mr-3">{item.icon}</span>
                 {item.name}
               </button>
@@ -117,38 +119,39 @@ const Index = () => {
         {/* Toggle Button - positioned at middle of sidebar */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`self-center -mr-3 z-10 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition-all duration-200 ${sidebarOpen ? '' : 'ml-3'}`}
+          className={`fixed top-[30%] z-50 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition-all duration-300 ${sidebarOpen ? 'left-64' : 'left-0'
+            }`}
           aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
         >
           {sidebarOpen ? <FiChevronLeft /> : <FiChevronRight />}
         </button>
+
+
       </div>
 
-      {/* Main Content */}
-<div className="flex-1 flex flex-col overflow-hidden">
-  <div className="flex-1 overflow-auto p-6">
-        {orgUnit || unitId ? (
-          <Outlet />
-        ) : (
-          <>
-            {activeTab === 'overview' && (<OverviewTab domains={domainStats} onSelectDomain={setSelectedDomain} setActiveTab={setActiveTab} />)}
-            {activeTab === 'domains' && (<GovernanceDomainsDashboard />)}
-            {activeTab === 'dashboard' && (<DataQualityDashboard />)}
-            {activeTab === 'org' && (<OrgStructureView />)}
-            {activeTab === 'maturity' && (<MaturityAssessment />)}
-            {activeTab === 'org-raw' && (<OrganisationRaw />)}
-            {activeTab === 'dg-details' && (<UniversityDQDetails />)}
-            {activeTab === 'capabilities' && (<HERMMappingInterface organizationalData={organizationalData} />)}
-            {activeTab === 'health' && (<DataControlsDashboard />)}
-          </>
-        )}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-auto p-6">
+          {orgUnit || unitId ? (
+            <Outlet />
+          ) : (
+            <>
+              {activeTab === 'overview' && (<OverviewTab domains={domainStats} onSelectDomain={setSelectedDomain} setActiveTab={setActiveTab} />)}
+              {activeTab === 'domains' && (<GovernanceDomainsDashboard />)}
+              {activeTab === 'dashboard' && (<DataQualityDashboard />)}
+              {activeTab === 'org' && (<OrgStructureView />)}
+              {activeTab === 'maturity' && (<MaturityAssessment />)}
+              {activeTab === 'org-raw' && (<OrganisationRaw />)}
+              {activeTab === 'dg-details' && (<UniversityDQDetails />)}
+              {activeTab === 'capabilities' && (<HERMMappingInterface organizationalData={organizationalData} />)}
+              {activeTab === 'health' && (<DataControlsDashboard />)}
+            </>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
 
-// Tab Components (implement each with actual data relationships)
 
 export const OverviewTab = ({ domains, onSelectDomain, setActiveTab }) => {
   const latestActivities = [

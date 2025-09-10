@@ -8,7 +8,6 @@ import organizationalData from './org_unit_data.jsx';
 
 
 // Enhanced Animations
-// Enhanced Animations
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(10px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -26,114 +25,89 @@ const glow = keyframes`
 `;
 
 const StyledNode = styled.div`
-  padding: ${(props: any) => props.level <= 2 ? '12px' : '10px'};
-  border-radius: 12px;
+  padding: ${(props: any) => props.level <= 2 ? '8px' : '6px'};
+  border-radius: 8px;
   display: inline-block;
-  border: ${(props: any) => props.level === 1 ? '2px solid rgba(255,255,255,0.3)' : '1px solid' + props.theme.colors.primary};
+  border: ${(props: any) => props.level === 1 ? '1.5px solid rgba(255,255,255,0.3)' : '1px solid ' + props.theme.colors.primary};
   background: ${(props: any) =>
     props.level === 1 ? props.theme.gradients.primary :
     props.level === 2 ? props.theme.gradients.secondary :
     props.level === 3 ? props.theme.gradients.tertiary :
     props.theme.colors.background};
   color: ${(props: any) => props.level <= 3 ? 'white' : props.theme.colors.text};
-  margin: 6px;
-  width: ${(props: any) => props.level === 1 ? '240px' : props.level === 2 ? '200px' : '180px'};
+  margin: 4px;
+  width: ${(props: any) => props.level === 1 ? '180px' : props.level === 2 ? '160px' : '140px'};
   text-align: left;
   box-shadow: ${(props: any) => props.theme.shadows.card};
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: ${fadeIn} 0.4s ease-out forwards;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   transform-origin: center;
 
   &:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-2px) scale(1.01);
     box-shadow: ${(props: any) => props.theme.shadows.hover};
-    animation: ${pulse} 2s infinite, ${glow} 3s infinite;
-    z-index: 2;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
-    background: linear-gradient(
-      to bottom right,
-      rgba(255,255,255,0.1) 0%,
-      rgba(255,255,255,0) 60%
-    );
-    transform: rotate(30deg);
-    z-index: -1;
-    transition: all 0.4s ease;
-    opacity: 0.5;
-  }
-
-  &:hover::before {
-    transform: rotate(30deg) translateY(20%);
-    opacity: 0.8;
   }
 
   strong {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-size: ${(props: any) =>
-      props.level === 1 ? '1.1rem' :
-      props.level === 2 ? '1rem' : '0.9rem'};
-    font-weight: 600;
-    letter-spacing: 0.4px;
+      props.level === 1 ? '0.7rem' :
+      props.level === 2 ? '0.6rem' : '0.5rem'};
+    font-weight: 700;
+    letter-spacing: 0.3px;
   }
 
   div:not(:last-child) {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   
   @media (max-width: 768px) {
-    width: ${(props: any) => props.level === 1 ? '200px' : props.level === 2 ? '170px' : '150px'};
-    padding: ${(props: any) => props.level <= 2 ? '10px' : '8px'};
+    width: ${(props: any) => props.level === 1 ? '160px' : props.level === 2 ? '140px' : '120px'};
+    padding: ${(props: any) => props.level <= 2 ? '6px' : '4px'};
     
     strong {
       font-size: ${props =>
-        props.level === 1 ? '1rem' :
-        props.level === 2 ? '0.95rem' : '0.85rem'};
+        props.level === 1 ? '0.8rem' :
+        props.level === 2 ? '0.7rem' : '0.5rem'};
     }
   }
 `;
 
+
 const ExpandButton = styled.button`
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(255,255,255,0.2);
+  top: 3px;
+  right: 3px;
+  background: rgba(255,255,255,0.15);
   border: none;
   color: white;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: bold;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 
   &:hover {
-    background: rgba(255,255,255,0.3);
-    transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.05);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
   }
-  
+
   @media (max-width: 768px) {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
   }
 `;
 
@@ -284,8 +258,8 @@ const Node = ({ level, title, code, udc, ro, note, isExpanded, onToggle, onActio
               onActionClick?.();
             }}
             style={{
-              width: '24px',
-              height: '24px',
+              width: '16px',
+              height: '16px',
               borderRadius: '50%',
               background: level <= 3 ? 'rgba(255,255,255,0.2)' : theme.colors.level1,
               border: 'none',

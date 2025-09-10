@@ -343,7 +343,7 @@ const LIXIntegrationsCatalog = () => {
                 <div className="flex flex-wrap gap-6 items-start">
                   {integration.connections.map((conn, idx) => (
                     <div
-                      key={idx} 
+                      key={idx}
                       className="flex flex-col space-y-2 min-w-[220px] border border-blue-200 rounded-lg p-3 bg-gray-50 shadow-sm"
                     >
                       {/* System Name */}
@@ -369,7 +369,7 @@ const LIXIntegrationsCatalog = () => {
 
                         {/* SME with Avatar */}
                         {conn.sme && (
-                           <div
+                          <div
                             className="flex items-center cursor-pointer hover:text-blue-600"
                             onClick={() => handleSMEClick(conn.sme)}
                           >
@@ -450,12 +450,12 @@ const LIXIntegrationsCatalog = () => {
                   <GitBranch className="w-6 h-6 text-white" />
                 </div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                   <span className="text-blue-600">UniSC</span> LIX Integrations Catalog
+                  <span className="text-blue-600">UniSC</span> LIX Integrations Catalog
                 </h1>
               </div>
 
               {/* Subheading */}
-              <p className="text-gray-600 ml-11 text-md">
+              <p className="text-gray-600 text-base">
                 A comprehensive overview of university data integration mappings and their interconnections
               </p>
 
@@ -523,7 +523,7 @@ const LIXIntegrationsCatalog = () => {
           <h2 className="text-lg font-semibold text-gray-900">
             {filteredIntegrations.length} Integration{filteredIntegrations.length !== 1 ? 's' : ''} Found
           </h2>
-          <button
+          {/* <button
             onClick={() => {
               if (expandedCards.size === filteredIntegrations.length) {
                 setExpandedCards(new Set());
@@ -534,7 +534,7 @@ const LIXIntegrationsCatalog = () => {
             className="text-sm text-blue-600 hover:text-blue-800 flex items-center space-x-2 px-3 py-1 rounded-lg hover:bg-blue-50 transition-colors"
           >
             <span>{expandedCards.size === filteredIntegrations.length ? 'Collapse All' : 'Expand All'}</span>
-          </button>
+          </button> */}
         </div>
 
         <div className="space-y-4">
@@ -657,7 +657,7 @@ const LIXIntegrationsCatalog = () => {
                         key={idx}
                         className="bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow duration-200"
                       >
-<div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm p-4 rounded-xl bg-gradient-to-r from-neutral-100 to-neutral-200 shadow-md">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm p-4 rounded-xl bg-gradient-to-r from-neutral-100 to-neutral-200 shadow-md">
                           {["API Source", "API Destination", "Name", "Unit"].map((field, i) => (
                             <div key={i} className="space-y-0.5">
                               <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">

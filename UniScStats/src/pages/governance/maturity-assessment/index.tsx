@@ -158,9 +158,9 @@ const MaturityAssessment = () => {
                             <div className="flex items-center">
                                 <BarChart3 className="h-10 w-10 text-blue-600" />
                                 <div className="ml-4">
-                                    <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                                    <h2 className="text-md font-bold leading-7 text-gray-900 sm:text-xl sm:truncate">
                                         Maturity Assessment
-                                    </h1>
+                                    </h2>
                                     <p className="mt-1 text-sm text-gray-500">
                                         CAUDIT Higher Education Reference Model (HERM) Framework
                                     </p>

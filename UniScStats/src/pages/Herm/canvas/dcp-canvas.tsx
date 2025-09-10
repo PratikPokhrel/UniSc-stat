@@ -79,7 +79,6 @@ const ApplicationPlatformSection = ({ platform, colors, onSelect, appCapabilitie
 };
 
 // New component for Application Capability Item
-// New component for Application Capability Item
 const ApplicationCapabilityItem = ({ capability, colors, onSelect }) => {
   // Function to truncate description to 30 words
   const truncateDescription = (text, wordLimit = 30) => {
@@ -248,14 +247,14 @@ const UnifiedDCPCanvas = ({ organizationUnit = 'IAU' }) => {
                                             onSelect={setSelectedSection}
                                             gradient={theme.gradient}
                                         />
-                                        <SectionButton
+                                        {/* <SectionButton
                                             icon={<Monitor className="w-4 h-4" />}
                                             label="Applications"
                                             value="applications"
                                             selectedValue={selectedSection}
                                             onSelect={setSelectedSection}
                                             gradient={theme.gradient}
-                                        />
+                                        /> */}
                                         <SectionButton
                                             icon={<Database className="w-4 h-4" />}
                                             label="Data"
@@ -397,7 +396,7 @@ const UnifiedDCPCanvas = ({ organizationUnit = 'IAU' }) => {
                                                 categoryId={categoryId}
                                                 items={items}
                                                 expandedCategories={expandedCategories}
-                                                count={businessCapabilitiesCount} // Pass the count to CollapseHeader
+                                                // count={businessCapabilitiesCount} // Pass the count to CollapseHeader
                                             />
 
                                             {/* Compact Items Grid with indentation */}
@@ -492,7 +491,7 @@ const UnifiedDCPCanvas = ({ organizationUnit = 'IAU' }) => {
 };
 
 const DCPCanvasDemo = () => {
-    const { orgUnit } = useParams(); // Get orgUnit from URL
+    const { orgUnit } = useParams(); 
     return (
         <div>
             <UnifiedDCPCanvas organizationUnit={orgUnit} />

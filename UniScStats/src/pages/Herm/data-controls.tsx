@@ -409,7 +409,7 @@ const IAUDataHealthDashboard = () => {
                 {
                   title: "HERM Alignment",
                   icon: <Layers className="h-5 w-5 text-blue-500" />,
-                  value: "76%",
+                  value: "72%",
                   description: "Coverage across domains",
                   color: "text-blue-600"
                 },
@@ -992,7 +992,7 @@ const IAUDataHealthDashboard = () => {
             {/* Enhanced Radar Chart with Glassmorphism Effect */}
             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm relative">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">HERM Domain Coverage Radar</h3>
+                <h3 className="text-lg font-semibold text-gray-800">HERM Coverage</h3>
                 <div className="flex items-center gap-2">
                   <span className="flex items-center text-sm text-gray-600">
                     <span className="w-3 h-3 rounded-full bg-indigo-500 mr-1"></span>
@@ -1080,15 +1080,15 @@ const IAUDataHealthDashboard = () => {
                 {/* Massive Health Score */}
                 <div className="w-1/4 flex flex-col items-start justify-center">
                   <div className="text-center">
-                    <p className="text-sm text-gray-500 mb-1">Overall Health Score</p>
+                    <p className="text-sm text-gray-500 mb-1">Overall Alignment</p>
                     <div className="relative">
-                      <span className="text-7xl font-bold text-indigo-600">55%</span>
+                      <span className="text-7xl font-bold text-indigo-600">72%</span>
                       <div className="absolute -bottom-2 right-0 flex items-center">
 
                       </div>
                     </div>
                     <div className="mt-4 w-24 h-1 bg-indigo-100 rounded-full mx-auto">
-                      <div className="h-1 bg-indigo-500 rounded-full" style={{ width: '55%' }}></div>
+                      <div className="h-1 bg-indigo-500 rounded-full" style={{ width: '72%' }}></div>
                     </div>
                     <p className="text-xs text-gray-500 mt-2">Average alignment</p>
                   </div>

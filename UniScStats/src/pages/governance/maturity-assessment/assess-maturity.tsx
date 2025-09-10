@@ -50,11 +50,11 @@ return (
                                     </div>
                                     <div className="ml-4">
                                         <div className="text-md font-medium text-gray-900">{domain.name}</div>
-                                        <div className="text-sn text-gray-500">{domain.hermAlignment}</div>
+                                        <div className="text-sm text-gray-500">{domain.hermAlignment}</div>
                                     </div>
                                 </div>
                                 <div className="flex items-center">
-                                    <span className={`text-sm  ${ getDomainAverageMaturity(parseFloat(getDomainAverageMaturity(domain.id)))}`}>
+                                    <span className={`text-xs ${ getDomainAverageMaturity(parseFloat(getDomainAverageMaturity(domain.id)))}`}>
                                         {getDomainAverageMaturity(domain.id) > 0 ? `${getDomainAverageMaturity(domain.id)}/5.0` : 'Not Assessed'}
                                     </span>
                                     {selectedDomain === domain.id ? (

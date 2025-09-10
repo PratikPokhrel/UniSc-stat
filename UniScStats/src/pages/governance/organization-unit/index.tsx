@@ -90,15 +90,15 @@ const OrganisationRaw = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <main className="w-full mx-auto px-2 sm:px-3 py-4 ">
+            <main className="w-full mx-auto px-2 sm:px-3">
                 {/* Compact Header Section */}
-                <div className="mb-4">
+                <div className="mb-2">
                     <div className="mb-3">
-                        <h1 className="text-2xl font-bold">
-                            <span className="text-blue-600 text-3xl">UniSC</span>
+                        <h1 className="text-xl font-bold">
+                            <span className="text-blue-600 text-2xl">UniSC</span>
                             <span className="text-gray-900"> Organisational Units</span>
                         </h1>
-                        <p className="text-sm text-gray-500 font-bold">Discover the full organizational framework of the university's leadership and operational units</p>
+                        <p className="text-base text-gray-500">Discover the full organizational framework of the university's leadership and operational units</p>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 shadow-sm">
                         {/* Stats Cards */}
@@ -168,7 +168,7 @@ const OrganisationRaw = () => {
 
                 {/* Filters Section */}
                 {showFilters && (
-                    <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4 shadow-sm">
+                    <div className=" p-4 mb-4 ">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-3">
                             {/* Search Input */}
                             <div className="relative w-full md:w-64">
@@ -212,7 +212,7 @@ const OrganisationRaw = () => {
                                     className="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded transition-colors"
                                 />
                                 <label htmlFor="hermFilter" className="text-sm text-gray-700 whitespace-nowrap">
-                                    HERM Mapped
+                                    CAUDIT HERM Mapped
                                 </label>
                                 {filterHERM && (
                                     <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full ml-1">

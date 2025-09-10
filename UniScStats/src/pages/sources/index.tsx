@@ -38,7 +38,7 @@ const DataSources = () => {
     const [selectedSME, setSelectedSME] = useState('All');
     const [selectedItem, setSelectedItem] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [dataView, setDataView] = useState('source'); // 'source' or 'destination'
+    const [dataView, setDataView] = useState('destination'); // 'source' or 'destination'
 
     // Simulate loading
     useEffect(() => {
@@ -55,7 +55,7 @@ const DataSources = () => {
     const _smes = [...new Set(data.map(item => item.SME).filter(Boolean))];
 
     const units = ['All', ..._units.sort((a, b) => a.localeCompare(b))];
-    const smes  = ['All', ..._smes.sort((a, b) => a.localeCompare(b))];
+    const smes = ['All', ..._smes.sort((a, b) => a.localeCompare(b))];
 
     useEffect(() => {
         let result = data;
@@ -112,7 +112,7 @@ const DataSources = () => {
         }
 
         return (
-            <div className="flex items-center justify-center w-8 h-8 bg-pink-100 text-pink-700 rounded-full text-xs font-medium">
+            <div className="flex items-center justify-center w-6 h-6 bg-pink-100 text-pink-700 rounded-full text-xs font-medium">
                 {initials.toUpperCase()}
             </div>
         );
@@ -155,9 +155,9 @@ const DataSources = () => {
                             </div>
                             <h1 className="text-3xl font-bold text-gray-800"><span className="text-blue-600">UniSC</span> Data Hub</h1>
                         </div>
-                        
+
                     </div>
-                    <p className="text-gray-600">Discover and manage all data interfaces, sources and APIs across university departments</p>
+                    <p className="text-gray-600 text-base">Discover and manage all data interfaces, sources and APIs across university departments</p>
                 </header>
 
 
@@ -306,64 +306,64 @@ const DataSources = () => {
                         </button>
                     </div>
                 ) : (
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  {filteredData.map((item, i) => (
-    <div
-      key={i}
-      className="bg-white rounded-lg border border-gray-200 p-3 transition-all hover:shadow-md flex flex-col"
-    >
-      {/* Header */}
-      <div className="flex justify-between items-start mb-2">
-        <span className="text-[11px] font-medium px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">
-          {item.Type || 'Unknown'}
-        </span>
-      </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {filteredData.map((item, i) => (
+                            <div
+                                key={i}
+                                className="bg-white rounded-lg border border-gray-200 p-3 transition-all hover:shadow-md flex flex-col"
+                            >
+                                {/* Header */}
+                                <div className="flex justify-between items-start mb-2">
+                                    <span className="text-[11px] font-medium px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">
+                                        {item.Type || 'Unknown'}
+                                    </span>
+                                </div>
 
-      {/* Title */}
-      <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">
-        {item.Name || 'N/A'}
-      </h3>
+                                {/* Title */}
+                                <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">
+                                    {item.Name || 'N/A'}
+                                </h3>
 
-      {/* API Source → Destination */}
-      <div className="flex items-center text-gray-600 mb-2 text-xs">
-        <Zap className="w-3.5 h-3.5 text-blue-500 mr-1" />
-        <span className="truncate">
-          {item['API Source']} → {item['API Destination'] || 'N/A'}
-        </span>
-      </div>
+                                {/* API Source → Destination */}
+                                <div className="flex items-center text-gray-600 mb-2 text-xs">
+                                    <Zap className="w-3.5 h-3.5 text-blue-500 mr-1" />
+                                    <span className="truncate">
+                                        {item['API Source']} → {item['API Destination'] || 'N/A'}
+                                    </span>
+                                </div>
 
-      {/* SME + UNIT + Icon */}
-      <div className="border-t border-gray-100 pt-2">
-        <div className="grid grid-cols-2 gap-2 items-center">
-          {/* SME */}
-          <div>
-            <p className="text-[10px] text-gray-500 uppercase font-medium mb-0.5">SME</p>
-            <div className="flex items-center">
-              {getUserAvatar(item.SME)}
-              <p className="font-medium text-blue-600 truncate text-xs ml-1.5">
-                {item.SME || 'Not specified'}
-              </p>
-            </div>
-          </div>
+                                {/* SME + UNIT + Icon */}
+                                <div className="border-t border-gray-100 pt-2">
+                                    <div className="grid grid-cols-2 gap-2 items-center">
+                                        {/* SME */}
+                                        <div>
+                                            <p className="text-[10px] text-gray-500 uppercase font-medium mb-0.5">SME</p>
+                                            <div className="flex items-center">
+                                                {getUserAvatar(item.SME)}
+                                                <p className="font-medium text-blue-600 truncate text-[10px] ml-1.5">
+                                                    {item.SME || 'Not specified'}
+                                                </p>
+                                            </div>
+                                        </div>
 
-          {/* UNIT + Icon on same row */}
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-[10px] text-gray-500 uppercase font-medium mb-0.5">UNIT</p>
-              <p className="font-medium text-blue-600 truncate text-xs">
-                {dataView === 'source' ? item.UNIT : item?.Unit}
-              </p>
-            </div>
-            <Info
-              onClick={() => openDetails(item)}
-              className="w-5 h-5 text-gray-500 cursor-pointer hover:text-gray-700 transition ml-2 flex-shrink-0"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
+                                        {/* UNIT + Icon on same row */}
+                                        <div className="flex justify-between items-center">
+                                            <div>
+                                                <p className="text-[10px] text-gray-500 uppercase font-medium mb-0.5">UNIT</p>
+                                                <p className="font-medium text-blue-600 truncate text-[10px]">
+                                                    {dataView === 'source' ? item.UNIT : item?.Unit}
+                                                </p>
+                                            </div>
+                                            <Info
+                                                onClick={() => openDetails(item)}
+                                                className="w-5 h-5 text-gray-500 cursor-pointer hover:text-gray-700 transition ml-2 flex-shrink-0"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                 )}
 
@@ -470,7 +470,7 @@ const DataSources = () => {
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-500">Unit</div>
-                                                <div className="text-sm font-medium text-gray-800">{ dataView == 'source'? selectedItem.UNIT : selectedItem?.Unit}</div>
+                                                <div className="text-sm font-medium text-gray-800">{dataView == 'source' ? selectedItem.UNIT : selectedItem?.Unit}</div>
                                             </div>
                                         </div>
                                     </div>

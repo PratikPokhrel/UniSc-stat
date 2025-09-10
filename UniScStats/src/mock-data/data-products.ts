@@ -26,7 +26,7 @@
             domain: 'Academic Affairs',
             assets: 12,
             owners: [
-                { firstName: 'Robert', lastName: 'Williams', email: 'r.williams@university.edu', role: 'Provost' },
+                { firstName: 'Robert', lastName: 'Williams', email: 'r.williams@university.edu', role: 'Registry Officer' },
                 { firstName: 'Emily', lastName: 'Davis', email: 'e.davis@university.edu', role: 'Assessment Coordinator' }
             ],
             status: 'Published',

@@ -82,9 +82,9 @@ const DQDashboard = () => {
                 <BarChart3 className="h-8 w-8 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">
                   <span className='text-blue-600'> IAU </span> Data Quality Dashboard
-                </h1>
+                </h3>
                 <p className="text-gray-600">Insights & Analytics Unit </p>
                 <div className="flex items-center mt-2 space-x-3 text-sm">
                   <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">ORG_L3_279</span>
@@ -100,7 +100,7 @@ const DQDashboard = () => {
           <div className="flex w-full items-center mb-2">
             <div className="flex flex-wrap items-center gap-3 ml-auto">
               <div className="flex items-center space-x-2">
-                <select className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-500">
+                <select className="px-2 py-1.5 border border-gray-300 rounded-md bg-white text-xs focus:ring-1 focus:ring-blue-200 focus:border-blue-500">
                   <option>Current Quarter</option>
                   <option>Last Quarter</option>
                   <option>Year to Date</option>
@@ -108,15 +108,16 @@ const DQDashboard = () => {
                 </select>
               </div>
 
+
               <button
-                className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                className="p-1 text-gray-500 hover:text-blue-600 transition-colors"
                 onClick={() => window.location.reload()}
               >
                 <RefreshCw className="h-4 w-4" />
               </button>
 
               <div className="relative group">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm flex items-center">
+                <button className="px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs flex items-center">
                   Generate Report
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </button>

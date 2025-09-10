@@ -40,11 +40,12 @@ const generateUniversityData = (unitId) => {
 
     const collectionNames = {
         '1': [
-            'Student Demographics',
             'Enrollment Records',
-            'Academic Transcripts',
             'Degree Progress',
-            'Disciplinary Records'
+            'Disciplinary Records',
+            'Student Demographics',
+            'Academic Transcripts',
+            
         ],
         '2': [
             'Course Evaluations',
@@ -151,7 +152,7 @@ const generateUniversityData = (unitId) => {
             ),
             assets,
             lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 3) * 24 * 60 * 60 * 1000).toISOString(),
-            dataSteward: ['CIO', 'CDO', 'Registrar', 'Provost'][Math.floor(Math.random() * 5)]
+            dataSteward: ['CIO', 'CDO', 'Registrar', 'Registry Officer'][Math.floor(Math.random() * 5)]
         });
     }
 
@@ -168,7 +169,7 @@ const generateUniversityData = (unitId) => {
         metrics: {
             studentImpact: collections.some(c => c.name.includes('Student')) ? 'High' : 'Medium',
             reportingFrequency: ['Daily', 'Weekly', 'Monthly', 'Termly'][Math.floor(Math.random() * 4)],
-            governanceLevel: ['Gold', 'Silver', 'Bronze'][Math.floor(Math.random() * 3)]
+            governanceLevel: ['Low', 'Medium', 'High'][Math.floor(Math.random() * 3)]
         }
     };
 };
@@ -270,7 +271,7 @@ const UniversityDQDetails = () => {
                         {[
                             {
                                 icon: FiUsers,
-                                title: "Student Impact",
+                                title: "Business Impact",
                                 value: unitData?.metrics.studentImpact,
                                 color: "blue"
                             },
